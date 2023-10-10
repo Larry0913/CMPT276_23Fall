@@ -36,6 +36,13 @@ public class UsersController {
         return new RedirectView("login");
     }
 
+    @GetMapping("/register")
+    public String getSignup(HttpServletRequest request) {
+        request.getSession().invalidate();
+        return "users/add"; 
+    }
+
+
     @PostMapping("/users/add")
     public String addUser(@RequestParam Map<String, String> newuser, HttpServletResponse response) {
         System.out.println("Add user");
