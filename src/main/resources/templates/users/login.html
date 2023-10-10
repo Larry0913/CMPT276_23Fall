@@ -1,65 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Login Page</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="https //cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-     -->
-    <link rel="stylesheet" href="./css/style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Login form in HTML and CSS</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    
 </head>
 <body>
-    <h1>Employee Information Management System</h1>
-    <div class = "container-fluid">
-        <div class = "row justify-content-center">
-            <div class = "col-md-4">
-                <h1 class = "text-center mt-5 mb-4">Login</h1>
-                <form action="/login" method="post">
+    <header>
+        <h2 class="logo">Employee Information Management System</h2>
+        
+    </header>
+      
 
-                    <div class = "mb-3">
+    <div class="wrapper">
+        <form action="#">
 
-                        <input type="text" id="name" name="name" class="form-control form-control-lg"
-                        placeholder="Name">
-                    </div>
-
-                    <div class="mb-3">
-
-                        <input type="password" id="password" name="password" class="form-control form-control-lg"
-                        placeholder="Password">
-                    </div>
-
-                    <div class="checkbox">
-
-                        <label>
-                            <input type="checkbox" id="isAdmin" name="isAdmin" value="">Admin
-                        </label>
-                    </div>
-                    
-                    <!-- Submit button -->
-                    <div class="d-grid gap-2">
-                        <input type="submit" class="btn btn-primary" value="Sign in"></input>
-                    </div>
-
-                    
-
-                </form>
-                <div class="text-center mt-5 mb-4">
-                    OR
+            <!-- <div>
+                <button onclick="myFunction()" class="btnLogin-popup">Login</button>
+                <div id="myDropdown" class="dropdown-content">
+                    <a href="#">Admin</a>
+                    <a href="#">Employee</a>
                 </div>
+            </div> -->
+            
+            <h1>Login</h1>
 
-                <form action="/register">
-                    <div class="d-grid gap-2">
-                        <input type="submit" class="btn btn-success" value="Sign up"></input>
-                    </div>
-                </form>
+            <div class="input-box">
+                <input type="text" placeholder="Username" required>
+                <i class='bx bxs-user'></i>
             </div>
-        </div>
-    </div>
+            <div class="input-box">
+                <input type="password" placeholder="Password" required>
+                <i class='bx bxs-lock-alt' ></i>
+            </div>
+            <!-- <div class="remember-forgot">
+                <label><input type="checkbox"> Remember me</label>
+                <a href="#">Forgot password?</a>
+            </div> -->
 
-    <footer class = "footer-title">
-        Copy right CMPT276_YYDS
-    </footer>
-    
+            <button type="submit" class="btn">Login</button>
+
+            <div class="register-link">
+                <p>Don't have an account? <a href="#">Register</a></p>
+            </div>
+            
+        </form>
+
+    </div>    
 </body>
 </html>
