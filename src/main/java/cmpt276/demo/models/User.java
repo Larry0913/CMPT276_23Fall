@@ -1,13 +1,20 @@
 package cmpt276.demo.models;
 
-public class Users {
+import jakarta.persistence.*;
+
+@Entity
+@Table(name="users")
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int uid;
     String username;
     String password;
     boolean is_admin;
-    public Users(){
+    public User(){
         
     }
-    public Users(String username, String password, boolean is_admin) {
+    public User(String username, String password, boolean is_admin) {
         this.username = username;
         this.password = password;
         this.is_admin = is_admin;
@@ -29,5 +36,11 @@ public class Users {
     }
     public void setIs_admin(boolean is_admin) {
         this.is_admin = is_admin;
+    }
+    public int getUid() {
+        return uid;
+    }
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 }
