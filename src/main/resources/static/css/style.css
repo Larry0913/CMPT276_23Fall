@@ -22,7 +22,10 @@ header {
 .logo {
     font-size: 2em;
     color: #fff;
+    align-self: center;
     user-select: none;
+    margin: 0 auto; 
+
 }
 
 .navigation a {
@@ -73,12 +76,15 @@ header {
 }
 
 
+
 body {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url(/css/wow.jpg) no-repeat;
+
+    background: url(/css/cmon2.jpeg) no-repeat;
+
     background-size: cover;
     background-position: center;
 }
@@ -132,25 +138,32 @@ body {
 
 }
 
-.wrapper .remember-forgot {
+
+.wrapper .admin {
+
     display: flex;
     justify-content: space-between;
     font-size: 14px;
     margin: -15px 0 15px;
 }
 
-.remember-forgot label input{
+
+.admin label input{
     accent-color: #fff;
     margin-right: 3px;
 }
 
-.remember-forgot a{
+
+.admin a{
+
     color: #fff;
     text-decoration: none;
 
 }
 
-.remember-forgot a:hover{
+
+.admin a:hover{
+
     text-decoration: underline;
 }
 
@@ -187,12 +200,4 @@ body {
 
 
 
-.footer-title {
-    width: 100%;
-    height: 20px;
-    position: absolute;
-    bottom: 0;
-    color: #fff;
-    text-align: center; /* Center the text horizontally */
-    /* Other styles for your footer title */
-}
+
