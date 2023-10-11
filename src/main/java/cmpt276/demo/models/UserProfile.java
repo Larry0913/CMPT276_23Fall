@@ -14,6 +14,9 @@ public class UserProfile {
     private String postCode;
     private String email;
 
+    public UserProfile() {
+    }
+
     @OneToOne(mappedBy = "userProfile")
     private User user;
 
