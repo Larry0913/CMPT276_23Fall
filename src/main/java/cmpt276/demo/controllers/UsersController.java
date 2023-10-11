@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
 import cmpt276.demo.models.User;
+import cmpt276.demo.models.UserProfile;
+import cmpt276.demo.models.UserProfileRepository;
 import cmpt276.demo.models.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,6 +24,9 @@ import java.util.ArrayList;
 public class UsersController {
     @Autowired
     private UserRepository userRepo;
+
+    @Autowired
+    private UserProfileRepository profileRepo;
 
     @GetMapping("/users/view")    
     public String getAllUsers(Model model){
@@ -45,12 +50,20 @@ public class UsersController {
 
     @PostMapping("/users/add")
     public String addUser(@RequestParam Map<String, String> newuser, HttpServletResponse response) {
-        System.out.println("Add user");
         String newName = newuser.get("name");
         String newPwd = newuser.get("password");
-        //String newAdmin = newuser.get("isAdmin");
         boolean newAdmin = Boolean.parseBoolean(newuser.get("isAdmin"));
-        userRepo.save(new User(newName, newPwd, newAdmin));
+        // System.out.println("Raw value: " + newuser.get("isAdmin"));
+        // System.out.println("newAdmin: " + newAdmin);
+        String newEmail = newuser.get("email");
+        String newPhone = newuser.get("phoneNumber");
+        UserProfile newProf = new UserProfile(newEmail);
+        User newUser = new User(newName, newPwd, newAdmin); 
+        newProf.setPhoneNumber(newPhone);
+        newUser.setUserProfile(newProf);
+        newProf.setUser(newUser);
+        userRepo.save(newUser);
+        profileRepo.save(newProf);
         response.setStatus(201);
         return "users/addedUser";
     }
@@ -80,6 +93,9 @@ public class UsersController {
             // successfully login
             User user = userlist.get(0);
             request.getSession().setAttribute("session_user", user);
+            // we should not add session id in the model
+            // this is just an example of adding dynamic data into model
+            model.addAttribute("session_id", session.getId());
             model.addAttribute("user", user);
             return "users/protected";
         }
