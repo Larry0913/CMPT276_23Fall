@@ -8,9 +8,15 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int uid;
+    @Column(unique = true)
     String username;
     String password;
     boolean is_admin;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "profile_id")
+    private UserProfile userProfile;
+
     public User(){
         
     }
@@ -42,5 +48,11 @@ public class User {
     }
     public void setUid(int uid) {
         this.uid = uid;
+    }
+    public UserProfile getUserProfile() {
+        return userProfile;
+    }
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
     }
 }
