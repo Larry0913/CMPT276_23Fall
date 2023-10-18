@@ -6,7 +6,13 @@
     <title>User Profile</title>
 </head>
 <body>
-    PROTECTED RESOURCE!!! <br>
+    <div class = "row justify-content-center">
+        <h2>User Profile</h2>
+        <p><strong>Username:</strong> <span th:text="${user.username}"></span></p>
+        <p><strong>Password:</strong> <span th:text="${user.password}"></span></p>
+        <p><strong>Admin:</strong> <span th:text="${user.is_admin}"></span></p>
+        <p><strong>session_id</strong> <span th:text="${session_id}"></span></p>
+    </div>
     <a href="/logout">logout</a>
 </body>
 </html>
