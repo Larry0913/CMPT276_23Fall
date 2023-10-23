@@ -97,7 +97,7 @@ public class UsersController {
             // this is just an example of adding dynamic data into model
             model.addAttribute("session_id", session.getId());
             model.addAttribute("user", user);
-            return "users/protected";
+            return "users/dashboard";
         }
     }
 
