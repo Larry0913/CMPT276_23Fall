@@ -1,0 +1,98 @@
+
+          body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+       
+       #top-bar {
+            background-color: #333;
+            color: #ffffff;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        #navbar {
+            width: 250px;
+            height: 100vh;
+            background-color: #555;
+            float: left;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #navbar li {
+            padding: 10px 20px;
+            border-bottom: 1px solid #666;
+        }
+
+        #navbar li a {
+            text-decoration: none;
+            color: #fff;
+            display: block;
+            transition: background-color 0.3s;
+        }
+
+        #navbar li a:hover {
+            background-color: #666;
+        }
+
+        #profile-container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 50px 100px ;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        .profile-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-right: 20px;
+            margin-left: 20px;
+            overflow: hidden;
+            border: 2px solid #e0e0e0;
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: auto;
+        }
+
+        .profile-name {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .profile-position {
+            color: #777;
+            font-style: italic;
+        }
+
+        .profile-section {
+            margin-bottom: 20px;
+            margin-left: 50px;
+        }
+
+        .profile-label {
+            font-weight: bold;
+            color: #444;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .profile-value {
+            color: #666;
+        }
