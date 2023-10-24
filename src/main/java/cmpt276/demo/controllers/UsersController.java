@@ -8,17 +8,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
+import cmpt276.demo.dao.UserProfileRepository;
+import cmpt276.demo.dao.UserRepository;
 import cmpt276.demo.models.User;
 import cmpt276.demo.models.UserProfile;
-import cmpt276.demo.models.UserProfileRepository;
-import cmpt276.demo.models.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.util.List;
 import java.util.Map;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 @Controller
 public class UsersController {
@@ -28,13 +28,7 @@ public class UsersController {
     @Autowired
     private UserProfileRepository profileRepo;
 
-    @GetMapping("/users/view")    
-    public String getAllUsers(Model model){
-        System.out.println("Get all users");
-        List<User> users = userRepo.findAll();
-        model.addAttribute("us", users);
-        return "users/showAll";
-    }
+    List<User> userlist;
 
     @GetMapping("/")
     public RedirectView process() {
@@ -44,9 +38,8 @@ public class UsersController {
     @GetMapping("/register")
     public String getSignup(HttpServletRequest request) {
         request.getSession().invalidate();
-        return "users/add"; 
+        return "users/add";
     }
-
 
     @PostMapping("/users/add")
     public String addUser(@RequestParam Map<String, String> newuser, HttpServletResponse response) {
@@ -58,7 +51,7 @@ public class UsersController {
         String newEmail = newuser.get("email");
         String newPhone = newuser.get("phoneNumber");
         UserProfile newProf = new UserProfile(newEmail);
-        User newUser = new User(newName, newPwd, newAdmin); 
+        User newUser = new User(newName, newPwd, newAdmin);
         newProf.setPhoneNumber(newPhone);
         newUser.setUserProfile(newProf);
         newProf.setUser(newUser);
@@ -73,23 +66,22 @@ public class UsersController {
         User user = (User) session.getAttribute("session-user");
         if (user == null) {
             return "users/login";
-        }
-        else {
+        } else {
             model.addAttribute("user", user);
-            return "users/protected";
+            return "users/dashboard";
         }
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam Map<String, String> formData, Model model, HttpServletRequest request, HttpSession session) {
+    public String login(@RequestParam Map<String, String> formData, Model model, HttpServletRequest request,
+            HttpSession session) {
         // processing lohin
         String name = formData.get("name");
         String pwd = formData.get("password");
-        List<User> userlist = userRepo.findByUsernameAndPassword(name, pwd);
+        userlist = userRepo.findByUsernameAndPassword(name, pwd);
         if (userlist.isEmpty()) {
             return "users/login";
-        }
-        else {
+        } else {
             // successfully login
             User user = userlist.get(0);
             request.getSession().setAttribute("session_user", user);
@@ -97,7 +89,7 @@ public class UsersController {
             // this is just an example of adding dynamic data into model
             model.addAttribute("session_id", session.getId());
             model.addAttribute("user", user);
-            return "users/protected";
+            return "users/dashboard";
         }
     }
 
@@ -106,4 +98,35 @@ public class UsersController {
         request.getSession().invalidate();
         return "users/login";
     }
+
+    @GetMapping("/users/dashboard")
+    public String homePage(HttpServletRequest request) {
+        request.getSession().invalidate();
+        return "users/dashboard";
+    }
+
+    @GetMapping("/users/performance")
+    public String showPerformance(HttpServletRequest request) {
+        request.getSession().invalidate();
+        return "users/performance";
+    }
+
+    @GetMapping("/users/addressBook")
+    public String showAddressBook(HttpServletRequest request) {
+        request.getSession().invalidate();
+        return "users/addressBook";
+    }
+
+    @GetMapping("/users/personalCenter")
+    public String showInfo(HttpServletRequest request) {
+        request.getSession().invalidate();
+        return "users/personalCenter";
+    }
+
+    @GetMapping("/users/settings")
+    public String showSettings(HttpServletRequest request) {
+        request.getSession().invalidate();
+        return "users/settings";
+    }
+
 }

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Office System Software</title>
+    <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+
+<body>
+    <div id="top-bar">
+        <h1> Enterprise Information Management System</h1> 
+    </div>
+
+    <!-- menu-->
+    <ul id="navbar">
+        <li><a href="/users/dashboard">Home Page</a></li>
+        <li><a href="#">Attendance</a></li>
+        <li><a href="#">Meeting</a></li>
+        <li><a href="#">Approval </a></li>
+        <li><a href="/users/performance">Performance</a></li>
+        <li><a href="/users/addressBook">Address book</a></li>
+        <li><a href="#">Information center</a></li>
+        <li><a href="#">Training</a></li>
+        <li><a href="/users/personalCenter">Personal Center</a></li>
+        <li><a href="/users/settings">Settings</a></li>
+        <li><a href="#">ffff</a></li>
+    </ul>
+
+    <div id="content">
+        <!-- welcome -->
+        <h1>Hello <span th:text="${user.username}"></span>!<img calss="user-photo " src=" " alt="user-photo"></h1>
+        <p>Design Department</p>
+
+        <!-- card -->
+        <div class="card">
+            <h2>Announcements</h2>
+        </div>  
+        
+        <div class="card">
+            <h2>To-Do List</h2>
+        </div>   
+
+        <div class="card">
+            <h2>Work Progress</h2>
+        </div>   
+
+
+        <div class="card">
+            <h2>Stat Title</h2>
+        </div>   
+
+
+    </div>
+
+
+</body>
+
+</html>
