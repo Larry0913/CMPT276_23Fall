@@ -8,17 +8,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
+import cmpt276.demo.dao.UserProfileRepository;
+import cmpt276.demo.dao.UserRepository;
 import cmpt276.demo.models.User;
 import cmpt276.demo.models.UserProfile;
-import cmpt276.demo.models.UserProfileRepository;
-import cmpt276.demo.models.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.util.List;
 import java.util.Map;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 @Controller
 public class UsersController {
@@ -68,7 +68,7 @@ public class UsersController {
             return "users/login";
         } else {
             model.addAttribute("user", user);
-            return "users/protected";
+            return "users/dashboard";
         }
     }
 
@@ -100,22 +100,9 @@ public class UsersController {
     }
 
     @GetMapping("/users/dashboard")
-    public String homePage(HttpServletRequest request, Model model, HttpSession session) {
+    public String homePage(HttpServletRequest request) {
         request.getSession().invalidate();
         return "users/dashboard";
-    }
-
-    @GetMapping("/users/personalCenter")
-    public String showInfo(HttpServletRequest request) {
-        request.getSession().invalidate();
-
-        return "users/personalCenter";
-    }
-
-    @GetMapping("/users/settings")
-    public String showSettings(HttpServletRequest request) {
-        request.getSession().invalidate();
-        return "users/settings";
     }
 
     @GetMapping("/users/performance")
@@ -129,4 +116,17 @@ public class UsersController {
         request.getSession().invalidate();
         return "users/addressBook";
     }
+
+    @GetMapping("/users/personalCenter")
+    public String showInfo(HttpServletRequest request) {
+        request.getSession().invalidate();
+        return "users/personalCenter";
+    }
+
+    @GetMapping("/users/settings")
+    public String showSettings(HttpServletRequest request) {
+        request.getSession().invalidate();
+        return "users/settings";
+    }
+
 }
