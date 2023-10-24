@@ -76,12 +76,15 @@ header {
 }
 
 
+
 body {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+
     background: url(/css/cmon2.jpeg) no-repeat;
+
     background-size: cover;
     background-position: center;
 }
@@ -135,25 +138,32 @@ body {
 
 }
 
+
 .wrapper .admin {
+
     display: flex;
     justify-content: space-between;
     font-size: 14px;
     margin: -15px 0 15px;
 }
 
+
 .admin label input{
     accent-color: #fff;
     margin-right: 3px;
 }
 
+
 .admin a{
+
     color: #fff;
     text-decoration: none;
 
 }
 
+
 .admin a:hover{
+
     text-decoration: underline;
 }
 
@@ -187,6 +197,7 @@ body {
 .register-link p a:hover{
     text-decoration: underline;
 }
+
 
 
 
