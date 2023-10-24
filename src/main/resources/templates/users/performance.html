@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance</title>
+    <link rel="stylesheet" href="performance.css">
+</head>
+
+<body>
+    <div id="top-bar">
+        <h1> Enterprise Information Management System</h1> 
+    </div>
+
+
+    <!-- menu-->
+    <ul id="navbar">
+        <li><a href="dashboard.html">Home Page</a></li>
+        <li><a href="#">Attendance</a></li>
+        <li><a href="#">Meeting</a></li>
+        <li><a href="#">Approval </a></li>
+        <li><a href="performance.html">performance</a></li>
+        <li><a href="address book.html">Address book</a></li>
+        <li><a href="#">imformation center</a></li>
+        <li><a href="#">Training</a></li>
+        <li><a href="Personal-Center.html">Personal Center</a></li>
+        <li><a href="Settings.html">Settings</a></li>
+        <li><a href="#">ffff</a></li>
+    </ul>
+
+
+    <div id="content">
+        <!-- card -->
+        <div class="card">
+            <h2>My application</h2>
+            <div class="options-container">
+                <div class="option" onclick="displayForm('leave')">Leave</div>
+                <div class="option" onclick="displayForm('trip')">Business Trip</div>
+                <div class="option" onclick="displayForm('paidLeave')">Paid Leave</div>
+                <div class="option" onclick="displayForm('overtime')">Overtime</div>
+                <div class="option" onclick="displayForm('reimbursement')">Reimbursement</div>
+                <div class="option" onclick="displayForm('other')">Other</div>
+            </div>
+        </div>  
+
+        
+
+        <div id="application-container">
+            <h2>Leave Application</h2>
+    
+            <form action="path_to_server_script" method="POST">
+                <label for="employee-name">Employee Name:</label>
+                <input type="text" id="employee-name" name="employeeName" required>
+    
+                <label for="leave-type">Type of Leave:</label>
+                <select id="leave-type" name="leaveType">
+                    <option value="sick">Sick Leave</option>
+                    <option value="vacation">Vacation Leave</option>
+                    <option value="personal">Personal Leave</option>
+                </select>
+    
+                <label for="start-date">Start Date:</label>
+                <input type="date" id="start-date" name="startDate" required>
+    
+                <label for="end-date">End Date:</label>
+                <input type="date" id="end-date" name="endDate" required>
+    
+                <label for="reason">Reason for Leave:</label>
+                <textarea id="reason" name="reason" rows="4" required></textarea>
+    
+                <button type="submit">Submit Application</button>
+            </form>
+        </div>
+        
+        <div class="card">
+            <h2>application status</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Example rows, you can replace with dynamic content -->
+                    <tr>
+                        <td>Leave</td>
+                        <td>2023-11-01</td>
+                        <td>2023-11-05</td>
+                        <td>Approved</td>
+                    </tr>
+                    <tr>
+                        <td>Business Trip</td>
+                        <td>2023-11-10</td>
+                        <td>2023-11-15</td>
+                        <td>Pending</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>   
+
+
+    </div>
+
+
+</body>
+
+</html>
