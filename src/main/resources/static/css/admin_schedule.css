@@ -1,79 +1,94 @@
-/* Reset default browser styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Basic styling for the body */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
     margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    display: flex; /* Add flex display */
+    flex-direction: row; /* Arrange elements horizontally */
+}
+
+#top-bar {
+    background-color: #333;
+    color: #ffffff;
+    padding: 10px 0;
+    text-align: center;
+    width: 250px; /* Set the width to match the navigation bar */
+}
+
+#navbar {
+    width: 250px;
+    height: 100vh;
+    background-color: #555;
+    float: left;
+    list-style-type: none;
     padding: 0;
 }
 
-/* Header styling */
-header {
-    background-color: #333;
+#navbar li {
+    padding: 10px 20px;
+    border-bottom: 1px solid #666;
+}
+
+#navbar li a {
+    text-decoration: none;
     color: #fff;
-    text-align: center;
-    padding: 10px 0;
+    display: block;
+    transition: background-color 0.3s;
 }
 
-/* Container for weeks */
-.container {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
+#navbar li a:hover {
+    background-color: #666;
 }
 
-/* Style the week section */
-.week {
+#content {
+    margin-left: 90px;
+    padding: 20px 20px 20px 20px;
     background-color: #fff;
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+.card {
+    background-color: #fff;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+#employee-form {
     border: 1px solid #ddd;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     padding: 20px;
     border-radius: 10px;
-    width: 48%; /* Adjust as needed */
-    box-sizing: border-box;
-}
-
-/* Style the schedule table */
-.schedule-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.schedule-table th, .schedule-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
-}
-
-/* Style the status cell (working/off) */
-.status {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 60%;
     margin: 0 auto;
+    position: absolute; /* Set the form to absolute position */
+    top: 50px; /* Adjust the top position */
+    left: 270px; /* Adjust the left position */
 }
 
-.working {
-    background-color: #5cb85c; /* Green for "working" */
+.form-group {
+    margin-bottom: 15px;
 }
 
-.off {
-    background-color: #d9534f; /* Red for "off" */
+label {
+    display: block;
+    margin-bottom: 5px;
 }
 
-.week {
-    background-color: #fff;
+input[type="text"], input[type="email"], select, textarea {
+    width: 100%;
+    padding: 10px;
     border: 1px solid #ddd;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    border-radius: 10px;
-    width: 100%; /* Make it 100% width to stack tables */
+    border-radius: 5px;
     box-sizing: border-box;
-    margin-bottom: 20px; /* Add spacing between tables */
+}
+
+.submit-btn {
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }

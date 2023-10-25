@@ -142,23 +142,27 @@ public class UsersController {
         return "users/settings";
     }
 
-    @GetMapping("/users/admin_schedule")
-    public String showAdmin_Schedule(HttpServletRequest request) {
-        request.getSession().invalidate();
-        return "users/admin_schedule"; 
-    }
+    // @GetMapping("/users/view")
+    // public String showProtected(HttpServletRequest request) {
+    //     request.getSession().invalidate();
+    //     return "users/protected"; 
+    // }
 
-    @GetMapping("/users/associate-week")
-    public String getAssociateWeekForm(Model model) {
+    // @GetMapping("/users/admin_schedule")
+    // public String showAdmin_Schedule(HttpServletRequest request) {
+    //     request.getSession().invalidate();
+    //     return "users/admin_schedule"; 
+    // }
+
+    @GetMapping("/users/admin_schedule")
+    public String getAssociateWeekForm(Model model, HttpServletRequest request) {
         // Retrieve a list of users and weeks here, e.g., userRepo.findAll() and weekRepo.findAll()
         List<User> users = userRepo.findAll();
-        List<Week> weeks = weekRepo.findAll();
         
         // Add the lists to the model so they can be displayed in the form
         model.addAttribute("users", users);
-        model.addAttribute("weeks", weeks);
         
-        return "users/associateWeekForm";
+        return "users/admin_schedule";
     }
 
     @PostMapping("/users/associate-week")

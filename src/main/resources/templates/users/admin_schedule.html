@@ -3,64 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Schedule Management</title>
-    <link rel="stylesheet" type="text/css" href="/css/admin_schedule.css">
+    <title>Associate User with Week</title>
+    <link rel="stylesheet" href="/css/admin_schedule.css">
 </head>
 <body>
-    <header>
-        <h1>Admin Schedule Management</h1>
-    </header>
-
-    <div class="container">
-        <div class="week">
-            <h2>Week 1</h2>
-            <table class="schedule-table">
-                <thead>
-                    <tr>
-                        <th>Employee</th>
-                        <th>Monday</th>
-                        <th>Tuesday</th>
-                        <th>Wednesday</th>
-                        <th>Thursday</th>
-                        <th>Friday</th>
-                        <th>Saturday</th>
-                        <th>Sunday</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Repeat this row for each employee -->
-                    <tr>
-                        <td>Employee 1</td>
-                        <td><div class="status working"></div></td>
-                        <td><div class="status off"></div></td>
-                        <td><div class="status working"></div></td>
-                        <td><div class="status working"></div></td>
-                        <td><div class="status off"></div></td>
-                        <td><div class="status working"></div></td>
-                        <td><div class="status off"></div></td>
-                    </tr>
-                    <!-- Repeat for other employees -->
-                </tbody>
-            </table>
-        </div>
-
-        <div class="week">
-            <h2>Week 2</h2>
-            <table class="schedule-table">
-                <!-- Similar structure as Week 1 -->
-            </table>
-        </div>
+    <div id="top-bar">
+        <h1> Enterprise Information Management System</h1> 
     </div>
 
-    <button id="update-schedule">Update Schedule</button>
+    <!-- menu-->
+    <ul id="navbar">
+        <li><a href="/users/dashboard">Home Page</a></li>
+        <li><a href="/users/admin_schedule">Attendance</a></li>
+        <li><a href="#">Meeting</a></li>
+        <li><a href="#">Approval </a></li>
+        <li><a href="/users/performance">Performance</a></li>
+        <li><a href="/users/addressBook">Address book</a></li>
+        <li><a href="#">Information center</a></li>
+        <li><a href="#">Training</a></li>
+        <li><a href="/users/personalCenter">Personal Center</a></li>
+        <li><a href="/users/settings">Settings</a></li>
+        <li><a href="#">ffff</a></li>
+    </ul>
 
-    <script>
-        const updateButton = document.getElementById("update-schedule");
-        updateButton.addEventListener("click", () => {
-            // You can use JavaScript to collect the data from input fields and send it to the server for processing.
-            // Perform an AJAX request to update the schedule in the backend.
-            alert("Schedule updated!"); // For demonstration purposes
-        });
-    </script>
+    <h2>Associate User with Week</h2>
+    
+    <form action="/users/associate-week" method="post">
+        <div>
+            <label for="username">Select a User:</label>
+            <select name="username" id="username">
+                <option value="">Select a User</option>
+                <!-- Use Thymeleaf to loop through users and create options -->
+                <th:block th:each="user : ${users}">
+                    <option th:value="${user.username}" th:text="${user.username}"></option>
+                </th:block>
+            </select>
+        </div>
+
+
+        <div>
+            <label for="weekId">Select a Week:</label>
+            <select name="weekId" id="weekId">
+                <!-- Replace the values and labels with actual week data -->
+                <option value="1">Week 1</option>
+                <option value="2">Week 2</option>
+                <!-- Add more options as needed -->
+            </select>
+        </div>
+
+        <div>
+            <label for="days">Days String:</label>
+            <input type="text" name="days" id="days" placeholder="Enter days string (e.g., M-WH--)">
+        </div>
+
+        <div>
+            <input type="submit" value="Associate User with Week">
+        </div>
+    </form>
 </body>
 </html>
