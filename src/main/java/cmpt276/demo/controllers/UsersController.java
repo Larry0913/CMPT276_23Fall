@@ -10,8 +10,14 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import cmpt276.demo.dao.UserProfileRepository;
 import cmpt276.demo.dao.UserRepository;
+import cmpt276.demo.dao.UserScheduleRepository;
+import cmpt276.demo.dao.WeekRepository;
+
 import cmpt276.demo.models.User;
 import cmpt276.demo.models.UserProfile;
+import cmpt276.demo.models.Week;
+import cmpt276.demo.models.UserSchedule;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -28,7 +34,14 @@ public class UsersController {
     @Autowired
     private UserProfileRepository profileRepo;
 
+    @Autowired
+    private WeekRepository weekRepo;
+
+    @Autowired
+    private UserScheduleRepository userscheduleRepo;
+
     List<User> userlist;
+    List<Week> weeklist;
 
     @GetMapping("/")
     public RedirectView process() {
@@ -135,4 +148,39 @@ public class UsersController {
         return "users/admin_schedule"; 
     }
 
+    @GetMapping("/users/associate-week")
+    public String getAssociateWeekForm(Model model) {
+        // Retrieve a list of users and weeks here, e.g., userRepo.findAll() and weekRepo.findAll()
+        List<User> users = userRepo.findAll();
+        List<Week> weeks = weekRepo.findAll();
+        
+        // Add the lists to the model so they can be displayed in the form
+        model.addAttribute("users", users);
+        model.addAttribute("weeks", weeks);
+        
+        return "users/associateWeekForm";
+    }
+
+    @PostMapping("/users/associate-week")
+    public String associateWeek(
+            @RequestParam Map<String, String> formData,
+            @RequestParam("userId") Long userId,
+            
+            @RequestParam("days") String days,
+            HttpServletResponse response
+    ) {
+        // Retrieve the selected user and week objects from their respective repositories
+        String usrname = formData.get("name");
+        // String wkId = formData.get("weekId");
+        User user = (User) userRepo.findByUsername(usrname);
+
+        int weekId = Integer.parseInt(formData.get("weekId"));
+        Week week = (Week) weekRepo.findById(weekId);
+        
+        // Create the association object and save it to the database
+        UserSchedule schedule = new UserSchedule(user, week, days);
+        userscheduleRepo.save(schedule);
+        
+        return "redirect:/users/admin_schedule";  // Redirect to the admin schedule page
+    }
 }
