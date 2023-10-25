@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Schedule Management</title>
+    <link rel="stylesheet" type="text/css" href="/css/admin_schedule.css">
+</head>
+<body>
+    <header>
+        <h1>Admin Schedule Management</h1>
+    </header>
+
+    <div class="container">
+        <div class="week">
+            <h2>Week 1</h2>
+            <table class="schedule-table">
+                <thead>
+                    <tr>
+                        <th>Employee</th>
+                        <th>Monday</th>
+                        <th>Tuesday</th>
+                        <th>Wednesday</th>
+                        <th>Thursday</th>
+                        <th>Friday</th>
+                        <th>Saturday</th>
+                        <th>Sunday</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Repeat this row for each employee -->
+                    <tr>
+                        <td>Employee 1</td>
+                        <td><div class="status working"></div></td>
+                        <td><div class="status off"></div></td>
+                        <td><div class="status working"></div></td>
+                        <td><div class="status working"></div></td>
+                        <td><div class="status off"></div></td>
+                        <td><div class="status working"></div></td>
+                        <td><div class="status off"></div></td>
+                    </tr>
+                    <!-- Repeat for other employees -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="week">
+            <h2>Week 2</h2>
+            <table class="schedule-table">
+                <!-- Similar structure as Week 1 -->
+            </table>
+        </div>
+    </div>
+
+    <button id="update-schedule">Update Schedule</button>
+
+    <script>
+        const updateButton = document.getElementById("update-schedule");
+        updateButton.addEventListener("click", () => {
+            // You can use JavaScript to collect the data from input fields and send it to the server for processing.
+            // Perform an AJAX request to update the schedule in the backend.
+            alert("Schedule updated!"); // For demonstration purposes
+        });
+    </script>
+</body>
+</html>

@@ -129,4 +129,10 @@ public class UsersController {
         return "users/settings";
     }
 
+    @GetMapping("/users/admin_schedule")
+    public String showAdmin_Schedule(HttpServletRequest request) {
+        request.getSession().invalidate();
+        return "users/admin_schedule"; 
+    }
+
 }
