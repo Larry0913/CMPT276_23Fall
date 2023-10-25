@@ -17,6 +17,9 @@ public class User {
     @JoinColumn(name = "profile_id")
     private UserProfile userProfile;
 
+    @OneToOne(mappedBy = "user")
+    private UserSchedule userSchedule;
+    
     public User(){
         
     }

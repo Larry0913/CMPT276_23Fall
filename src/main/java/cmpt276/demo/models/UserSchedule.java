@@ -9,10 +9,10 @@ public class UserSchedule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
-
+    
     @ManyToOne
     @JoinColumn(name = "week_id")
     private Week week;

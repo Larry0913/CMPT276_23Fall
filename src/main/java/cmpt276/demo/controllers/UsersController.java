@@ -70,6 +70,11 @@ public class UsersController {
         newProf.setUser(newUser);
         userRepo.save(newUser);
         profileRepo.save(newProf);
+
+        List<UserSchedule> allSchedules = userscheduleRepo.findAll();
+        Week week1 = new Week(allSchedules);
+        UserSchedule userSchedule1 = new UserSchedule(newUser, week1, "-------"); 
+        userscheduleRepo.save(userSchedule1); 
         response.setStatus(201);
         return "users/addedUser";
     }
@@ -155,36 +160,67 @@ public class UsersController {
     // }
 
     @GetMapping("/users/admin_schedule")
-    public String getAssociateWeekForm(Model model, HttpServletRequest request) {
+    public String getAssociateWeekForm(Model model ,HttpServletRequest request) {
         // Retrieve a list of users and weeks here, e.g., userRepo.findAll() and weekRepo.findAll()
         List<User> users = userRepo.findAll();
-        
+        List<Week> weeks = weekRepo.findAll();
+        List<UserSchedule> userSchedule = userscheduleRepo.findAll();
         // Add the lists to the model so they can be displayed in the form
         model.addAttribute("users", users);
+        model.addAttribute("weeks", weeks); // Add weeks to the model
+        model.addAttribute("userSchedule", userSchedule);
         
         return "users/admin_schedule";
     }
 
     @PostMapping("/users/associate-week")
-    public String associateWeek(
-            @RequestParam Map<String, String> formData,
-            @RequestParam("userId") Long userId,
-            
-            @RequestParam("days") String days,
-            HttpServletResponse response
-    ) {
+    public String associateWeek(@RequestParam Map<String, String> formData,
+                                @RequestParam("userId") Long userId,
+                                @RequestParam("weekId") int weekId,
+                                @RequestParam(value = "days", required = false) List<String> selectedDays,
+                                HttpServletRequest request) {
         // Retrieve the selected user and week objects from their respective repositories
-        String usrname = formData.get("name");
-        // String wkId = formData.get("weekId");
-        User user = (User) userRepo.findByUsername(usrname);
-
-        int weekId = Integer.parseInt(formData.get("weekId"));
+        String username = formData.get("username");
+        User user = (User) userRepo.findByUsername(username);
         Week week = (Week) weekRepo.findById(weekId);
-        
+
+        // Initialize a 7-character string with all '-' characters
+        StringBuilder daysString = new StringBuilder("-------");
+
+        // Process selected days and update the string
+        if (selectedDays != null) {
+            for (String day : selectedDays) {
+                switch (day) {
+                    case "M":
+                        daysString.setCharAt(0, 'M');
+                        break;
+                    case "T":
+                        daysString.setCharAt(1, 'T');
+                        break;
+                    case "W":
+                        daysString.setCharAt(2, 'W');
+                        break;
+                    case "H":
+                        daysString.setCharAt(3, 'H');
+                        break;
+                    case "F":
+                        daysString.setCharAt(4, 'F');
+                        break;
+                    case "S":
+                        daysString.setCharAt(5, 'S');
+                        break;
+                    case "U":
+                        daysString.setCharAt(6, 'U');
+                        break;
+                }
+            }
+        }
+
         // Create the association object and save it to the database
-        UserSchedule schedule = new UserSchedule(user, week, days);
+        UserSchedule schedule = new UserSchedule(user, week, daysString.toString());
         userscheduleRepo.save(schedule);
-        
-        return "redirect:/users/admin_schedule";  // Redirect to the admin schedule page
+
+        return "users/admin_schedule";  // Redirect to the admin schedule page
     }
+
 }

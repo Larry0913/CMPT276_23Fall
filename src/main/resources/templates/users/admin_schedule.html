@@ -25,8 +25,6 @@
         <li><a href="/users/settings">Settings</a></li>
         <li><a href="#">ffff</a></li>
     </ul>
-
-    <h2>Associate User with Week</h2>
     
     <form action="/users/associate-week" method="post">
         <div>
@@ -51,13 +49,24 @@
             </select>
         </div>
 
+        <!-- <div>
+            <h3>User's Current Assigned Schedule:</h3>
+            <p th:text="${userSchedule.days}"></p>
+        </div> -->
+    
         <div>
-            <label for="days">Days String:</label>
-            <input type="text" name="days" id="days" placeholder="Enter days string (e.g., M-WH--)">
+            <label for="days">Select Days:</label>
+            <input type="checkbox" name="days" value="M"> Monday
+            <input type="checkbox" name="days" value="T"> Tuesday
+            <input type="checkbox" name="days" value="W"> Wednesday
+            <input type="checkbox" name="days" value="H"> Thursday
+            <input type="checkbox" name="days" value="F"> Friday
+            <input type="checkbox" name="days" value="S"> Saturday
+            <input type="checkbox" name="days" value="U"> Sunday
         </div>
-
+    
         <div>
-            <input type="submit" value="Associate User with Week">
+            <input type="submit" value="Edit Schedule">
         </div>
     </form>
 </body>

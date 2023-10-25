@@ -1,5 +1,7 @@
 package cmpt276.demo.models;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -9,38 +11,30 @@ public class Week {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int wid;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    private String days;
+    @OneToMany(mappedBy = "week")
+    private List<UserSchedule> userSchedules;
 
     public Week() {
         // Default constructor
     }
 
-    public Week(User user, String days) {
-        this.user = user;
-        this.days = days;
+    public Week(List<UserSchedule> userSchedules) {
+        this.userSchedules = userSchedules;
     }
 
-    public int getId() {
+    public int getWid() {
         return wid;
     }
 
-    public User getUser() {
-        return user;
+    public void setWid(int wid) {
+        this.wid = wid;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public List<UserSchedule> getUserSchedules() {
+        return userSchedules;
     }
 
-    public String getDays() {
-        return days;
-    }
-
-    public void setDays(String days) {
-        this.days = days;
+    public void setUserSchedules(List<UserSchedule> userSchedules) {
+        this.userSchedules = userSchedules;
     }
 }
