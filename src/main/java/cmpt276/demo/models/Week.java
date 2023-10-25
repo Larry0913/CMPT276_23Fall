@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Week {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long wid;
+    private int wid;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -24,7 +24,7 @@ public class Week {
         this.days = days;
     }
 
-    public Long getId() {
+    public int getId() {
         return wid;
     }
 
