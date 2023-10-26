@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Associate User with Week</title>
     <link rel="stylesheet" href="/css/admin_schedule.css">
+    
 </head>
 <body>
     <div id="top-bar">
@@ -26,7 +27,7 @@
         <li><a href="#">ffff</a></li>
     </ul>
     
-    <form action="/users/associate-week" method="post">
+    <form action="/users/associate-week" method="post" id="schedule-form">
         <div>
             <label for="username">Select a User:</label>
             <select name="username" id="username">
@@ -38,7 +39,6 @@
             </select>
         </div>
 
-
         <div>
             <label for="weekId">Select a Week:</label>
             <select name="weekId" id="weekId">
@@ -49,12 +49,12 @@
             </select>
         </div>
 
-        <!-- <div>
+        <div id="current-schedule" style="display: none;">
             <h3>User's Current Assigned Schedule:</h3>
-            <p th:text="${userSchedule.days}"></p>
-        </div> -->
+            <p id="current-schedule-text"></p>
+        </div>
     
-        <div>
+        <div id="edit-schedule" style="display: none;">
             <label for="days">Select Days:</label>
             <input type="checkbox" name="days" value="M"> Monday
             <input type="checkbox" name="days" value="T"> Tuesday
@@ -65,9 +65,15 @@
             <input type="checkbox" name="days" value="U"> Sunday
         </div>
     
+        <div id="buttons" style="display: none;">
+            <input type="button" value="Update Schedule" id="update-schedule-button">
+        </div>
+
         <div>
-            <input type="submit" value="Edit Schedule">
+            <input type="submit" value="Edit Schedule" id="edit-schedule-button">
         </div>
     </form>
+
+    <script src="/js/admin_schedule.js"></script>
 </body>
 </html>
