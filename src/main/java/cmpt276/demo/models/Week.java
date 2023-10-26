@@ -14,6 +14,17 @@ public class Week {
     @OneToMany(mappedBy = "week")
     private List<UserSchedule> userSchedules;
 
+    @Column(name = "week_name")
+    private String weekName;
+
+    public String getWeekName() {
+        return weekName;
+    }
+
+    public void setWeekName(String weekName) {
+        this.weekName = weekName;
+    }
+    
     public Week() {
         // Default constructor
     }

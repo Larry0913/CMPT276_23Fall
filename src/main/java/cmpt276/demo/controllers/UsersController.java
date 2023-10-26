@@ -71,10 +71,9 @@ public class UsersController {
         userRepo.save(newUser);
         profileRepo.save(newProf);
 
-        List<UserSchedule> allSchedules = userscheduleRepo.findAll();
-        Week week1 = new Week(allSchedules);
-        UserSchedule userSchedule1 = new UserSchedule(newUser, week1, "-------"); 
-        userscheduleRepo.save(userSchedule1); 
+        // List<UserSchedule> allSchedules = userscheduleRepo.findAll();
+        // UserSchedule userSchedule1 = new UserSchedule(newUser, week1, "-------"); 
+        // userscheduleRepo.save(userSchedule1); 
         response.setStatus(201);
         return "users/addedUser";
     }
@@ -176,13 +175,16 @@ public class UsersController {
     @PostMapping("/users/associate-week")
     public String associateWeek(@RequestParam Map<String, String> formData,
                                 @RequestParam("userId") Long userId,
-                                @RequestParam("weekId") int weekId,
+                                @RequestParam("weekname") String weekName,
                                 @RequestParam(value = "days", required = false) List<String> selectedDays,
                                 HttpServletRequest request) {
         // Retrieve the selected user and week objects from their respective repositories
         String username = formData.get("username");
+        String weekname= formData.get("weekname");
+
+
         User user = (User) userRepo.findByUsername(username);
-        Week week = (Week) weekRepo.findById(weekId);
+        Week week = (Week) weekRepo.findByWeekName(weekname);
 
         // Initialize a 7-character string with all '-' characters
         StringBuilder daysString = new StringBuilder("-------");
@@ -224,3 +226,5 @@ public class UsersController {
     }
 
 }
+
+

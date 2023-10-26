@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import cmpt276.demo.models.Week;
 
 public interface WeekRepository extends JpaRepository<Week, Integer>{
-    List<Week> findById(int wid);
+    List<Week> findByWeekName(String weekname);
 
 }

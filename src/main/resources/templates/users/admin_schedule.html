@@ -40,12 +40,13 @@
         </div>
 
         <div>
-            <label for="weekId">Select a Week:</label>
-            <select name="weekId" id="weekId">
-                <!-- Replace the values and labels with actual week data -->
-                <option value="1">Week 1</option>
-                <option value="2">Week 2</option>
-                <!-- Add more options as needed -->
+            <label for="weekname">Select a Week:</label>
+            <select name="weekname" id="weekname">
+                <option value="">Select a Week</option>
+                
+                <th:block th:each="week : ${weeks}">
+                    <option th:value="${week.weekName}" th:text="${week.weekName}"></option>
+                </th:block>
             </select>
         </div>
 
