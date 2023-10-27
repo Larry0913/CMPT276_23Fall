@@ -224,7 +224,7 @@ public class UsersController {
         @RequestParam("weekName") String weekName,
         @RequestParam(value = "selectedDays", required = false) List<String> selectedDays,
         Model model) {
-
+        System.out.println("Selected days: " + selectedDays);
         // Example:
 
         String userName = formData.get("username");
@@ -267,6 +267,10 @@ public class UsersController {
                 }
             }
         }
+        
+        System.out.println("Updated daysString: " + daysString.toString());
+
+
         // Create the association object and save it to the database
         UserSchedule existingSchedule = userscheduleRepo.findByUserAndWeek(user, week);
 

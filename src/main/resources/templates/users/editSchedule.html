@@ -26,14 +26,14 @@
             </div>
 
             <div id="edit-schedule">
-                <label for="days">Select Days:</label>
-                <input type="checkbox" name="days" value="M"> Monday
-                <input type="checkbox" name="days" value="T"> Tuesday
-                <input type="checkbox" name="days" value="W"> Wednesday
-                <input type="checkbox" name="days" value="H"> Thursday
-                <input type="checkbox" name="days" value="F"> Friday
-                <input type="checkbox" name="days" value="S"> Saturday
-                <input type="checkbox" name="days" value="U"> Sunday
+                <label for="selectedDays">Select Days:</label>
+                <input type="checkbox" name="selectedDays" value="M"> Monday
+                <input type="checkbox" name="selectedDays" value="T"> Tuesday
+                <input type="checkbox" name="selectedDays" value="W"> Wednesday
+                <input type="checkbox" name="selectedDays" value="H"> Thursday
+                <input type="checkbox" name="selectedDays" value="F"> Friday
+                <input type="checkbox" name="selectedDays" value="S"> Saturday
+                <input type="checkbox" name="selectedDays" value="U"> Sunday
             </div>
 
             <!-- Button to update the schedule (you can use JavaScript to handle the update) -->
@@ -48,7 +48,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         const selectedUsername = urlParams.get("username");
         const selectedWeekName = urlParams.get("weekName");
-        
+
         const usernameInput = document.getElementById("username-input");
         const weekNameInput = document.getElementById("weekName-input");
 
@@ -65,6 +65,11 @@
         } else {
             userNameElement.textContent = "User: (Not provided)";
             weekNameElement.textContent = "Week: (Not provided)";
+        }
+
+        const currentScheduleText = document.getElementById("current-schedule-text");
+        if (currentScheduleText) {
+            currentScheduleText.textContent = "Current Schedule: " + daysString.toString();
         }
     
         // You can use AJAX to fetch and display the user's current schedule here
