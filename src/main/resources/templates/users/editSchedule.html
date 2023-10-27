@@ -7,40 +7,50 @@
 </head>
 <body>
         <!-- In edit_schedule.html -->
-    <div>
-        <h1>Edit User's Schedule</h1>
-        
-        <!-- Display the selected user and week information (You can retrieve them from the URL parameters) -->
-        <p><span id="user-name">User Name</span></p>
-        <p><span id="week-name">Week Name</span></p>
+    <form action="/users/updateSchedule" method="post">
+        <div>
+            <h1>Edit User's Schedule</h1>
+            
+            <input type="hidden" name="username" id="username-input">
+            <input type="hidden" name="weekName" id="weekName-input">
 
-        <div id="current-schedule">
-            <h3>User's Current Assigned Schedule:</h3>
-            <p id="current-schedule-text" th:if="${userSchedule}">Current Schedule: <span th:text="${userSchedule}"></span></p>
-            <p id="no-schedule-message" th:if="${noSchedule}"><span th:text="${noSchedule}"></span></p>
+
+            <!-- Display the selected user and week information (You can retrieve them from the URL parameters) -->
+            <p><span name="username" id="user-name">User Name</span></p>
+            <p><span name="weekName" id="week-name">Week Name</span></p>
+
+            <div id="current-schedule">
+                <h3>User's Current Assigned Schedule:</h3>
+                <p id="current-schedule-text" th:if="${userSchedule}">Current Schedule: <span th:text="${userSchedule}"></span></p>
+                <p id="no-schedule-message" th:if="${noSchedule}"><span th:text="${noSchedule}"></span></p>
+            </div>
+
+            <div id="edit-schedule">
+                <label for="days">Select Days:</label>
+                <input type="checkbox" name="days" value="M"> Monday
+                <input type="checkbox" name="days" value="T"> Tuesday
+                <input type="checkbox" name="days" value="W"> Wednesday
+                <input type="checkbox" name="days" value="H"> Thursday
+                <input type="checkbox" name="days" value="F"> Friday
+                <input type="checkbox" name="days" value="S"> Saturday
+                <input type="checkbox" name="days" value="U"> Sunday
+            </div>
+
+            <!-- Button to update the schedule (you can use JavaScript to handle the update) -->
+            <div id="buttons">
+                <input type="submit" value="Update Schedule" >
+            </div>
         </div>
-
-        <!-- <div id="edit-schedule">
-            <label for="days">Select Days:</label>
-            <input type="checkbox" name="days" value="M"> Monday
-            <input type="checkbox" name="days" value="T"> Tuesday
-            <input type="checkbox" name="days" value="W"> Wednesday
-            <input type="checkbox" name="days" value="H"> Thursday
-            <input type="checkbox" name="days" value="F"> Friday
-            <input type="checkbox" name="days" value="S"> Saturday
-            <input type="checkbox" name="days" value="U"> Sunday
-        </div> -->
-
-        <!-- Button to update the schedule (you can use JavaScript to handle the update) -->
-        <!-- <div id="buttons">
-            <input type="button" value="Update Schedule" id="update-schedule-button">
-        </div> -->
-    </div>
+    </form>
+        
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const selectedUsername = urlParams.get("username");
         const selectedWeekName = urlParams.get("weekName");
+        
+        const usernameInput = document.getElementById("username-input");
+        const weekNameInput = document.getElementById("weekName-input");
 
         // Display the user and week information
         const userNameElement = document.getElementById("user-name");
@@ -49,6 +59,9 @@
         if (selectedUsername && selectedWeekName) {
             userNameElement.textContent = "User: " + selectedUsername;
             weekNameElement.textContent = "Week: " + selectedWeekName;
+
+            usernameInput.value = selectedUsername;
+            weekNameInput.value = selectedWeekName;
         } else {
             userNameElement.textContent = "User: (Not provided)";
             weekNameElement.textContent = "Week: (Not provided)";
@@ -59,10 +72,10 @@
 
         
         // Handle the update button click
-        const updateScheduleButton = document.getElementById("update-schedule-button");
-        updateScheduleButton.addEventListener("click", function() {
-            // Handle the schedule update and any related logic
-        });
+        // const updateScheduleButton = document.getElementById("update-schedule-button");
+        // updateScheduleButton.addEventListener("click", function() {
+        //     // Handle the schedule update and any related logic
+        // });
     </script>
     
 

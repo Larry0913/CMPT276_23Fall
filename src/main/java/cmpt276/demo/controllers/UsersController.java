@@ -186,10 +186,6 @@ public class UsersController {
         // User user = (User) userRepo.findByUsername(userName);
         // Week week = (Week) weekRepo.findByWeekName(weekname);
 
-        // Create the association object and save it to the database
-        // UserSchedule schedule = new UserSchedule(user, week, daysString.toString());
-        // userscheduleRepo.save(schedule);
-
         return "redirect:/users/editSchedule?username=" + username + "&weekName=" + weekName;
     }
 
@@ -198,22 +194,6 @@ public class UsersController {
         @RequestParam("username") String username, 
         @RequestParam("weekName") String weekName, 
         Model model) {
-        
-
-        // userlist = userRepo.findByUsername(username);
-        // if (userlist.isEmpty()) {
-        //     return "users/login";
-        // } else {
-        //     User user = userlist.get(0);
-            
-        //     model.addAttribute("user", user);
-        //     return "users/dashboard";
-        // }
-
-
-
-
-
 
         // Retrieve the user and week information based on the provided username and weekName.
         User user = userRepo.findByUsername(username).get(0);
@@ -237,51 +217,71 @@ public class UsersController {
         return "users/editSchedule";
     }
 
-    // @GetMapping("/users/editSchedule")
-    // public String showEditSchedulePage(@RequestParam("username") String username, @RequestParam("weekName") String weekName, Model model) {
+    @PostMapping("/users/updateSchedule")
+    public String updateSchedulePage(
+        @RequestParam Map<String, String> formData,
+        @RequestParam("username") String username,
+        @RequestParam("weekName") String weekName,
+        @RequestParam(value = "selectedDays", required = false) List<String> selectedDays,
+        Model model) {
 
-    //     // Example:
-    //     User user = (User) userRepo.findByUsername(username);
-    //     Week week = (Week) weekRepo.findByWeekName(weekName);
+        // Example:
 
-    //     // Add the user and week to the model, and render the editSchedule.html page
-    //     model.addAttribute("user", user);
-    //     model.addAttribute("week", week);
+        String userName = formData.get("username");
+        String weekname= formData.get("weekName");
+        User user = userRepo.findByUsername(userName).get(0);
+        Week week = weekRepo.findByWeekName(weekname).get(0);
 
-    //     // Initialize a 7-character string with all '-' characters
-    //     StringBuilder daysString = new StringBuilder("-------");
+        // Add the user and week to the model, and render the editSchedule.html page
+        // model.addAttribute("user", user);
+        // model.addAttribute("week", week);
 
-    //     // Process selected days and update the string
-    //     if (selectedDays != null) {
-    //         for (String day : selectedDays) {
-    //             switch (day) {
-    //                 case "M":
-    //                     daysString.setCharAt(0, 'M');
-    //                     break;
-    //                 case "T":
-    //                     daysString.setCharAt(1, 'T');
-    //                     break;
-    //                 case "W":
-    //                     daysString.setCharAt(2, 'W');
-    //                     break;
-    //                 case "H":
-    //                     daysString.setCharAt(3, 'H');
-    //                     break;
-    //                 case "F":
-    //                     daysString.setCharAt(4, 'F');
-    //                     break;
-    //                 case "S":
-    //                     daysString.setCharAt(5, 'S');
-    //                     break;
-    //                 case "U":
-    //                     daysString.setCharAt(6, 'U');
-    //                     break;
-    //             }
-    //         }
-    //     }
+        // Initialize a 7-character string with all '-' characters
+        StringBuilder daysString = new StringBuilder("-------");
 
-    //     return "users/editSchedule"; 
-    // }
+        // Process selected days and update the string
+        if (selectedDays != null) {
+            for (String day : selectedDays) {
+                switch (day) {
+                    case "M":
+                        daysString.setCharAt(0, 'M');
+                        break;
+                    case "T":
+                        daysString.setCharAt(1, 'T');
+                        break;
+                    case "W":
+                        daysString.setCharAt(2, 'W');
+                        break;
+                    case "H":
+                        daysString.setCharAt(3, 'H');
+                        break;
+                    case "F":
+                        daysString.setCharAt(4, 'F');
+                        break;
+                    case "S":
+                        daysString.setCharAt(5, 'S');
+                        break;
+                    case "U":
+                        daysString.setCharAt(6, 'U');
+                        break;
+                }
+            }
+        }
+        // Create the association object and save it to the database
+        UserSchedule existingSchedule = userscheduleRepo.findByUserAndWeek(user, week);
+
+        if (existingSchedule != null) {
+            // Update the existing record
+            existingSchedule.setDays(daysString.toString());
+            userscheduleRepo.save(existingSchedule);
+        } else {
+            // Create a new association
+            UserSchedule newSchedule = new UserSchedule(user, week, daysString.toString());
+            userscheduleRepo.save(newSchedule);
+        }
+
+        return "redirect:/users/editSchedule?username=" + username + "&weekName=" + weekName; 
+    }
 }
 
 
