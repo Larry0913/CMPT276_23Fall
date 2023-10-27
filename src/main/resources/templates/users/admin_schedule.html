@@ -32,7 +32,6 @@
             <label for="username">Select a User:</label>
             <select name="username" id="username">
                 <option value="">Select a User</option>
-                <!-- Use Thymeleaf to loop through users and create options -->
                 <th:block th:each="user : ${users}">
                     <option th:value="${user.username}" th:text="${user.username}"></option>
                 </th:block>
@@ -48,26 +47,6 @@
                     <option th:value="${week.weekName}" th:text="${week.weekName}"></option>
                 </th:block>
             </select>
-        </div>
-
-        <div id="current-schedule" style="display: none;">
-            <h3>User's Current Assigned Schedule:</h3>
-            <p id="current-schedule-text"></p>
-        </div>
-    
-        <div id="edit-schedule" style="display: none;">
-            <label for="days">Select Days:</label>
-            <input type="checkbox" name="days" value="M"> Monday
-            <input type="checkbox" name="days" value="T"> Tuesday
-            <input type="checkbox" name="days" value="W"> Wednesday
-            <input type="checkbox" name="days" value="H"> Thursday
-            <input type="checkbox" name="days" value="F"> Friday
-            <input type="checkbox" name="days" value="S"> Saturday
-            <input type="checkbox" name="days" value="U"> Sunday
-        </div>
-    
-        <div id="buttons" style="display: none;">
-            <input type="button" value="Update Schedule" id="update-schedule-button">
         </div>
 
         <div>
