@@ -71,9 +71,6 @@ public class UsersController {
         userRepo.save(newUser);
         profileRepo.save(newProf);
 
-        // List<UserSchedule> allSchedules = userscheduleRepo.findAll();
-        // UserSchedule userSchedule1 = new UserSchedule(newUser, week1, "-------"); 
-        // userscheduleRepo.save(userSchedule1); 
         response.setStatus(201);
         return "users/addedUser";
     }
@@ -146,18 +143,6 @@ public class UsersController {
         return "users/settings";
     }
 
-    // @GetMapping("/users/view")
-    // public String showProtected(HttpServletRequest request) {
-    //     request.getSession().invalidate();
-    //     return "users/protected"; 
-    // }
-
-    // @GetMapping("/users/admin_schedule")
-    // public String showAdmin_Schedule(HttpServletRequest request) {
-    //     request.getSession().invalidate();
-    //     return "users/admin_schedule"; 
-    // }
-
     @GetMapping("/users/admin_schedule")
     public String getAssociateWeekForm(Model model ,HttpServletRequest request) {
         // Retrieve a list of users and weeks here, e.g., userRepo.findAll() and weekRepo.findAll()
@@ -178,13 +163,6 @@ public class UsersController {
                                 @RequestParam("weekname") String weekName,
                                 @RequestParam(value = "days", required = false) List<String> selectedDays,
                                 HttpServletRequest request) {
-        // Retrieve the selected user and week objects from their respective repositories
-        // String userName = formData.get("username");
-        // String weekname= formData.get("weekname");
-
-
-        // User user = (User) userRepo.findByUsername(userName);
-        // Week week = (Week) weekRepo.findByWeekName(weekname);
 
         return "redirect:/users/editSchedule?username=" + username + "&weekName=" + weekName;
     }
@@ -224,17 +202,11 @@ public class UsersController {
         @RequestParam("weekName") String weekName,
         @RequestParam(value = "selectedDays", required = false) List<String> selectedDays,
         Model model) {
-        System.out.println("Selected days: " + selectedDays);
-        // Example:
 
         String userName = formData.get("username");
         String weekname= formData.get("weekName");
         User user = userRepo.findByUsername(userName).get(0);
         Week week = weekRepo.findByWeekName(weekname).get(0);
-
-        // Add the user and week to the model, and render the editSchedule.html page
-        // model.addAttribute("user", user);
-        // model.addAttribute("week", week);
 
         // Initialize a 7-character string with all '-' characters
         StringBuilder daysString = new StringBuilder("-------");
@@ -267,9 +239,6 @@ public class UsersController {
                 }
             }
         }
-        
-        System.out.println("Updated daysString: " + daysString.toString());
-
 
         // Create the association object and save it to the database
         UserSchedule existingSchedule = userscheduleRepo.findByUserAndWeek(user, week);
