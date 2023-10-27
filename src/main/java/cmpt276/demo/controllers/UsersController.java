@@ -194,14 +194,45 @@ public class UsersController {
     }
 
     @GetMapping("/users/editSchedule")
-    public String showEditSchedulePage(@RequestParam("username") String username, @RequestParam("weekName") String weekName, Model model) {
-        // You can add any necessary logic here to fetch data related to the username and weekName.
-        // For example, you can retrieve user and week information based on the provided parameters.
+    public String showEditSchedulePage(
+        @RequestParam("username") String username, 
+        @RequestParam("weekName") String weekName, 
+        Model model) {
+        
 
+        // userlist = userRepo.findByUsername(username);
+        // if (userlist.isEmpty()) {
+        //     return "users/login";
+        // } else {
+        //     User user = userlist.get(0);
+            
+        //     model.addAttribute("user", user);
+        //     return "users/dashboard";
+        // }
+
+
+
+
+
+
+        // Retrieve the user and week information based on the provided username and weekName.
+        User user = userRepo.findByUsername(username).get(0);
+        Week week = weekRepo.findByWeekName(weekName).get(0);
+
+        // Retrieve the UserSchedule for the user and week.
         // Then, add the user and week data to the model.
         model.addAttribute("username", username);
         model.addAttribute("weekName", weekName);
 
+        UserSchedule userSchedule = userscheduleRepo.findByUserAndWeek(user, week);
+
+        if (userSchedule != null) {
+            // If a user schedule is found, add it to the model
+            model.addAttribute("userSchedule", userSchedule.getDays());
+        } else {
+            // If no user schedule is found, add a message to the model
+            model.addAttribute("noSchedule", "No Schedule Yet");
+        }
         // Finally, return the "editSchedule.html" template.
         return "users/editSchedule";
     }

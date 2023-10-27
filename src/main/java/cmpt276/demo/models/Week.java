@@ -1,6 +1,6 @@
 package cmpt276.demo.models;
 
-import java.util.List;
+// import java.util.List;
 
 import jakarta.persistence.*;
 
@@ -11,8 +11,8 @@ public class Week {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int wid;
 
-    @OneToMany(mappedBy = "week")
-    private List<UserSchedule> userSchedules;
+    // @OneToMany(mappedBy = "week")
+    // private List<UserSchedule> userSchedules;
 
     @Column(name = "week_name")
     private String weekName;
@@ -29,8 +29,8 @@ public class Week {
         // Default constructor
     }
 
-    public Week(List<UserSchedule> userSchedules) {
-        this.userSchedules = userSchedules;
+    public Week(String weekName) {
+        this.weekName = weekName;
     }
 
     public int getWid() {
@@ -41,11 +41,11 @@ public class Week {
         this.wid = wid;
     }
 
-    public List<UserSchedule> getUserSchedules() {
-        return userSchedules;
-    }
+    // public List<UserSchedule> getUserSchedules() {
+    //     return userSchedules;
+    // }
 
-    public void setUserSchedules(List<UserSchedule> userSchedules) {
-        this.userSchedules = userSchedules;
-    }
+    // public void setUserSchedules(List<UserSchedule> userSchedules) {
+    //     this.userSchedules = userSchedules;
+    // }
 }
