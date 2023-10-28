@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Address-book</title>
+    <link rel="stylesheet" href="/css/adduser.css">
+</head>
+
+<body>
+
+<div id="top-bar">
+    <h1> Enterprise Information Management System</h1>
+</div>
+
+<!-- menu-->
+<ul id="navbar">
+    <li><a href="/users/dashboard">Home Page</a></li>
+    <li><a href="#">Attendance</a></li>
+    <li><a href="#">Meeting</a></li>
+    <li><a href="#">Approval </a></li>
+    <li><a href="/users/performance">Performance</a></li>
+    <li><a href="/users/addressBook">Address book</a></li>
+    <li><a href="#">Information center</a></li>
+    <li><a href="#">Training</a></li>
+    <li><a href="/users/personalCenter">Personal Center</a></li>
+    <li><a href="/users/settings">Settings</a></li>
+    <li><a href="/logout">logout</a></li>
+</ul>
+
+
+<!--address book-->
+<div id="address-book">
+    <h1>New User</h1>
+    <form action="/users/addb" method="post">
+        <div class="input-box">
+            <input  type="text" id="name" name="name" placeholder="Username" required>
+            <i class='bx bxs-user'></i>
+        </div>
+        <br>
+        <div class="input-box">
+            <input type="password" id="password" name="password" placeholder="Password" required>
+            <i class='bx bxs-lock-alt'></i>
+        </div>
+        <div class="admin">
+            <label><input type="checkbox" id="isAdmin" name="isAdmin" value="true">Admin</label>
+        </div>
+
+
+        <!--test profile, need to move to profile page later-->
+        <div class="input-box">
+            <label><input type="text" id="phoneNumber" name="phoneNumber" placeholder="phoneNumber"></label>
+        </div>
+        <div class="input-box">
+            <label><input type="text" id="email" name="email" placeholder="email: xxx@xxx.xxx"></label>
+        </div>
+
+        <div class="input-box">
+            <label><input type="text" id="department" name="department" placeholder="department"></label>
+        </div>
+
+        <button type="submit" class="btn">add user</button>
+    </form>
+
+</div>
+
+</div>
+
+
+</body>
+
+</html>

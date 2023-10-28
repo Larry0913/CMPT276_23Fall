@@ -25,11 +25,6 @@ public class UsersController {
     @Autowired
     private UserRepository userRepo;
 
-    @Autowired
-    private UserProfileRepository profileRepo;
-
-    List<User> userlist;
-
     @GetMapping("/")
     public RedirectView process() {
         return new RedirectView("login");
@@ -78,7 +73,7 @@ public class UsersController {
         // processing lohin
         String name = formData.get("name");
         String pwd = formData.get("password");
-        userlist = userRepo.findByUsernameAndPassword(name, pwd);
+        List<User> userlist = userRepo.findByUsernameAndPassword(name, pwd);
         if (userlist.isEmpty()) {
             return "users/login";
         } else {

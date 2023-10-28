@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Address-book</title>
     <link rel="stylesheet" href="/css/address-book.css">
+    <script type="text/javascript" src="/js/jquery.js"></script>
+
 </head>
 
 <body>
@@ -26,39 +28,38 @@
         <li><a href="#">Training</a></li>
         <li><a href="/users/personalCenter">Personal Center</a></li>
         <li><a href="/users/settings">Settings</a></li>
-        <li><a href="#">ffff</a></li>
+        <li><a href="/logout">logout</a></li>
     </ul>
 
 
     <!--address book-->
     <div id="address-book">
         <div id="search-bar">
-            <input type="text" placeholder="Search..." style="width: 100%; padding: 10px;">
+           <!-- <input type="text" placeholder="Search..." style="width: 100%; padding: 10px;">-->
+            <a href="/users/toAddUserPage"> <button>add user</button></a>
+
         </div>
 
         <table>
             <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Department</th>
+                    <th>operate</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>AAA</td>
-                    <td>AAA@gmail.com</td>
-                    <td>123-456-7890</td>
-                    <td>Design</td>
-                </tr>
-                <tr>
-                    <td>BBB</td>
-                    <td>BBB@gmail.co</td>
-                    <td>987-654-3210</td>
-                    <td>managenment</td>
-                </tr>
-                <!-- Add more entries as needed -->
+            <tr th:each=" user :  ${allusers}">
+                <td th:text="${user.uid}" th:data-id="${user.uid}"></td>
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.phoneNumber}"></td>
+                <td th:text="${user.department}"></td>
+                <td>   <button onclick="deleteUser(this)" th:data-id="${user.uid}">delete user</button></td>
+            </tr>
             </tbody>
         </table>
     </div>
@@ -68,4 +69,17 @@
 
 </body>
 
+<script>
+    function deleteUser(bu){
+        var index_id = bu.attributes[1].value;
+        console.log(index_id);
+
+
+        $.post('/users/delete',{uid:index_id},function(result){
+            alert("delete success")
+            location.reload();
+        });
+    }
+
+</script>
 </html>
