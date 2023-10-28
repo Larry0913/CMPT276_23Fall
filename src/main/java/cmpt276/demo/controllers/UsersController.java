@@ -5,20 +5,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import cmpt276.demo.dao.UserProfileRepository;
 import cmpt276.demo.dao.UserRepository;
 import cmpt276.demo.models.User;
-import cmpt276.demo.models.UserProfile;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.util.List;
 import java.util.Map;
-//import java.util.ArrayList;
 
 @Controller
 public class UsersController {
@@ -36,6 +36,13 @@ public class UsersController {
         return "users/add";
     }
 
+    /**
+     * register
+     * 
+     * @param newuser
+     * @param response
+     * @return
+     */
     @PostMapping("/users/add")
     public String addUser(@RequestParam Map<String, String> newuser, HttpServletResponse response) {
         String newName = newuser.get("name");
@@ -45,15 +52,41 @@ public class UsersController {
         // System.out.println("newAdmin: " + newAdmin);
         String newEmail = newuser.get("email");
         String newPhone = newuser.get("phoneNumber");
-        UserProfile newProf = new UserProfile(newEmail);
+
         User newUser = new User(newName, newPwd, newAdmin);
-        newProf.setPhoneNumber(newPhone);
-        newUser.setUserProfile(newProf);
-        newProf.setUser(newUser);
+        newUser.setEmail(newEmail);
+        newUser.setPhoneNumber(newPhone);
         userRepo.save(newUser);
-        profileRepo.save(newProf);
+
         response.setStatus(201);
-        return "users/addedUser";
+        return "addedUserSuccess";
+    }
+
+    /**
+     * add user
+     * 
+     * @param newuser
+     * @param response
+     * @return
+     */
+    @PostMapping("/users/addb")
+    public String addUserB(@RequestParam Map<String, String> newuser, HttpServletResponse response) {
+        String newName = newuser.get("name");
+        String newPwd = newuser.get("password");
+        boolean newAdmin = Boolean.parseBoolean(newuser.get("isAdmin"));
+
+        String newEmail = newuser.get("email");
+        String newPhone = newuser.get("phoneNumber");
+        String department = newuser.get("department");
+
+        User newUser = new User(newName, newPwd, newAdmin);
+        newUser.setEmail(newEmail);
+        newUser.setPhoneNumber(newPhone);
+        newUser.setDepartment(department);
+        userRepo.save(newUser);
+
+        response.setStatus(201);
+        return "redirect:/users/addressBook";
     }
 
     @GetMapping("/login")
@@ -79,7 +112,7 @@ public class UsersController {
         } else {
             // successfully login
             User user = userlist.get(0);
-            request.getSession().setAttribute("session_user", user);
+            request.getSession().setAttribute("user", user);
             // we should not add session id in the model
             // this is just an example of adding dynamic data into model
             model.addAttribute("session_id", session.getId());
@@ -95,32 +128,53 @@ public class UsersController {
     }
 
     @GetMapping("/users/dashboard")
-    public String homePage(HttpServletRequest request) {
-        request.getSession().invalidate();
-        return "users/dashboard";
+    public ModelAndView homePage(HttpServletRequest request) {
+        ModelAndView mv = new ModelAndView();
+        User session_user = (User) request.getSession().getAttribute("user");
+        // we should not add session id in the model
+        // this is just an example of adding dynamic data into model
+        mv.addObject("user", session_user);
+        mv.setViewName("users/dashboard");
+        return mv;
     }
 
     @GetMapping("/users/performance")
     public String showPerformance(HttpServletRequest request) {
-        request.getSession().invalidate();
         return "users/performance";
     }
 
     @GetMapping("/users/addressBook")
-    public String showAddressBook(HttpServletRequest request) {
-        request.getSession().invalidate();
+    public String showAddressBook(HttpServletRequest request, Model model) {
+        List<User> userinforlist = userRepo.findAll();
+        model.addAttribute("allusers", userinforlist);
         return "users/addressBook";
     }
 
+    @RequestMapping("/users/delete")
+    public String deleteUser(HttpServletRequest request, Model model, Integer uid) {
+        userRepo.deleteById(uid);
+        return "users/addressBook";
+    }
+
+    @GetMapping("/users/toAddUserPage")
+    public String toAddUserPage(HttpServletRequest request, Model model) {
+        return "users/addUser";
+    }
+
     @GetMapping("/users/personalCenter")
-    public String showInfo(HttpServletRequest request) {
-        request.getSession().invalidate();
-        return "users/personalCenter";
+    public ModelAndView showInfo(HttpSession session) {
+        ModelAndView model = new ModelAndView();
+        User user = (User) session.getAttribute("user");
+        Integer id = user.getUid();
+        User user1 = userRepo.findById(id).get();
+        session.setAttribute("user", user1);
+        model.addObject("user", user1);
+        model.setViewName("users/personalCenter");
+        return model;
     }
 
     @GetMapping("/users/settings")
     public String showSettings(HttpServletRequest request) {
-        request.getSession().invalidate();
         return "users/settings";
     }
 
