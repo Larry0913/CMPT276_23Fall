@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setting</title>
+    <link rel="stylesheet" href="/css/Setting.css">
+</head>
+
+<body>
+    <div id="top-bar">
+        <h1> Enterprise Information Management System</h1> 
+    </div>
+
+    <!-- menu-->
+    <ul id="navbar">
+        <li><a href="/users/dashboard">Home Page</a></li>
+        <li><a href="/users/admin_schedule">Attendance</a></li>
+        <li><a href="#">Meeting</a></li>
+        <li><a href="#">Approval </a></li>
+        <li><a href="/users/performance">Performance</a></li>
+        <li><a href="/users/addressBook">Address book</a></li>
+        <li><a href="#">Information center</a></li>
+        <li><a href="#">Training</a></li>
+        <li><a href="/users/personalCenter">Personal Center</a></li>
+        <li><a href="/users/settings">Settings</a></li>
+        <li><a href="#">ffff</a></li>
+    </ul>
+
+
+    <div id="content">
+        <!-- card -->
+        <div class="card">
+            <h2>System Settings</h2>
+        </div>  
+        
+        <div class="card">
+            <h2>Personal Information Settings</h2>
+            <div id="employee-form">
+                <form action="submit_endpoint_here" method="post">
+                    <div class="form-group">
+                        <label for="fullName">Full Name:</label>
+                        <input type="text" id="fullName" name="fullName" required>
+                    </div>
+        
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+        
+                    <div class="form-group">
+                        <label for="phone">Phone Number:</label>
+                        <input type="text" id="phone" name="phone">
+                    </div>
+        
+                    <div class="form-group">
+                        <label for="address">Address:</label>
+                        <textarea id="address" name="address" rows="4"></textarea>
+                    </div>
+        
+                    <div class="form-group">
+                        <label for="department">Department:</label>
+                        <select id="department" name="department">
+                            <option value="HR">HR</option>
+                            <option value="Finance">Finance</option>
+                            <option value="Engineering">Engineering</option>
+                            <!-- Add more departments as needed -->
+                        </select>
+                    </div>
+        
+                    <!-- Add more fields as necessary -->
+        
+                    <div class="form-group">
+                        <input type="submit" class="submit-btn" value="Submit">
+                    </div>
+                </form>
+            </div>
+        </div>   
+
+
+    </div>
+
+
+</body>
+
+</html>
