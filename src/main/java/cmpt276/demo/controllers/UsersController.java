@@ -48,18 +48,18 @@ public class UsersController {
         String newName = newuser.get("name");
         String newPwd = newuser.get("password");
         boolean newAdmin = Boolean.parseBoolean(newuser.get("isAdmin"));
-        // System.out.println("Raw value: " + newuser.get("isAdmin"));
-        // System.out.println("newAdmin: " + newAdmin);
         String newEmail = newuser.get("email");
         String newPhone = newuser.get("phoneNumber");
+        String department = newuser.get("department");
 
         User newUser = new User(newName, newPwd, newAdmin);
         newUser.setEmail(newEmail);
         newUser.setPhoneNumber(newPhone);
+        newUser.setDepartment(department);
         userRepo.save(newUser);
 
         response.setStatus(201);
-        return "addedUserSuccess";
+        return "users/addedUserSuccess";
     }
 
     /**
