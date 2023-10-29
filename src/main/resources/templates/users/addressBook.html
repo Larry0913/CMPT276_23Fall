@@ -23,9 +23,9 @@
         <li><a href="#">Meeting</a></li>
         <li><a href="#">Approval </a></li>
         <li><a href="/users/performance">Performance</a></li>
-        <li><a href="/users/addressBook">Address book</a></li>
-        <li><a href="#">Information center</a></li>
-        <li><a href="#">Training</a></li>
+         <li   th:if="${user.admin}"  ><a href="/users/addressBook">Address book</a></li>
+        <li><a href="#">Information Center</a></li>
+       <li><a href="/file/toFilePage">File Management</a></li>
         <li><a href="/users/personalCenter">Personal Center</a></li>
         <li><a href="/users/settings">Settings</a></li>
         <li><a href="/logout">logout</a></li>
@@ -46,8 +46,9 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
-                    <th>Phone Number</th>
+                    <th>Phone</th>
                     <th>Department</th>
+                    <th>Admin</th>
                     <th>operate</th>
                 </tr>
             </thead>
@@ -58,7 +59,10 @@
                 <td th:text="${user.email}"></td>
                 <td th:text="${user.phoneNumber}"></td>
                 <td th:text="${user.department}"></td>
-                <td>   <button onclick="deleteUser(this)" th:data-id="${user.uid}">delete user</button></td>
+                <td th:text="${user.admin}"></td>
+                <td>   <button onclick="deleteUser(this)" th:data-id="${user.uid}">delete user</button>
+                    <button onclick="updateUser(this)" th:data-id="${user.uid}">update user</button>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -84,6 +88,12 @@
         }
     }
 
+    function updateUser(bu){
+        var index_id = bu.attributes[1].value;
+        console.log(index_id);
+        window.location.href="/users/toUpdateUserPage?uid="+index_id;
+
+    }
 
 </script>
 </html>

@@ -21,8 +21,8 @@
         <li><a href="#">Approval </a></li>
         <li><a href="/users/performance">Performance</a></li>
          <li   th:if="${user.admin}"  ><a href="/users/addressBook">Address book</a></li>
-        <li><a href="#">Information center</a></li>
-       <li><a href="/file/toFilePage">Training</a></li>
+        <li><a href="#">Information Center</a></li>
+       <li><a href="/file/toFilePage">File Management</a></li>
         <li><a href="/users/personalCenter">Personal Center</a></li>
         <li><a href="/users/settings">Settings</a></li>
         <li><a href="/logout">logout</a></li>
@@ -62,12 +62,15 @@
                         <input type="text" id="phone" name="phoneNumber"   th:value="${user.phoneNumber}"  >
                     </div>
 
-
-
                     <div class="form-group">
-                        <label for="phone">Department:</label>
-                        <input type="text" id="department" name="department"   th:value="${user.department}"  >
+                        <select id="department" name="department" th:value="${user.department}">
+                            <option value="Human Resource">Human Resource</option>
+                            <option value="Finance">Finance</option>
+                            <option value="Engineering">Engineering</option>
+                            <!-- Add more departments as needed -->
+                        </select>
                     </div>
+
                     <!-- Add more fields as necessary -->
         
                     <div class="form-group">

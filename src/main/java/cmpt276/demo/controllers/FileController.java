@@ -36,15 +36,12 @@ public class FileController {
     @Autowired
     private FileService fileService;
 
+    public static String fileSavePath = "D:\\CMPT276\\cmpt276-springboot-render\\src\\main\\resources\\uploadFile\\";
 
-    public static String fileSavePath="F:\\program\\idea\\wspp\\cmpt276-springboot-render2\\src\\main\\resources\\uploadFile\\";
-
-
-
-    @RequestMapping(value = "/toFilePage", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/toFilePage", method = { RequestMethod.POST, RequestMethod.GET })
     public String toFilePage(HttpSession session, Model model) {
-       User  user = (User) session.getAttribute("user");
-        List<Files> files=fileRepo.findAll();
+        User user = (User) session.getAttribute("user");
+        List<Files> files = fileRepo.findAll();
         model.addAttribute("files", files);
         model.addAttribute("user", user);
 
@@ -52,36 +49,35 @@ public class FileController {
 
     }
 
-
-
     @PostMapping(value = "/fileList")
     @ResponseBody
-    public Map fileList(HttpServletRequest request){
-        int page=Integer.parseInt(request.getParameter("page"));
-        int pageSzie=Integer.parseInt(request.getParameter("rows"));//pageSzie
-        int startRecord=(page-1)*pageSzie+1;
-        int total=fileRepo.findAll().size();
-        List<Files> userinforlist=fileService.findAllFile(startRecord,pageSzie);
-        Map resultMap=new HashMap();
-        resultMap.put("total",total);
-        resultMap.put("rows",userinforlist);
+    public Map fileList(HttpServletRequest request) {
+        int page = Integer.parseInt(request.getParameter("page"));
+        int pageSzie = Integer.parseInt(request.getParameter("rows"));// pageSzie
+        int startRecord = (page - 1) * pageSzie + 1;
+        int total = fileRepo.findAll().size();
+        List<Files> userinforlist = fileService.findAllFile(startRecord, pageSzie);
+        Map resultMap = new HashMap();
+        resultMap.put("total", total);
+        resultMap.put("rows", userinforlist);
         return resultMap;
     }
 
     /**
-     * 文件上传
+     * uploading file
      *
      * @return
      */
     @RequestMapping(value = "/upload", produces = "application/json; charset=utf-8")
-    public String upload(MultipartHttpServletRequest multipartHttpServletRequest, HttpServletRequest request,MultipartFile file) throws IOException {
-        String s = FileUploadUtil.uploadPahtFile(file, request,fileSavePath);
+    public String upload(MultipartHttpServletRequest multipartHttpServletRequest, HttpServletRequest request,
+            MultipartFile file) throws IOException {
+        String s = FileUploadUtil.uploadPahtFile(file, request, fileSavePath);
 
         Files files = new Files();
         files.setFileName(s);
         files.setCreateTime(new Date());
         fileRepo.save(files);
-        return  "redirect:/file/toFilePage";
+        return "redirect:/file/toFilePage";
     }
 
     /***
@@ -90,22 +86,17 @@ public class FileController {
      */
     @PostMapping(value = "/remove_file")
     @ResponseBody
-    public Map<String,String> removeUsers(@RequestParam("id") Integer id,HttpSession session){
-        Map<String,String> result = new HashMap<>();
+    public Map<String, String> removeUsers(@RequestParam("id") Integer id, HttpSession session) {
+        Map<String, String> result = new HashMap<>();
         fileRepo.deleteById(id);
-        result.put("success","true");
-        System.out.println("delete  Id: "+id);
+        result.put("success", "true");
+        System.out.println("delete  Id: " + id);
         return result;
     }
 
-
-
-
-
-
     @GetMapping("/download")
     public ResponseEntity<FileSystemResource> downloadFile(String fileName) {
-        return export(new File(fileSavePath+fileName));
+        return export(new File(fileSavePath + fileName));
     }
 
     public ResponseEntity<FileSystemResource> export(File file) {
