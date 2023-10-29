@@ -28,13 +28,20 @@
 
             <!--test profile, need to move to profile page later-->
             <div class="input-box">
-                <label><input type="text" id="phoneNumber" name="phoneNumber" placeholder="phoneNumber">Phone Number</label>
+                <label>Phone Number:<input type="text" id="phoneNumber" name="phoneNumber" placeholder="phoneNumber"></label>
             </div>
             <div class="input-box">
-                <label><input type="text" id="email" name="email" placeholder="email: xxx@xxx.xxx">Email</label>
+                <label>Email:<input type="text" id="email" name="email" placeholder="email: xxx@xxx.xxx"></label>
             </div>
-            <div class="input-box">
-                <label><input type="text" id="department" name="department" placeholder="e.g. Software Engineer">Department</label>
+
+            <div class="form-group">
+                <label for="department">Department:</label>
+                <select id="department" name="department" placeholder="e.g. Engineering">
+                    <option value="Human Resource">Human Resource</option>
+                    <option value="Finance">Finance</option>
+                    <option value="Engineering">Engineering</option>
+                    <!-- Add more departments as needed -->
+                </select>
             </div>
 
             <button type="submit" class="btn">Register</button>
