@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Management</title>
+    <link rel="stylesheet" href="/css/address-book.css">
+    <script type="text/javascript" src="/js/jquery.js"></script>
+
+</head>
+
+<body>
+
+    <div id="top-bar">
+        <h1> Enterprise Information Management System</h1> 
+    </div>
+
+    <!-- menu-->
+    <ul id="navbar">
+        <li><a href="/users/dashboard">Home Page</a></li>
+        <li><a href="#">Attendance</a></li>
+        <li><a href="#">Meeting</a></li>
+        <li><a href="#">Approval </a></li>
+        <li><a href="/users/performance">Performance</a></li>
+         <li   th:if="${user.admin}"  ><a href="/users/addressBook">Address book</a></li>
+        <li><a href="#">Information Center</a></li>
+       <li><a href="/file/toFilePage">File Management</a></li>
+        <li><a href="/users/personalCenter">Personal Center</a></li>
+        <li><a href="/users/settings">Settings</a></li>
+        <li><a href="/logout">logout</a></li>
+    </ul>
+
+
+    <!--address book-->
+    <div id="address-book">
+
+
+        <div id="search-bar" th:if="${user.admin}">
+            <div class="easyui-panel" title="file upload" style="width:100%;padding:10px 30px 20px 20px">
+                <form id="userForm" name="userForm" enctype="multipart/form-data" method="post" action="/file/upload">
+                    <div style="margin-bottom:20px">
+                        <input  type="file" id="file" name="file" >
+                    </div>
+                </form>
+                <div>
+                    <button type="button" class="btn btn-success" id="btn-submit" onclick="loadFile()" >add file</button>
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>File Name</th>
+                    <th>Create Time</th>
+                    <th>operate</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr th:each=" file :  ${files}">
+                <td th:text="${file.fid}" th:data-id="${file.fid}"></td>
+                <td th:text="${file.fileName}"></td>
+                <td th:text="${file.createTime}"></td>
+
+                <td>   <button  th:if="${user.admin}"    onclick="removeFile(this)" th:data-id="${file.fid}">delete file</button>
+                    <button onclick="downloadFile(this)" th:data-id="${file.fileName}">downLoad file</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    </div>
+
+
+</body>
+
+<script>
+    function deleteUser(bu){
+        var index_id = bu.attributes[1].value;
+        console.log(index_id);
+        $.post('/users/delete',{uid:index_id},function(result){
+            alert("delete success")
+            location.reload();
+        });
+    }
+
+    function updateUser(bu){
+        var index_id = bu.attributes[1].value;
+        console.log(index_id);
+        window.location.href="/users/toUpdateUserPage?uid="+index_id;
+
+    }
+
+
+    function loadFile() {
+        alert("upload success");
+        $('#userForm').submit();
+}
+
+    function downloadFile(bu){
+
+        var index_id = bu.attributes[1].value;
+        window.open("/file/download?fileName=" +index_id);
+    }
+
+
+    //delete  file
+    function removeFile(bu){
+        var index_id = bu.attributes[1].value;
+        console.log(index_id);
+        $.post('/file/remove_file',{id:index_id},function(result){
+            alert("delete success")
+            location.reload();
+        });
+    }
+
+
+
+
+</script>
+</html>

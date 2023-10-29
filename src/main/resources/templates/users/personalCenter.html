@@ -22,12 +22,12 @@
         <li><a href="#">Meeting</a></li>
         <li><a href="#">Approval </a></li>
         <li><a href="/users/performance">Performance</a></li>
-        <li><a href="/users/addressBook">Address book</a></li>
-        <li><a href="#">Information center</a></li>
-        <li><a href="#">Training</a></li>
+         <li   th:if="${user.admin}"  ><a href="/users/addressBook">Address book</a></li>
+        <li><a href="#">Information Center</a></li>
+       <li><a href="/file/toFilePage">File Management</a></li>
         <li><a href="/users/personalCenter">Personal Center</a></li>
         <li><a href="/users/settings">Settings</a></li>
-        <li><a href="#">ffff</a></li>
+        <li><a href="/logout">logout</a></li>
     </ul>
 
 
@@ -38,30 +38,27 @@
                 <img src="path_to_employee_image.jpg" alt="Employee Name">
             </div>
             <div>
-                <div class="profile-name">AAA</div>
-                <div class="profile-position">Software Engineer</div>
+                <div class="profile-name"   th:text="${user.username}">AAA</div>
+                <div class="profile-position" >Software Engineer</div>
             </div>
         </div>
         
         <!-- Personal Information -->
         <div class="profile-section">
             <span class="profile-label">Email:</span>
-            <span class="profile-value">AAA@gmail.com</span>
+            <span class="profile-value" th:text="${user.email}">AAA@gmail.com</span>
         </div>
         
         <div class="profile-section">
             <span class="profile-label">Phone Number:</span>
-            <span class="profile-value">123-456-7890</span>
+            <span class="profile-value" th:text="${user.phoneNumber}">123-456-7890</span>
         </div>
         
-        <div class="profile-section">
-            <span class="profile-label">Address:</span>
-            <span class="profile-value">123 Street, City, Country</span>
-        </div>
+
         
         <div class="profile-section">
             <span class="profile-label">Department:</span>
-            <span class="profile-value">Engineering</span>
+            <span class="profile-value" th:text="${user.department}">Engineering</span>
         </div>
         
         <!-- Add more sections as needed -->
