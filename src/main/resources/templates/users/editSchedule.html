@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Associate User with Week</title>
+</head>
+<body>
+    <form action="/users/updateSchedule" method="post">
+        <div>
+            <h1>Edit User's Schedule</h1>
+            
+            <input type="hidden" name="username" id="username-input">
+            <input type="hidden" name="weekName" id="weekName-input">
+
+            <p><span name="username" id="user-name">User Name</span></p>
+            <p><span name="weekName" id="week-name">Week Name</span></p>
+
+            <div id="current-schedule">
+                <h3>User's Current Assigned Schedule:</h3>
+                <p id="current-schedule-text" th:if="${userSchedule}">Current Schedule: <span th:text="${userSchedule}"></span></p>
+                <p id="no-schedule-message" th:if="${noSchedule}"><span th:text="${noSchedule}"></span></p>
+            </div>
+
+            <div id="edit-schedule">
+                <label for="selectedDays">Select Days:</label>
+                <input type="checkbox" name="selectedDays" value="M"> Monday
+                <input type="checkbox" name="selectedDays" value="T"> Tuesday
+                <input type="checkbox" name="selectedDays" value="W"> Wednesday
+                <input type="checkbox" name="selectedDays" value="H"> Thursday
+                <input type="checkbox" name="selectedDays" value="F"> Friday
+                <input type="checkbox" name="selectedDays" value="S"> Saturday
+                <input type="checkbox" name="selectedDays" value="U"> Sunday
+            </div>
+
+            <div id="buttons">
+                <input type="submit" value="Update Schedule" >
+            </div>
+        </div>
+    </form>
+        
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const selectedUsername = urlParams.get("username");
+        const selectedWeekName = urlParams.get("weekName");
+
+        const usernameInput = document.getElementById("username-input");
+        const weekNameInput = document.getElementById("weekName-input");
+
+        const userNameElement = document.getElementById("user-name");
+        const weekNameElement = document.getElementById("week-name");
+
+        if (selectedUsername && selectedWeekName) {
+            userNameElement.textContent = "User: " + selectedUsername;
+            weekNameElement.textContent = "Week: " + selectedWeekName;
+
+            usernameInput.value = selectedUsername;
+            weekNameInput.value = selectedWeekName;
+        } else {
+            userNameElement.textContent = "User: (Not provided)";
+            weekNameElement.textContent = "Week: (Not provided)";
+        }
+
+        const currentScheduleText = document.getElementById("current-schedule-text");
+        if (currentScheduleText) {
+            currentScheduleText.textContent = "Current Schedule: " + daysString.toString();
+        }
+    
+    </script>
+    
+
+</body>
+</html>

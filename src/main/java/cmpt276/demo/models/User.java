@@ -12,7 +12,10 @@ public class User {
     String username;
     String password;
     boolean isAdmin;
-
+    
+    @OneToOne(mappedBy = "user")
+    private UserSchedule userSchedule;
+  
     private String email;
 
     private String phoneNumber;
@@ -86,3 +89,4 @@ public class User {
     }
 
 }
+
