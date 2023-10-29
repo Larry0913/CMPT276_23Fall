@@ -56,8 +56,14 @@
             <label><input type="text" id="email" name="email" placeholder="email: xxx@xxx.xxx"></label>
         </div>
 
-        <div class="input-box">
-            <label><input type="text" id="department" name="department" placeholder="department"></label>
+        <div class="form-group">
+            <!-- <label for="department">Department:</label> -->
+            <select id="department" name="department" placeholder="e.g. Engineering">
+                <option value="Human Resource">Human Resource</option>
+                <option value="Finance">Finance</option>
+                <option value="Engineering">Engineering</option>
+                <!-- Add more departments as needed -->
+            </select>
         </div>
 
         <button type="submit" class="btn">add user</button>
@@ -65,7 +71,9 @@
 
 </div>
 
-</div>
+<div id="search-bar">
+     <a href="/users/addressBook"> <button>back</button></a>
+ </div>
 
 
 </body>

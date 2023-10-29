@@ -12,35 +12,32 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * 文件上传
+ * Uploading file
  */
 public class FileUploadUtil {
 
-
-
-
-    public static String uploadPahtFile(MultipartFile uploadFile, HttpServletRequest req,String fileSavePath) {
-        if ("".equals(uploadFile.getOriginalFilename())){
+    public static String uploadPahtFile(MultipartFile uploadFile, HttpServletRequest req, String fileSavePath) {
+        if ("".equals(uploadFile.getOriginalFilename())) {
             return "";
         }
         String filePath = "";
 
-        //固定物理路径
+        // fix path
         File folder = new File(fileSavePath);
-        //如果文件夹不存在则创建
+        // if directory doesn't exist, then create
         if (!folder.isDirectory()) {
-            folder.mkdirs();//创建文件夹
+            folder.mkdirs();// create directory
         }
-        //上传的文件名
+        // uploading filename
         String oldName = uploadFile.getOriginalFilename();
-        //新的文件名
+        // new filename
         String newName = UUID.randomUUID().toString() +
                 oldName.substring(oldName.lastIndexOf("."), oldName.length());
         try {
             uploadFile.transferTo(new File(folder, newName));
         } catch (IOException e) {
             e.printStackTrace();
-            return "upload fail! ";
+            return "Upload fail! ";
         }
         return newName;
     }
