@@ -7,9 +7,6 @@ import java.util.List;
 
 public interface FileService {
 
-
     List<Files> findAllFile(int pageNum, int pageSize);
-
-
 
 }

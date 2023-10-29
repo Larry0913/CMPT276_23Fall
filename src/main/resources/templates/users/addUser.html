@@ -21,9 +21,9 @@
     <li><a href="#">Meeting</a></li>
     <li><a href="#">Approval </a></li>
     <li><a href="/users/performance">Performance</a></li>
-    <li><a href="/users/addressBook">Address book</a></li>
+     <li   th:if="${user.admin}"  ><a href="/users/addressBook">Address book</a></li>
     <li><a href="#">Information center</a></li>
-    <li><a href="#">Training</a></li>
+   <li><a href="/file/toFilePage">Training</a></li>
     <li><a href="/users/personalCenter">Personal Center</a></li>
     <li><a href="/users/settings">Settings</a></li>
     <li><a href="/logout">logout</a></li>
@@ -35,25 +35,25 @@
     <h1>New User</h1>
     <form action="/users/addb" method="post">
         <div class="input-box">
-            <input  type="text" id="name" name="name" placeholder="Username" required>
+            userName: <input  type="text" id="name" name="name" placeholder="Username" required>
             <i class='bx bxs-user'></i>
         </div>
         <br>
         <div class="input-box">
-            <input type="password" id="password" name="password" placeholder="Password" required>
+           password: &nbsp;<input type="password" id="password" name="password" placeholder="Password" required>
             <i class='bx bxs-lock-alt'></i>
         </div>
         <div class="admin">
-            <label><input type="checkbox" id="isAdmin" name="isAdmin" value="true">Admin</label>
+            isAdmin:&nbsp;&nbsp;&nbsp;<label><input type="checkbox" id="isAdmin" name="isAdmin" value="true">Admin</label>
         </div>
 
 
         <!--test profile, need to move to profile page later-->
         <div class="input-box">
-            <label><input type="text" id="phoneNumber" name="phoneNumber" placeholder="phoneNumber"></label>
+            phone: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label><input type="text" id="phoneNumber" name="phoneNumber" placeholder="phoneNumber"></label>
         </div>
         <div class="input-box">
-            <label><input type="text" id="email" name="email" placeholder="email: xxx@xxx.xxx"></label>
+            email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label><input type="text" id="email" name="email" placeholder="email: xxx@xxx.xxx"></label>
         </div>
 
         <div class="form-group">
@@ -66,7 +66,7 @@
             </select>
         </div>
 
-        <button type="submit" class="btn">add user</button>
+       <button type="submit" class="btn" style="margin-left: 100px;margin-top: 10px">add user</button>
     </form>
 
 </div>
