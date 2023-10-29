@@ -10,6 +10,7 @@
 <body>
     <div id="top-bar">
         <h1> Enterprise Information Management System</h1> 
+
     </div>
 
     <!-- menu-->
@@ -28,40 +29,23 @@
     </ul>
 
 
-    <form action="/users/updateSchedule" method="post">
-        <div>
-            <h1>Edit User's Schedule</h1>
-            
-            <input type="hidden" name="username" id="username-input">
-            <input type="hidden" name="weekName" id="weekName-input">
-
-            <p><span name="username" id="user-name">User Name</span></p>
-            <p><span name="weekName" id="week-name">Week Name</span></p>
-
-            <div id="current-schedule">
-                <h3>User's Current Assigned Schedule:</h3>
-                <p id="current-schedule-text" th:if="${userSchedule}">Current Schedule: <span th:text="${userSchedule}"></span></p>
-                <p id="no-schedule-message" th:if="${noSchedule}"><span th:text="${noSchedule}"></span></p>
-            </div>
-
-            <div id="edit-schedule">
-                <label for="selectedDays">Select Days:</label>
-                <input type="checkbox" name="selectedDays" value="M"> Monday
-                <input type="checkbox" name="selectedDays" value="T"> Tuesday
-                <input type="checkbox" name="selectedDays" value="W"> Wednesday
-                <input type="checkbox" name="selectedDays" value="H"> Thursday
-                <input type="checkbox" name="selectedDays" value="F"> Friday
-                <input type="checkbox" name="selectedDays" value="S"> Saturday
-                <input type="checkbox" name="selectedDays" value="U"> Sunday
-            </div>
-
-            <div id="buttons">
-                <input type="submit" value="Update Schedule" >
-            </div>
-        </div>
-    </form>
+    <div>
+        <h1>View User's Schedule</h1>
         
+        <input type="hidden" name="username" id="username-input">
+        <input type="hidden" name="weekName" id="weekName-input">
 
+        <p><span name="username" id="user-name">User Name</span></p>
+        <p><span name="weekName" id="week-name">Week Name</span></p>
+
+        <div id="current-schedule">
+            <h3>Your Current Assigned Schedule:</h3>
+            <p id="current-schedule-text" th:if="${userSchedule}">Current Schedule: <span th:text="${userSchedule}"></span></p>
+            <p id="no-schedule-message" th:if="${noSchedule}"><span th:text="${noSchedule}"></span></p>
+        </div>
+
+    </div>
+    
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const selectedUsername = urlParams.get("username");
