@@ -18,6 +18,18 @@ public class UserLeaveRequest {
     @JoinColumn(name = "user_id")
     private User user;
 
+    public UserLeaveRequest() {
+
+    }
+
+    public UserLeaveRequest(String requesterName, String typeLeave, String startDate, String endDate, String reasonForLeave) {
+        this.requesterName = requesterName;
+        this.typeLeave = typeLeave;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.reasonForLeave = reasonForLeave;
+    }
+
     public UserLeaveRequest(User requestedUser) {
         this.user = requestedUser;
     }
@@ -62,4 +74,11 @@ public class UserLeaveRequest {
         this.reasonForLeave = reasonForLeave;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

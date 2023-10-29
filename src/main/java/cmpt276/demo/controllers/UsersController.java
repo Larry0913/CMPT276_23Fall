@@ -118,13 +118,18 @@ public class UsersController {
     }
 
     @PostMapping("/users/performance")
-    public String addLeave(@RequestParam Map<String, String> newLeave, HttpServletResponse response) {
-        List<User> users = userRepo.findByUsername(newLeave.get("employeename"));
-        User requesteduser = users.get(0);
-
-        UserLeaveRequest userLeave = new UserLeaveRequest(requesteduser);
-
-        leaveRepo.save(userLeave);
+    public String addLeaveRequest(@RequestParam Map<String, String> LeaveRequest, HttpServletResponse response) {
+        String requesterName = LeaveRequest.get("requesterName");
+        String typeLeave = LeaveRequest.get("typeLeave");
+        String startDate = LeaveRequest.get("startDate");
+        String endDate = LeaveRequest.get("endDate");
+        String reasonForLeave = LeaveRequest.get("reasonForLeave");
+        userlist = userRepo.findByUsername(requesterName);
+        User user = userlist.get(0);
+        UserLeaveRequest newLeaveRequest = new UserLeaveRequest(requesterName, typeLeave, startDate, endDate, reasonForLeave);
+        newLeaveRequest.setUser(user);
+        leaveRepo.save(newLeaveRequest);
+        response.setStatus(201);
         return "users/performance";
     }
 
