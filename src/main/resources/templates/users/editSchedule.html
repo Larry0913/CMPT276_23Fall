@@ -40,7 +40,11 @@
 
             <div id="current-schedule">
                 <h3>User's Current Assigned Schedule:</h3>
+                
                 <p id="current-schedule-text" th:if="${userSchedule}">Current Schedule: <span th:text="${userSchedule}"></span></p>
+                <p id="total-hours-text">Total Hours: <span id="total-hours" th:text="${totHours}"></span></p>
+
+                <p id="late-days-text">Late Days: <span id="late-days" th:text="${lateDays}"></span></p> 
                 <p id="no-schedule-message" th:if="${noSchedule}"><span th:text="${noSchedule}"></span></p>
             </div>
 
@@ -53,6 +57,13 @@
                 <input type="checkbox" name="selectedDays" value="F"> Friday
                 <input type="checkbox" name="selectedDays" value="S"> Saturday
                 <input type="checkbox" name="selectedDays" value="U"> Sunday
+            </div>
+
+            <div>
+                <label for="lateDays">Late Days (0-5):</label>
+                <select name="lateDays" id="lateDays" th:value="${lateDays}">
+                    <option th:each="lateDay : ${#numbers.sequence(0, 5)}" th:value="${lateDay}" th:text="${lateDay}"></option>
+                </select>
             </div>
 
             <div id="buttons">
@@ -88,6 +99,7 @@
         if (currentScheduleText) {
             currentScheduleText.textContent = "Current Schedule: " + daysString.toString();
         }
+
     
     </script>
     

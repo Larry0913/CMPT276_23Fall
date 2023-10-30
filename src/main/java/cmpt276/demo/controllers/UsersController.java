@@ -371,6 +371,8 @@ public class UsersController {
         if (userSchedule != null) {
             // If a user schedule is found, add it to the model
             model.addAttribute("userSchedule", userSchedule.getDays());
+            model.addAttribute("lateDays", userSchedule.getLateDays());
+            model.addAttribute("totHours", userSchedule.calculateTotalHours());
         } else {
             // If no user schedule is found, add a message to the model
             model.addAttribute("noSchedule", "No Schedule Yet");
@@ -384,6 +386,7 @@ public class UsersController {
         @RequestParam Map<String, String> formData,
         @RequestParam("username") String username,
         @RequestParam("weekName") String weekName,
+        @RequestParam("lateDays") int lateDays,
         @RequestParam(value = "selectedDays", required = false) List<String> selectedDays,
         Model model) {
 
@@ -430,11 +433,18 @@ public class UsersController {
         if (existingSchedule != null) {
             // Update the existing record
             existingSchedule.setDays(daysString.toString());
+            existingSchedule.setLateDays(lateDays);
             userscheduleRepo.save(existingSchedule);
+            int tot_hours = existingSchedule.calculateTotalHours();
+            existingSchedule.setTotHours(tot_hours);
+
         } else {
             // Create a new association
             UserSchedule newSchedule = new UserSchedule(user, week, daysString.toString());
+            newSchedule.setLateDays(lateDays);
             userscheduleRepo.save(newSchedule);
+            int tot_hours = newSchedule.calculateTotalHours();
+            newSchedule.setTotHours(tot_hours);
         }
 
         return "redirect:/users/editSchedule?username=" + username + "&weekName=" + weekName; 
