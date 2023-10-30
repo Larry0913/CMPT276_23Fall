@@ -16,17 +16,17 @@
     <!-- menu-->
     <ul id="navbar">
         <li><a href="/users/dashboard">Home Page</a></li>
-        <li><a href="/users/admin_schedule">Attendance</a></li>
+        <li><a href="/users/schedule">Attendance</a></li>
         <li><a href="#">Meeting</a></li>
         <li><a href="#">Approval </a></li>
         <li><a href="/users/performance">Performance</a></li>
         <li><a href="/users/payrollUser">Payroll</a></li>
-        <li><a href="/users/addressBook">Address book</a></li>
-        <li><a href="#">Information center</a></li>
-        <li><a href="#">Training</a></li>
+        <li   th:if="${user.admin}"  ><a href="/users/addressBook">Address book</a></li>
+        <li><a href="#">Information Center</a></li>
+        <li><a href="/file/toFilePage">File Management</a></li>
         <li><a href="/users/personalCenter">Personal Center</a></li>
         <li><a href="/users/settings">Settings</a></li>
-        <li><a href="#">ffff</a></li>
+        <li><a href="/logout">logout</a></li>
     </ul>
 
 
@@ -39,37 +39,39 @@
         <div class="card">
             <h2>Personal Information Settings</h2>
             <div id="employee-form">
-                <form action="submit_endpoint_here" method="post">
+                <form action="/users/update/my" method="post">
+                    <input  type="text" id="uid" name="uid"    th:value="${user.uid}"  style="display: none">
+
+
                     <div class="form-group">
-                        <label for="fullName">Full Name:</label>
-                        <input type="text" id="fullName" name="fullName" required>
+                        <label for="fullName">User Name:</label>
+                        <input type="text" id="fullName" name="username"  th:value="${user.username}"   required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fullName">Password:</label>
+                        <input type="text" id="password" name="password"  th:value="${user.password}"   required>
                     </div>
         
                     <div class="form-group">
                         <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" required>
+                        <input type="email" id="email" name="email"  th:value="${user.email}"   required>
                     </div>
         
                     <div class="form-group">
                         <label for="phone">Phone Number:</label>
-                        <input type="text" id="phone" name="phone">
+                        <input type="text" id="phone" name="phoneNumber"   th:value="${user.phoneNumber}"  >
                     </div>
-        
+
                     <div class="form-group">
-                        <label for="address">Address:</label>
-                        <textarea id="address" name="address" rows="4"></textarea>
-                    </div>
-        
-                    <div class="form-group">
-                        <label for="department">Department:</label>
-                        <select id="department" name="department">
-                            <option value="HR">HR</option>
+                        <select id="department" name="department" th:value="${user.department}">
+                            <option value="Human Resource">Human Resource</option>
                             <option value="Finance">Finance</option>
                             <option value="Engineering">Engineering</option>
                             <!-- Add more departments as needed -->
                         </select>
                     </div>
-        
+
                     <!-- Add more fields as necessary -->
         
                     <div class="form-group">
@@ -86,3 +88,4 @@
 </body>
 
 </html>
+

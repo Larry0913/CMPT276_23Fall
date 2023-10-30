@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,54 +13,85 @@ public class User {
     @Column(unique = true)
     String username;
     String password;
-    boolean is_admin;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "profile_id")
-    private UserProfile userProfile;
-
+    boolean isAdmin;
+    
     @OneToOne(mappedBy = "user")
     private UserSchedule userSchedule;
+  
+    private String email;
+
+    private String phoneNumber;
+
+    private String department;
+  
     private BigDecimal hourlySalary;
-    
-    public User(){
-        
+
+    public User() {
+
     }
+
     public User(String username, String password, boolean is_admin) {
         this.username = username;
         this.password = password;
-        this.is_admin = is_admin;
+        this.isAdmin = is_admin;
     }
+
     public String getUsername() {
         return username;
     }
+
     public void setUsername(String username) {
         this.username = username;
     }
+
     public String getPassword() {
         return password;
     }
+
     public void setPassword(String password) {
         this.password = password;
     }
-    public boolean isIs_admin() {
-        return is_admin;
+
+    public boolean isAdmin() {
+        return isAdmin;
     }
-    public void setIs_admin(boolean is_admin) {
-        this.is_admin = is_admin;
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
     }
+
     public int getUid() {
         return uid;
     }
+
     public void setUid(int uid) {
         this.uid = uid;
     }
-    public UserProfile getUserProfile() {
-        return userProfile;
+
+    public String getEmail() {
+        return email;
     }
-    public void setUserProfile(UserProfile userProfile) {
-        this.userProfile = userProfile;
+
+    public void setEmail(String email) {
+        this.email = email;
     }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
      public BigDecimal getHourlySalary() {
         return hourlySalary;
     }
@@ -68,4 +99,6 @@ public class User {
     public void setHourlySalary(BigDecimal hourlySalary) {
         this.hourlySalary = hourlySalary;
     }
+
 }
+
