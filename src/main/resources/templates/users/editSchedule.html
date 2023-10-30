@@ -27,50 +27,55 @@
         <li><a href="#">ffff</a></li>
     </ul>
 
-
-    <form action="/users/updateSchedule" method="post">
-        <div>
-            <h1>Edit User's Schedule</h1>
-            
-            <input type="hidden" name="username" id="username-input">
-            <input type="hidden" name="weekName" id="weekName-input">
-
-            <p><span name="username" id="user-name">User Name</span></p>
-            <p><span name="weekName" id="week-name">Week Name</span></p>
-
-            <div id="current-schedule">
-                <h3>User's Current Assigned Schedule:</h3>
-                
-                <p id="current-schedule-text" th:if="${userSchedule}">Current Schedule: <span th:text="${userSchedule}"></span></p>
-                <p id="total-hours-text">Total Hours: <span id="total-hours" th:text="${totHours}"></span></p>
-
-                <p id="late-days-text">Late Days: <span id="late-days" th:text="${lateDays}"></span></p> 
-                <p id="no-schedule-message" th:if="${noSchedule}"><span th:text="${noSchedule}"></span></p>
-            </div>
-
-            <div id="edit-schedule">
-                <label for="selectedDays">Select Days:</label>
-                <input type="checkbox" name="selectedDays" value="M"> Monday
-                <input type="checkbox" name="selectedDays" value="T"> Tuesday
-                <input type="checkbox" name="selectedDays" value="W"> Wednesday
-                <input type="checkbox" name="selectedDays" value="H"> Thursday
-                <input type="checkbox" name="selectedDays" value="F"> Friday
-                <input type="checkbox" name="selectedDays" value="S"> Saturday
-                <input type="checkbox" name="selectedDays" value="U"> Sunday
-            </div>
-
+    <!-- <form action="/users/generateSchedule" method="post"> -->
+        <form action="/users/updateSchedule" method="post">
             <div>
-                <label for="lateDays">Late Days (0-5):</label>
-                <select name="lateDays" id="lateDays" th:value="${lateDays}">
-                    <option th:each="lateDay : ${#numbers.sequence(0, 5)}" th:value="${lateDay}" th:text="${lateDay}"></option>
-                </select>
-            </div>
+                <h1>Edit User's Schedule</h1>
+                
+                <input type="hidden" name="username" id="username-input">
+                <input type="hidden" name="weekName" id="weekName-input">
 
-            <div id="buttons">
-                <input type="submit" value="Update Schedule" >
+                <p><span name="username" id="user-name">User Name</span></p>
+                <p><span name="weekName" id="week-name">Week Name</span></p>
+
+                <div id="current-schedule">
+                    <h3>User's Current Assigned Schedule:</h3>
+                    
+                    <p id="current-schedule-text" th:if="${userSchedule}">Current Schedule: <span th:text="${userSchedule}"></span></p>
+                    <p id="total-hours-text">Total Hours: <span id="total-hours" th:text="${totHours}"></span></p>
+
+                    <p id="late-days-text">Late Days: <span id="late-days" th:text="${lateDays}"></span></p> 
+                    <p id="no-schedule-message" th:if="${noSchedule}"><span th:text="${noSchedule}"></span></p>
+                </div>
+
+                <div id="edit-schedule">
+                    <label for="selectedDays">Select Days:</label>
+                    <input type="checkbox" name="selectedDays" value="M"> Monday
+                    <input type="checkbox" name="selectedDays" value="T"> Tuesday
+                    <input type="checkbox" name="selectedDays" value="W"> Wednesday
+                    <input type="checkbox" name="selectedDays" value="H"> Thursday
+                    <input type="checkbox" name="selectedDays" value="F"> Friday
+                    <input type="checkbox" name="selectedDays" value="S"> Saturday
+                    <input type="checkbox" name="selectedDays" value="U"> Sunday
+                </div>
+
+                <div>
+                    <label for="lateDays">Late Days (0-5):</label>
+                    <select name="lateDays" id="lateDays" th:value="${lateDays}">
+                        <option th:each="lateDay : ${#numbers.sequence(0, 5)}" th:value="${lateDay}" th:text="${lateDay}"></option>
+                    </select>
+                </div>
+
+                <div id="buttons">
+                    <input type="submit" value="Update Schedule" >
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+        <!-- <div id="buttons">
+            <input type="submit" value="Generate Attendance Summary" >
+        </div> -->
+    <!-- </form> -->
+        
         
 
     <script>

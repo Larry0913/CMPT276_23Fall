@@ -45,6 +45,10 @@ public class UserSchedule {
         }
         int totHours = workingDays * 8;
 
+        if(lateDays>=2){
+            totHours = totHours - (lateDays*2);
+        }
+
         return totHours;
     }
 

@@ -330,6 +330,8 @@ public class UsersController {
         if (userSchedule != null) {
             // If a user schedule is found, add it to the model
             model.addAttribute("userSchedule", userSchedule.getDays());
+            model.addAttribute("lateDays", userSchedule.getLateDays());
+            model.addAttribute("totHours", userSchedule.calculateTotalHours());
         } else {
             // If no user schedule is found, add a message to the model
             model.addAttribute("noSchedule", "No Schedule Yet");

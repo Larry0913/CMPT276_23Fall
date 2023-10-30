@@ -41,6 +41,9 @@
         <div id="current-schedule">
             <h3>Your Current Assigned Schedule:</h3>
             <p id="current-schedule-text" th:if="${userSchedule}">Current Schedule: <span th:text="${userSchedule}"></span></p>
+            <p id="total-hours-text">Total Hours: <span id="total-hours" th:text="${totHours}"></span></p>
+
+            <p id="late-days-text">Late Days: <span id="late-days" th:text="${lateDays}"></span></p>
             <p id="no-schedule-message" th:if="${noSchedule}"><span th:text="${noSchedule}"></span></p>
         </div>
 
