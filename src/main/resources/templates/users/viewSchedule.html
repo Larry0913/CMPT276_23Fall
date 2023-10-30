@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Associate User with Week</title>
+    <link rel="stylesheet" href="/css/admin_schedule.css">
+
+</head>
+<body>
+    <div id="top-bar">
+        <h1> Enterprise Information Management System</h1> 
+
+    </div>
+
+    <!-- menu-->
+    <ul id="navbar">
+        <li><a href="/users/dashboard">Home Page</a></li>
+        <li><a href="/users/schedule">Attendance</a></li>
+        <li><a href="#">Meeting</a></li>
+        <li><a href="#">Approval </a></li>
+        <li><a href="/users/performance">Performance</a></li>
+        <li><a href="/users/addressBook">Address book</a></li>
+        <li><a href="#">Information center</a></li>
+        <li><a href="#">Training</a></li>
+        <li><a href="/users/personalCenter">Personal Center</a></li>
+        <li><a href="/users/settings">Settings</a></li>
+        <li><a href="#">ffff</a></li>
+    </ul>
+
+
+    <div>
+        <h1>View User's Schedule</h1>
+        
+        <input type="hidden" name="username" id="username-input">
+        <input type="hidden" name="weekName" id="weekName-input">
+
+        <p><span name="username" id="user-name">User Name</span></p>
+        <p><span name="weekName" id="week-name">Week Name</span></p>
+
+        <div id="current-schedule">
+            <h3>Your Current Assigned Schedule:</h3>
+            <p id="current-schedule-text" th:if="${userSchedule}">Current Schedule: <span th:text="${userSchedule}"></span></p>
+            <p id="total-hours-text">Total Hours: <span id="total-hours" th:text="${totHours}"></span></p>
+
+            <p id="late-days-text">Late Days: <span id="late-days" th:text="${lateDays}"></span></p>
+            <p id="no-schedule-message" th:if="${noSchedule}"><span th:text="${noSchedule}"></span></p>
+        </div>
+
+    </div>
+    
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const selectedUsername = urlParams.get("username");
+        const selectedWeekName = urlParams.get("weekName");
+
+        const usernameInput = document.getElementById("username-input");
+        const weekNameInput = document.getElementById("weekName-input");
+
+        const userNameElement = document.getElementById("user-name");
+        const weekNameElement = document.getElementById("week-name");
+
+        if (selectedUsername && selectedWeekName) {
+            userNameElement.textContent = "User: " + selectedUsername;
+            weekNameElement.textContent = "Week: " + selectedWeekName;
+
+            usernameInput.value = selectedUsername;
+            weekNameInput.value = selectedWeekName;
+        } else {
+            userNameElement.textContent = "User: (Not provided)";
+            weekNameElement.textContent = "Week: (Not provided)";
+        }
+
+        const currentScheduleText = document.getElementById("current-schedule-text");
+        if (currentScheduleText) {
+            currentScheduleText.textContent = "Current Schedule: " + daysString.toString();
+        }
+    
+    </script>
+    
+
+</body>
+</html>

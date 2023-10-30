@@ -19,6 +19,12 @@ public class UserSchedule {
 
     private String days;
 
+    @Column(name = "tot_hours")
+    private Integer totHours = 0;
+
+    @Column(name = "late_days")
+    private Integer lateDays = 0;
+
     public UserSchedule() {
         // Default constructor
     }
@@ -27,6 +33,23 @@ public class UserSchedule {
         this.user = user;
         this.week = week;
         this.days = days;
+    }
+
+    public int calculateTotalHours() {
+        int workingDays = 0;
+        
+        for (int i = 0; i < days.length(); i++) {
+            if (days.charAt(i) != '-') {
+                workingDays++;
+            }
+        }
+        int totHours = workingDays * 8;
+
+        if(lateDays>=2){
+            totHours = totHours - (lateDays*2);
+        }
+
+        return totHours;
     }
 
     public int getId() {
@@ -60,5 +83,23 @@ public class UserSchedule {
     public void setDays(String days) {
         this.days = days;
     }
+
+    public int getTotHours() {
+        return totHours;
+    }
+
+    public void setTotHours(int totHours) {
+        this.totHours = totHours;
+    }
+
+    public Integer getLateDays() {
+        return lateDays;
+    }
+
+    public void setLateDays(Integer lateDays) {
+        this.lateDays = lateDays;
+    }
+
+    
 
 }
