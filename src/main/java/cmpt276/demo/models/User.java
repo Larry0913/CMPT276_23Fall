@@ -1,5 +1,7 @@
 package cmpt276.demo.models;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -21,6 +23,8 @@ public class User {
     private String phoneNumber;
 
     private String department;
+  
+    private BigDecimal hourlySalary;
 
     public User() {
 
@@ -86,6 +90,14 @@ public class User {
 
     public void setDepartment(String department) {
         this.department = department;
+    }
+
+     public BigDecimal getHourlySalary() {
+        return hourlySalary;
+    }
+
+    public void setHourlySalary(BigDecimal hourlySalary) {
+        this.hourlySalary = hourlySalary;
     }
 
 }
