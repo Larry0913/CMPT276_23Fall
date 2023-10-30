@@ -1,5 +1,7 @@
 package cmpt276.demo.models;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -19,6 +21,7 @@ public class User {
 
     @OneToOne(mappedBy = "user")
     private UserSchedule userSchedule;
+    private BigDecimal hourlySalary;
     
     public User(){
         
@@ -57,5 +60,12 @@ public class User {
     }
     public void setUserProfile(UserProfile userProfile) {
         this.userProfile = userProfile;
+    }
+     public BigDecimal getHourlySalary() {
+        return hourlySalary;
+    }
+
+    public void setHourlySalary(BigDecimal hourlySalary) {
+        this.hourlySalary = hourlySalary;
     }
 }

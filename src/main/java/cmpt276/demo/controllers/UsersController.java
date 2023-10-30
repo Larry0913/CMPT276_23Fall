@@ -8,11 +8,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
+import cmpt276.demo.dao.PayrollRepository;
 import cmpt276.demo.dao.UserProfileRepository;
 import cmpt276.demo.dao.UserRepository;
 import cmpt276.demo.dao.UserScheduleRepository;
 import cmpt276.demo.dao.WeekRepository;
-
+import cmpt276.demo.models.Payroll;
 import cmpt276.demo.models.User;
 import cmpt276.demo.models.UserProfile;
 import cmpt276.demo.models.Week;
@@ -22,6 +23,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 //import java.util.ArrayList;
@@ -39,6 +41,9 @@ public class UsersController {
 
     @Autowired
     private UserScheduleRepository userscheduleRepo;
+
+    @Autowired
+    private PayrollRepository payrollRepository;
 
     List<User> userlist;
     List<Week> weeklist;
@@ -255,6 +260,28 @@ public class UsersController {
 
         return "redirect:/users/editSchedule?username=" + username + "&weekName=" + weekName; 
     }
+
+    @GetMapping("/users/payrollUser")
+    public String showPayroll(Model model ,HttpServletRequest request) {
+        User user = (User) request.getAttribute("session_user"); // Assuming you set the user in the session.
+        List<Payroll> payrolls = payrollRepository.findByUser(user);
+        model.addAttribute("payrolls", payrolls);
+
+        return "users/payrollUser"; 
+    }
+
+    @PostMapping("/setSalary")
+    public String setSalary(@RequestParam int userId, @RequestParam BigDecimal hourlySalary) {
+        User userToUpdate = userRepo.findById(userId).orElse(null);
+        
+        if (userToUpdate != null) {
+            userToUpdate.setHourlySalary(hourlySalary);
+            userRepo.save(userToUpdate);
+        }
+
+        return "redirect:/users/payrollAdmin";
+    }
+
 }
 
 
