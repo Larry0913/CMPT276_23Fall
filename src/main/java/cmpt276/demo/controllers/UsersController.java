@@ -11,7 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import cmpt276.demo.dao.PayrollRepository;
-import cmpt276.demo.dao.UserProfileRepository;
 import cmpt276.demo.dao.UserRepository;
 import cmpt276.demo.dao.UserScheduleRepository;
 import cmpt276.demo.dao.WeekRepository;
@@ -478,8 +477,6 @@ public class UsersController {
 
         return "redirect:/users/payrollAdmin";
     }
-
-}
 
 }
 
