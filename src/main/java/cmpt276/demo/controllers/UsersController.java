@@ -119,18 +119,19 @@ public class UsersController {
 
     @PostMapping("/users/performance")
     public String addLeaveRequest(@RequestParam Map<String, String> LeaveRequest, HttpServletResponse response) {
-        String requesterName = LeaveRequest.get("requesterName");
-        String typeLeave = LeaveRequest.get("typeLeave");
+        // System.out.println("NewRequestType: " + LeaveRequest.get("typeLeave"));
+        String requesterName = LeaveRequest.get("employeeName");
+        String typeLeave = LeaveRequest.get("leaveType");
         String startDate = LeaveRequest.get("startDate");
         String endDate = LeaveRequest.get("endDate");
-        String reasonForLeave = LeaveRequest.get("reasonForLeave");
+        String reasonForLeave = LeaveRequest.get("reason");
         userlist = userRepo.findByUsername(requesterName);
         User user = userlist.get(0);
         UserLeaveRequest newLeaveRequest = new UserLeaveRequest(requesterName, typeLeave, startDate, endDate, reasonForLeave);
         newLeaveRequest.setUser(user);
         leaveRepo.save(newLeaveRequest);
         response.setStatus(201);
-        return "users/performance";
+        return "users/addedRequest";
     }
 
     @GetMapping("/users/addressBook")
