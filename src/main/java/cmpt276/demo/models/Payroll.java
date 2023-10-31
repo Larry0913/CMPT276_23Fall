@@ -18,7 +18,11 @@ public class Payroll {
     private BigDecimal taxesCPT;
     private BigDecimal netIncome;
     // private static final double DEFAULT_HOURS_WORKED = 40.0;
-    // private static final BigDecimal TAX_RATE = BigDecimal.valueOf(0.077);
+    private static final BigDecimal TAX_RATE = BigDecimal.valueOf(0.077);
+
+    @OneToOne
+    @JoinColumn(name = "schedule_id")
+    private UserSchedule payrollSchedule;
 
     @ManyToOne
     @JoinColumn(name="user_id")
@@ -64,8 +68,10 @@ public class Payroll {
         return hoursWorked;
     }
 
-    public void setHoursWorked(double hoursWorked) {
-        this.hoursWorked = hoursWorked;
+    public void setHoursFromSchedule() {
+    if (this.payrollSchedule != null) {
+        this.hoursWorked = this.payrollSchedule.getTotHours();
+    }
     }
 
     public BigDecimal getGrossIncome() {
@@ -99,6 +105,17 @@ public class Payroll {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public void computePayroll(BigDecimal hourlySalary) {
+        if (this.hoursWorked == 0 && this.payrollSchedule != null) {
+            setHoursFromSchedule();
+        }
+
+        this.grossIncome = hourlySalary.multiply(BigDecimal.valueOf(this.hoursWorked));
+        this.taxesCPT = this.grossIncome.multiply(TAX_RATE);
+        this.netIncome = this.grossIncome.subtract(this.taxesCPT);
+    }
+
 }
 
 

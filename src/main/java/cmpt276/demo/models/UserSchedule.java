@@ -17,6 +17,9 @@ public class UserSchedule {
     @JoinColumn(name = "week_id")
     private Week week;
 
+    @OneToOne(mappedBy = "userSchedule", cascade = CascadeType.ALL)
+    private Payroll payroll;
+
     private String days;
 
     @Column(name = "tot_hours")
