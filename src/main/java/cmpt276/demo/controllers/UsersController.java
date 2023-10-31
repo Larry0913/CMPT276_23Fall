@@ -271,7 +271,6 @@ public class UsersController {
     public String getAssociateWeekForm(Model model ,HttpServletRequest request, HttpSession session) {
 
         User user = (User) session.getAttribute("user");
-
         if(user.isAdmin()){
             List<User> users = userRepo.findAll();
             List<Week> weeks = weekRepo.findAll();
