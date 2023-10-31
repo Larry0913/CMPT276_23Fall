@@ -19,19 +19,20 @@
         <li><a href="#">Meeting</a></li>
         <li><a href="#">Approval </a></li>
         <li><a href="/users/performance">Performance</a></li>
-        <li><a href="/users/payrollUser">Payroll</a></li>
+        <li><a href="/users/payroll">Payroll</a></li>
+                <!-- fix thymleafe bug for addressbook-> th:if="${user.admin}"   -->
         <li><a href="/users/addressBook">Address book</a></li>
-        <li><a href="#">Information center</a></li>
-        <li><a href="#">Training</a></li>
+        <li><a href="#">Information Center</a></li>
+        <li><a href="/file/toFilePage">File Management</a></li>
         <li><a href="/users/personalCenter">Personal Center</a></li>
         <li><a href="/users/settings">Settings</a></li>
-        <li><a href="#">ffff</a></li>
+        <li><a href="/logout">logout</a></li>
     </ul>
     
-    <form action="/users/associate-week" method="post" id="schedule-form">
+    <form action="/associate-week" method="post" id="schedule-form">
         <div>
             <label for="username">Select a User:</label>
-            <select name="username" id="username">
+            <select name="username" id="username" required>
                 <option value="">Select a User</option>
                 <th:block th:each="user : ${users}">
                     <option th:value="${user.username}" th:text="${user.username}"></option>
@@ -41,7 +42,7 @@
 
         <div>
             <label for="weekname">Select a Week:</label>
-            <select name="weekname" id="weekname">
+            <select name="weekname" id="weekname" required>
                 <option value="">Select a Week</option>
                 
                 <th:block th:each="week : ${weeks}">

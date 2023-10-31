@@ -1,6 +1,7 @@
 package cmpt276.demo.models;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import jakarta.persistence.*;
 
@@ -15,9 +16,8 @@ public class User {
     String password;
     boolean isAdmin;
     
-    @OneToOne(mappedBy = "user")
-    private UserSchedule userSchedule;
-  
+    @OneToMany(mappedBy = "user")
+    private List<UserSchedule> userSchedules;  
     private String email;
 
     private String phoneNumber;

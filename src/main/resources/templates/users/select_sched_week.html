@@ -20,23 +20,43 @@
         <li><a href="#">Meeting</a></li>
         <li><a href="#">Approval </a></li>
         <li><a href="/users/performance">Performance</a></li>
+        <li><a href="/users/payroll">Payroll</a></li>
+            <!-- fix thymleafe bug for addressbook-> th:if="${user.admin}"   -->
         <li><a href="/users/addressBook">Address book</a></li>
-        <li><a href="#">Information center</a></li>
-        <li><a href="#">Training</a></li>
+        <li><a href="#">Information Center</a></li>
+        <li><a href="/file/toFilePage">File Management</a></li>
         <li><a href="/users/personalCenter">Personal Center</a></li>
         <li><a href="/users/settings">Settings</a></li>
-        <li><a href="#">ffff</a></li>
+        <li><a href="/logout">logout</a></li>
     </ul>
     
     <form action="/users/view-schedule" method="post" id="schedule-form">
 
+
+        <!-- <table>
+            <thead>
+                <tr th:each="schedule : ${allUserSchedules}">
+                    <th>Week</th>
+                    <th>Schedule</th>
+                    <th>Total Hours</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="schedule : ${allUserSchedules}">
+                    <td th:text="${schedule.week.weekName}"></td>
+                    <td th:text="${schedule.days}"></td>
+                    <td th:text="${schedule.totHours}"></td>
+                </tr>
+            </tbody>
+        </table> -->
+
         <input type="hidden" name="username" th:if="${user}" th:value="${user.username}" />
         <p th:if="${user}"><span th:text="${user.username}"></span>'s Schedule</p>
 
-
+        
         <div>
             <label for="weekname">Select a Week:</label>
-            <select name="weekname" id="weekname">
+            <select name="weekname" id="weekname" required>
                 <option value="">Select a Week</option>
                 
                 <th:block th:each="week : ${weeks}">
@@ -46,7 +66,7 @@
         </div>
 
         <div>
-            <input type="submit" value="View My Schedule" id="view-schedule-button">
+            <input type="submit" value="View Week Summary" id="view-schedule-button">
         </div>
     </form>
 
