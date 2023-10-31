@@ -6,11 +6,13 @@
     <title>Payroll User</title>
     <link rel="stylesheet" href="/css/payroll.css">
 </head>
+
 <body>
     <div id="top-bar">
         <h1> Enterprise Information Management System</h1> 
     </div>
 
+    <div id="main-content"> 
     <!-- menu-->
     <ul id="navbar">
         <li><a href="/users/dashboard">Home Page</a></li>
@@ -26,44 +28,64 @@
         <li><a href="/users/settings">Settings</a></li>
     </ul>
 
-    <!-- payroll -->
-    <div id="payroll">
-        <div id="payroll-title">Payroll:</div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Week:</th>
-                    <th>Hours Worked</th>
-                    <th>Gross Income</th>
-                    <th>CPT (Tax) (7.7%)</th>
-                    <th>Net Income</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>40</td>
-                    <td>$940.00</td>
-                    <td>$72.38</td>
-                    <td>$867.62</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>40</td>
-                    <td>$940.00</td>
-                    <td>$72.38</td>
-                    <td>$867.62</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>36</td>
-                    <td>$846.00</td>
-                    <td>$65.14</td>
-                    <td>$780.86</td>
-                </tr>
-            </tbody>
-        </table>
+        <div id="payroll-container">
+
+            <!-- title -->
+            <div id="payroll-title"> <span>Payroll:</span></div>
+
+            <!-- Current Salary Display -->
+            <div id="current-salary-display">
+                <span>Current Salary:</span> 
+                <span th:text="${currentUserSalary}">0.00</span>  
+                <a href="https://www.canada.ca/en/revenue-agency/services/e-services/cra-login-services.html" target="_blank">CRA-Tax breakdown</a>
+            </div>
+
+            <!-- payroll -->
+            <div id="payroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Week:</th>
+                            <th>Hours Worked</th>
+                            <th>Gross Income</th>
+                            <th>CPT (Tax) (7.7%)</th>
+                            <th>Net Income</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>24</td>
+                            <td>$564.00</td>
+                            <td>$43.43</td>
+                            <td>$520.57</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>35</td>
+                            <td>$822.50</td>
+                            <td>$63.33</td>
+                            <td>$759.17</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>36</td>
+                            <td>$846.00</td>
+                            <td>$65.14</td>
+                            <td>$780.86</td>
+                        </tr>
+                        <tr th:each="payroll : ${payrolls}">
+                            <td th:text="${payroll.week}"></td>
+                            <td th:text="${payroll.hoursWorked}"></td>
+                            <td th:text="${payroll.grossIncome}"></td>
+                            <td th:text="${payroll.taxesCPT}"></td>
+                            <td th:text="${payroll.netIncome}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    
+
 </body>
 </html>

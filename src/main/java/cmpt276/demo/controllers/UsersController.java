@@ -476,26 +476,37 @@ public class UsersController {
     }
 
     @GetMapping("/users/payrollUser")
-    public String showPayroll(Model model ,HttpServletRequest request) {
-        User user = (User) request.getAttribute("session_user"); // Assuming you set the user in the session.
-        List<Payroll> payrolls = payrollRepository.findByUser(user);
-        model.addAttribute("payrolls", payrolls);
-
-        return "users/payrollUser"; 
+    public String showPayroll(Model model ,HttpServletRequest request, HttpSession session) {
+        User user = (User) session.getAttribute("user"); 
+        
+        // For admin users, allow them to set their hourly salary.
+        if (user.isAdmin()) {
+            List<User> allUsers = userRepo.findAll();
+            model.addAttribute("allUsers", allUsers);
+            model.addAttribute("currentUserSalary", user.getHourlySalary());
+            return "users/payrollAdmin";
+        }
+        else {
+            // For users, just show their payroll page.
+            List<Payroll> payrolls = payrollRepository.findByUser(user);
+            model.addAttribute("currentUserSalary", user.getHourlySalary());
+            model.addAttribute("payrolls", payrolls);
+            return "users/payrollUser";
+        }
+    
     }
 
     @PostMapping("/setSalary")
-    public String setSalary(@RequestParam int userId, @RequestParam BigDecimal hourlySalary) {
-        User userToUpdate = userRepo.findById(userId).orElse(null);
+    public String setSalary(@RequestParam int uid, @RequestParam BigDecimal hourlySalary) {
+        User userToUpdate = userRepo.findById(uid).orElse(null);
         
         if (userToUpdate != null) {
             userToUpdate.setHourlySalary(hourlySalary);
             userRepo.save(userToUpdate);
         }
 
-        return "redirect:/users/payrollAdmin";
+        return "redirect:/users/payrollUser";
     }
 
-
-
 }   
+
