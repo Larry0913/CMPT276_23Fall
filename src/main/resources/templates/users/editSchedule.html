@@ -50,29 +50,39 @@
                     <p id="no-schedule-message" th:if="${noSchedule}"><span th:text="${noSchedule}"></span></p>
                 </div>
 
-                <div id="edit-schedule">
-                    <label for="selectedDays">Select Days:</label>
-                    <input type="checkbox" name="selectedDays" value="M"> Monday
-                    <input type="checkbox" name="selectedDays" value="T"> Tuesday
-                    <input type="checkbox" name="selectedDays" value="W"> Wednesday
-                    <input type="checkbox" name="selectedDays" value="H"> Thursday
-                    <input type="checkbox" name="selectedDays" value="F"> Friday
-                    <input type="checkbox" name="selectedDays" value="S"> Saturday
-                    <input type="checkbox" name="selectedDays" value="U"> Sunday
+                <select name="edit-schedule-status" id="edit-schedule-status" required>
+                    <option value="NoChange">No Change</option>
+                    <option value="UpdateSchedule">Update Schedule</option>
+                </select>
+                <div id="edit-schedule-status-update" style="display: none;">
+                    <div id="edit-schedule">
+                        <label for="selectedDays">Select Days:</label>
+                        <input type="checkbox" name="selectedDays" value="M"> Monday
+                        <input type="checkbox" name="selectedDays" value="T"> Tuesday
+                        <input type="checkbox" name="selectedDays" value="W"> Wednesday
+                        <input type="checkbox" name="selectedDays" value="H"> Thursday
+                        <input type="checkbox" name="selectedDays" value="F"> Friday
+                        <input type="checkbox" name="selectedDays" value="S"> Saturday
+                        <input type="checkbox" name="selectedDays" value="U"> Sunday
+                    </div>
+    
+                    <div>
+                        <label for="lateDays">Late Days (0-5):</label>
+                        <select name="lateDays" id="lateDays" th:value="${lateDays}">
+                            <option th:each="lateDay : ${#numbers.sequence(0, 5)}" th:value="${lateDay}" th:text="${lateDay}"></option>
+                        </select>
+                    </div>
                 </div>
-
-                <div>
-                    <label for="lateDays">Late Days (0-5):</label>
-                    <select name="lateDays" id="lateDays" th:value="${lateDays}">
-                        <option th:each="lateDay : ${#numbers.sequence(0, 5)}" th:value="${lateDay}" th:text="${lateDay}"></option>
-                    </select>
-                </div>
-
+                
                 <div id="buttons">
                     <input type="submit" value="Update Schedule" >
                 </div>
             </div>
+            
         </form>
+        <div id="search-bar">
+            <a href="/users/schedule"> <button>back</button></a>
+        </div>
         <!-- <div id="buttons">
             <input type="submit" value="Generate Attendance Summary" >
         </div> -->
@@ -81,6 +91,20 @@
         
 
     <script>
+
+        //listening for editschedule status
+        const editScheduleStatus = document.getElementById("edit-schedule-status");
+        const editScheduleSection = document.getElementById("edit-schedule-status-update");
+
+        editScheduleStatus.addEventListener("change", function() {
+            if (editScheduleStatus.value === "UpdateSchedule") {
+                editScheduleSection.style.display = "block";
+            } else {
+                editScheduleSection.style.display = "none";
+            }
+        });
+
+
         const urlParams = new URLSearchParams(window.location.search);
         const selectedUsername = urlParams.get("username");
         const selectedWeekName = urlParams.get("weekName");
@@ -107,6 +131,7 @@
             currentScheduleText.textContent = "Current Schedule: " + daysString.toString();
         }
 
+        
     
     </script>
     

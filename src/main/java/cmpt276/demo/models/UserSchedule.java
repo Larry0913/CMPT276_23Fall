@@ -3,16 +3,16 @@ package cmpt276.demo.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "user_week_association")
+@Table(name = "user_week_association", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "week_id"})})
 public class UserSchedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    
+
     @ManyToOne
     @JoinColumn(name = "week_id")
     private Week week;

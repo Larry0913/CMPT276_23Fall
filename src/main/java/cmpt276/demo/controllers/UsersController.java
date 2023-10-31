@@ -275,26 +275,44 @@ public class UsersController {
         if(user.isAdmin()){
             List<User> users = userRepo.findAll();
             List<Week> weeks = weekRepo.findAll();
-            List<UserSchedule> userSchedule = userscheduleRepo.findAll();
+            // List<UserSchedule> userSchedule = userscheduleRepo.findAll();
             // Add the lists to the model so they can be displayed in the form
             model.addAttribute("users", users);
             model.addAttribute("weeks", weeks); 
-            model.addAttribute("userSchedule", userSchedule);
+            // model.addAttribute("userSchedule", userSchedule);
 
             return "users/admin_schedule";
 
         }else{
 
             List<Week> weeks = weekRepo.findAll();
-            List<UserSchedule> userSchedule = userscheduleRepo.findAll();
+            // List<UserSchedule> userSchedule = userscheduleRepo.findAll();
             model.addAttribute("weeks", weeks); 
-            model.addAttribute("userSchedule", userSchedule);
+            // model.addAttribute("userSchedule", userSchedule);
             model.addAttribute("user", user); 
 
-            return "/users/select_sched_week"; 
+            return "users/select_sched_week"; 
         }
         
     }
+
+    // @GetMapping("/users/select_sched_week")
+    // public String showAllWeeksSchedule(Model model,
+    //     @RequestParam("username") String username,
+    //     HttpSession session,
+    //     HttpServletRequest request) {
+    //     User user = (User) session.getAttribute("user");
+    //     model.addAttribute("user", user);
+    //     // List<Week> weeks = weekRepo.findAll();
+    //     List<UserSchedule> userSchedules = userscheduleRepo.findByUser(user);
+
+    //     model.addAttribute("allUserSchedules", userSchedules);
+    //     // model.addAttribute("weeks", weeks);
+    //     // model.addAttribute("totHours", userSchedule.calculateTotalHours());
+
+        
+    //     return "users/select_sched_week";
+    // }
 
     @PostMapping("/users/view-schedule")
     public String viewSchedule(@RequestParam Map<String, String> formData,
@@ -336,7 +354,7 @@ public class UsersController {
         return "users/viewSchedule";
     }
 
-
+    
 
 
     @PostMapping("/associate-week")
@@ -385,8 +403,15 @@ public class UsersController {
         @RequestParam("username") String username,
         @RequestParam("weekName") String weekName,
         @RequestParam("lateDays") int lateDays,
+        @RequestParam("edit-schedule-status") String editScheduleStatus, 
         @RequestParam(value = "selectedDays", required = false) List<String> selectedDays,
         Model model) {
+        
+        if ("NoChange".equals(editScheduleStatus)) {
+            // The user selected "No Change," so no action is needed.
+            return "redirect:/users/editSchedule?username=" + username + "&weekName=" + weekName;
+        }
+
 
         String userName = formData.get("username");
         String weekname= formData.get("weekName");
@@ -432,17 +457,19 @@ public class UsersController {
             // Update the existing record
             existingSchedule.setDays(daysString.toString());
             existingSchedule.setLateDays(lateDays);
-            userscheduleRepo.save(existingSchedule);
             int tot_hours = existingSchedule.calculateTotalHours();
             existingSchedule.setTotHours(tot_hours);
+            userscheduleRepo.save(existingSchedule);
+            
 
         } else {
             // Create a new association
             UserSchedule newSchedule = new UserSchedule(user, week, daysString.toString());
             newSchedule.setLateDays(lateDays);
-            userscheduleRepo.save(newSchedule);
             int tot_hours = newSchedule.calculateTotalHours();
             newSchedule.setTotHours(tot_hours);
+            userscheduleRepo.save(newSchedule);
+            
         }
 
         return "redirect:/users/editSchedule?username=" + username + "&weekName=" + weekName; 
