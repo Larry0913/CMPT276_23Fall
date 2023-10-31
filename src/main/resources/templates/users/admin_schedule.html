@@ -28,33 +28,35 @@
         <li><a href="/users/settings">Settings</a></li>
         <li><a href="/logout">logout</a></li>
     </ul>
+    <div id="content">
+        <form action="/associate-week" method="post" id="schedule-form">
+            <div>
+                <label for="username">Select an Employee:</label>
+                <select name="username" id="username" required>
+                    <option value="">Select an Employee</option>
+                    <th:block th:each="user : ${users}">
+                        <option th:value="${user.username}" th:text="${user.username}"></option>
+                    </th:block>
+                </select>
+            </div>
     
-    <form action="/associate-week" method="post" id="schedule-form">
-        <div>
-            <label for="username">Select a User:</label>
-            <select name="username" id="username" required>
-                <option value="">Select a User</option>
-                <th:block th:each="user : ${users}">
-                    <option th:value="${user.username}" th:text="${user.username}"></option>
-                </th:block>
-            </select>
-        </div>
-
-        <div>
-            <label for="weekname">Select a Week:</label>
-            <select name="weekname" id="weekname" required>
-                <option value="">Select a Week</option>
-                
-                <th:block th:each="week : ${weeks}">
-                    <option th:value="${week.weekName}" th:text="${week.weekName}"></option>
-                </th:block>
-            </select>
-        </div>
-
-        <div>
-            <input type="submit" value="Edit Schedule" id="edit-schedule-button">
-        </div>
-    </form>
+            <div>
+                <label for="weekname">Select a Week:</label>
+                <select name="weekname" id="weekname" required>
+                    <option value="">Select a Week</option>
+                    
+                    <th:block th:each="week : ${weeks}">
+                        <option th:value="${week.weekName}" th:text="${week.weekName}"></option>
+                    </th:block>
+                </select>
+            </div>
+    
+            <div>
+                <input type="submit" value="Edit Schedule" id="edit-schedule-button">
+            </div>
+        </form>
+    </div>
+    
 
 </body>
 </html>

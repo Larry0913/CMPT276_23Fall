@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Associate User with Week</title>
-    <link rel="stylesheet" href="/css/admin_schedule.css">
+    <link rel="stylesheet" href="/css/editSchedule.css">
 
 </head>
 <body>
@@ -30,9 +30,10 @@
     </ul>
 
     <!-- <form action="/users/generateSchedule" method="post"> -->
+    <div id="content">
         <form action="/updateSchedule" method="post">
             <div>
-                <h1>Edit User's Schedule</h1>
+                <h1>Edit Employee's Schedule</h1>
                 
                 <input type="hidden" name="username" id="username-input">
                 <input type="hidden" name="weekName" id="weekName-input">
@@ -41,7 +42,7 @@
                 <p><span name="weekName" id="week-name">Week Name</span></p>
 
                 <div id="current-schedule">
-                    <h3>User's Current Assigned Schedule:</h3>
+                    <h3>Employee's Current Assigned Schedule:</h3>
                     
                     <p id="current-schedule-text" th:if="${userSchedule}">Current Schedule: <span th:text="${userSchedule}"></span></p>
                     <p id="total-hours-text">Total Hours: <span id="total-hours" th:text="${totHours}"></span></p>
@@ -80,9 +81,8 @@
             </div>
             
         </form>
-        <div id="search-bar">
-            <a href="/users/schedule"> <button>back</button></a>
-        </div>
+    </div>
+        
         <!-- <div id="buttons">
             <input type="submit" value="Generate Attendance Summary" >
         </div> -->

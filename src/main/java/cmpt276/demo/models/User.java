@@ -17,7 +17,8 @@ public class User {
     boolean isAdmin;
     
     @OneToMany(mappedBy = "user")
-    private List<UserSchedule> userSchedules;  
+    private List<UserSchedule> userSchedules; 
+     
     private String email;
 
     private String phoneNumber;
