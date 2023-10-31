@@ -22,7 +22,7 @@ public class Payroll {
 
     @OneToOne
     @JoinColumn(name = "schedule_id")
-    private UserSchedule payrollSchedule;
+    private UserSchedule userSchedule;
 
     @ManyToOne
     @JoinColumn(name="user_id")
@@ -69,8 +69,8 @@ public class Payroll {
     }
 
     public void setHoursFromSchedule() {
-    if (this.payrollSchedule != null) {
-        this.hoursWorked = this.payrollSchedule.getTotHours();
+    if (this.userSchedule != null) {
+        this.hoursWorked = this.userSchedule.getTotHours();
     }
     }
 
@@ -107,7 +107,7 @@ public class Payroll {
     }
 
     public void computePayroll(BigDecimal hourlySalary) {
-        if (this.hoursWorked == 0 && this.payrollSchedule != null) {
+        if (this.hoursWorked == 0 && this.userSchedule != null) {
             setHoursFromSchedule();
         }
 
