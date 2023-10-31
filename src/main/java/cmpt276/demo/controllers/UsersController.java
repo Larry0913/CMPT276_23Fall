@@ -11,7 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import cmpt276.demo.dao.PayrollRepository;
-import cmpt276.demo.dao.UserProfileRepository;
 import cmpt276.demo.dao.UserRepository;
 import cmpt276.demo.dao.UserScheduleRepository;
 import cmpt276.demo.dao.WeekRepository;
@@ -273,35 +272,26 @@ public class UsersController {
 
         User user = (User) session.getAttribute("user");
 
-        if (user != null){
+        if(user.isAdmin()){
+            List<User> users = userRepo.findAll();
+            List<Week> weeks = weekRepo.findAll();
+            List<UserSchedule> userSchedule = userscheduleRepo.findAll();
+            // Add the lists to the model so they can be displayed in the form
+            model.addAttribute("users", users);
+            model.addAttribute("weeks", weeks); 
+            model.addAttribute("userSchedule", userSchedule);
 
-            if(user.isAdmin()){
-                List<User> users = userRepo.findAll();
-                List<Week> weeks = weekRepo.findAll();
-                List<UserSchedule> userSchedule = userscheduleRepo.findAll();
-                // Add the lists to the model so they can be displayed in the form
-                model.addAttribute("users", users);
-                model.addAttribute("weeks", weeks); 
-                model.addAttribute("userSchedule", userSchedule);
-
-                return "users/admin_schedule";
-
-            }else{
-
-                List<Week> weeks = weekRepo.findAll();
-                List<UserSchedule> userSchedule = userscheduleRepo.findAll();
-                model.addAttribute("weeks", weeks); 
-                model.addAttribute("userSchedule", userSchedule);
-                model.addAttribute("user", user); 
-
-                return "/users/select_sched_week"; 
-            }
-            
+            return "users/admin_schedule";
 
         }else{
 
-            return "/users/login"; 
+            List<Week> weeks = weekRepo.findAll();
+            List<UserSchedule> userSchedule = userscheduleRepo.findAll();
+            model.addAttribute("weeks", weeks); 
+            model.addAttribute("userSchedule", userSchedule);
+            model.addAttribute("user", user); 
 
+            return "/users/select_sched_week"; 
         }
         
     }
@@ -349,7 +339,7 @@ public class UsersController {
 
 
 
-    @PostMapping("/users/associate-week")
+    @PostMapping("/associate-week")
     public String associateWeek(@RequestParam Map<String, String> formData,
                                 @RequestParam("username") String username,
                                 @RequestParam("weekname") String weekName,
@@ -389,7 +379,7 @@ public class UsersController {
         return "users/editSchedule";
     }
 
-    @PostMapping("/users/updateSchedule")
+    @PostMapping("/updateSchedule")
     public String updateSchedulePage(
         @RequestParam Map<String, String> formData,
         @RequestParam("username") String username,
@@ -479,7 +469,6 @@ public class UsersController {
         return "redirect:/users/payrollAdmin";
     }
 
-}
 
-}
 
+}   

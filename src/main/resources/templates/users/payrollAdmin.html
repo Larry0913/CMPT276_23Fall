@@ -17,39 +17,44 @@
     <!-- menu -->
     <ul id="navbar">
         <li><a href="/users/dashboard">Home Page</a></li>
-        <li><a href="/users/admin_schedule">Attendance</a></li>
+        <li><a href="/users/schedule">Attendance</a></li>
         <li><a href="#">Meeting</a></li>
         <li><a href="#">Approval </a></li>
         <li><a href="/users/performance">Performance</a></li>
-        <li><a href="/users/payrollUser">Payroll</a></li>
+        <li><a href="/users/payroll">Payroll</a></li>
+                <!-- fix thymleafe bug for addressbook-> th:if="${user.admin}"   -->
         <li><a href="/users/addressBook">Address book</a></li>
-        <li><a href="#">Information center</a></li>
-        <li><a href="#">Training</a></li>
+        <li><a href="#">Information Center</a></li>
+        <li><a href="/file/toFilePage">File Management</a></li>
         <li><a href="/users/personalCenter">Personal Center</a></li>
         <li><a href="/users/settings">Settings</a></li>
-        <!-- Add more links if needed -->
+        <li><a href="/logout">logout</a></li>
     </ul>
 
     <div id="payroll-container">
 
-        <form action="/setSalary" method="post">
+        <form action="/editPayroll" method="post">
             <!-- Admin controls to set hourly salary -->
             <div id="admin-controls">
-                <label for="user-dropdown">Select User:</label>
-                <select id="user-dropdown" name="userId">
-                    <!-- Populate dropdown with users from the list -->
-                    <option th:each="user : ${allUsers}" th:value="${user.uid}" th:text="${user.username}"></option>
-                </select>
+                <div>
+                    <label for="username">Select a User:</label>
+                    <select name="username" id="username">
+                        <option value="">Select a User</option>
+                        <th:block th:each="user : ${allUsers}">
+                            <option th:value="${user.username}" th:text="${user.username}"></option>
+                        </th:block>
+                    </select>
+                </div>
         
                 <label for="hourly-salary">Hourly Salary:</label>
                 <input type="number" id="hourly-salary" name="hourlySalary" placeholder="Enter hourly salary" step="0.01">
         
-                <button type="submit">Update Salary</button>
+                <button type="submit">Edit Payroll</button>
             </div>
         </form>
         
         <!-- Table showing payroll details -->
-        <table>
+        <!-- <table>
             <thead>
                 <tr>
                     <th>Week</th>
@@ -59,23 +64,23 @@
                     <th>Net Income</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody> -->
                 <!-- Populate table with data -->
-                <tr>
+                <!-- <tr>
                     <td>Week 1</td>
                     <td>40</td>
                     <td>$500</td>
                     <td>$100</td>
-                    <td>$400</td>
+                    <td>$400</td> -->
                 <!-- <tr th:each="payroll : ${payrolls}">
                     <td th:text="${payroll.week}"></td>
                     <td th:text="${payroll.hoursWorked}"></td>
                     <td th:text="${payroll.grossIncome}"></td>
                     <td th:text="${payroll.taxesCPT}"></td>
                     <td th:text="${payroll.netIncome}"></td> -->
-                </tr>
+                <!-- </tr>
             </tbody>
-        </table>
+        </table> -->
     </div>
 
 </body>
