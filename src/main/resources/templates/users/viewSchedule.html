@@ -20,34 +20,48 @@
         <li><a href="#">Meeting</a></li>
         <li><a href="#">Approval </a></li>
         <li><a href="/users/performance">Performance</a></li>
-        <li><a href="/users/addressBook">Address book</a></li>
-        <li><a href="#">Information center</a></li>
-        <li><a href="#">Training</a></li>
+        <li><a href="/users/payrollUser">Payroll</a></li>
+            <!-- fix thymleafe bug for addressbook-> th:if="${user.admin}"   -->
+        <!-- <li><a href="/users/addressBook">Address book</a></li> -->
+        <li><a href="#">Information Center</a></li>
+        <li><a href="/file/toFilePage">File Management</a></li>
         <li><a href="/users/personalCenter">Personal Center</a></li>
         <li><a href="/users/settings">Settings</a></li>
-        <li><a href="#">ffff</a></li>
+        <li><a href="/logout">logout</a></li>
     </ul>
 
-
-    <div>
-        <h1>View User's Schedule</h1>
-        
-        <input type="hidden" name="username" id="username-input">
-        <input type="hidden" name="weekName" id="weekName-input">
-
-        <p><span name="username" id="user-name">User Name</span></p>
-        <p><span name="weekName" id="week-name">Week Name</span></p>
-
-        <div id="current-schedule">
-            <h3>Your Current Assigned Schedule:</h3>
-            <p id="current-schedule-text" th:if="${userSchedule}">Current Schedule: <span th:text="${userSchedule}"></span></p>
-            <p id="total-hours-text">Total Hours: <span id="total-hours" th:text="${totHours}"></span></p>
-
-            <p id="late-days-text">Late Days: <span id="late-days" th:text="${lateDays}"></span></p>
-            <p id="no-schedule-message" th:if="${noSchedule}"><span th:text="${noSchedule}"></span></p>
+    <div id="content">
+        <div>
+            <h1>View Employee's Schedule</h1>
+            
+            <input type="hidden" name="username" id="username-input">
+            <input type="hidden" name="weekName" id="weekName-input">
+    
+            <p><span name="username" id="user-name">User Name</span></p>
+            <p><span name="weekName" id="week-name">Week Name</span></p>
+    
+            <div id="current-schedule">
+                <h3>Your Current Assigned Schedule:</h3>
+                <p id="current-schedule-text" th:if="${userSchedule}">Current Schedule: <span th:text="${userSchedule}"></span></p>
+                <p id="no-schedule-message" th:if="${noSchedule}"><span th:text="${noSchedule}"></span></p>
+                <p id="total-hours-text">Total Hours: <span id="total-hours" th:text="${totHours}"></span></p>
+                <p id="late-days-text">Late Days: <span id="late-days" th:text="${lateDays}"></span></p>
+                <div th:if="${lateDays >= 2}">
+                    <p>You have been late <span th:text="${lateDays}"></span> times this week. Your total hours have been deducted by <span th:text="${lateDays * 2}"></span></p>
+                </div>
+                <div th:if="${lateDays == 1}" >
+                    <p>Warning! You have been late this week once. If you are late again, your total hours will be deducted by twice the total amount of times you are late this week.</p>
+                </div>
+                
+                <div id="search-bar">
+                    <a href="/users/schedule"> <button>back</button></a>
+                </div>
+            </div>
+    
+    
         </div>
-
     </div>
+    
     
     <script>
         const urlParams = new URLSearchParams(window.location.search);
