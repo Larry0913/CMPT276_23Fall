@@ -38,30 +38,20 @@ body {
 }
 
 #content {
-    margin-left: 90px;
+    margin-left: 300px; /* Adjust the left margin to create space next to the navbar */
     padding: 20px 20px 20px 20px;
     background-color: #fff;
     height: 100vh;
     overflow-y: scroll;
 }
 
+/* Add styles for #schedule-info, #edit-schedule-status-update, and #search-bar as needed */
+
 .card {
     background-color: #fff;
     padding: 15px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
-}
-
-#employee-form {
-    border: 1px solid #ddd;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 60%;
-    margin: 0 auto;
-    position: absolute; /* Set the form to absolute position */
-    top: 50px; /* Adjust the top position */
-    left: 270px; /* Adjust the left position */
 }
 
 .form-group {
@@ -89,3 +79,4 @@ input[type="text"], input[type="email"], select, textarea {
     border-radius: 5px;
     cursor: pointer;
 }
+
