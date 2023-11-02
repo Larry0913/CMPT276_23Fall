@@ -1,0 +1,14 @@
+                          List of relations
+ Schema |         Name          | Type  |           Owner            
+--------+-----------------------+-------+----------------------------
+ public | files                 | table | cmpt276_database_l1gw_user
+ public | leaverequest          | table | cmpt276_database_l1gw_user
+ public | payroll               | table | cmpt276_database_l1gw_user
+ public | schedule              | table | cmpt276_database_l1gw_user
+ public | user_profile          | table | cmpt276_database_l1gw_user
+ public | user_week_association | table | cmpt276_database_l1gw_user
+ public | users                 | table | cmpt276_database_l1gw_user
+ public | users_leave           | table | cmpt276_database_l1gw_user
+ public | weeks                 | table | cmpt276_database_l1gw_user
+(9 rows)
+

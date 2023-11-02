@@ -1,5 +1,8 @@
 package cmpt276.demo.models;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -13,14 +16,16 @@ public class User {
     String password;
     boolean isAdmin;
     
-    @OneToOne(mappedBy = "user")
-    private UserSchedule userSchedule;
-  
+    @OneToMany(mappedBy = "user")
+    private List<UserSchedule> userSchedules; 
+     
     private String email;
 
     private String phoneNumber;
 
     private String department;
+  
+    private BigDecimal hourlySalary;
 
     public User() {
 
@@ -86,6 +91,14 @@ public class User {
 
     public void setDepartment(String department) {
         this.department = department;
+    }
+
+     public BigDecimal getHourlySalary() {
+        return hourlySalary;
+    }
+
+    public void setHourlySalary(BigDecimal hourlySalary) {
+        this.hourlySalary = hourlySalary;
     }
 
 }
