@@ -24,6 +24,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -474,26 +475,61 @@ public class UsersController {
         return "redirect:/users/editSchedule?username=" + username + "&weekName=" + weekName; 
     }
 
+    // @GetMapping("/users/payrollUser")
+    // public String showPayroll(Model model ,HttpServletRequest request, HttpSession session) {
+    //     User user = (User) session.getAttribute("user"); 
+    //     List<Payroll> payrolls = new ArrayList<Payroll>();
+
+    //     // For admin users, allow them to set their hourly salary.
+    //     if (user.isAdmin()) {
+    //         List<User> allUsers = userRepo.findAll();
+    //         model.addAttribute("allUsers", allUsers);
+    //         model.addAttribute("currentUserSalary", user.getHourlySalary());
+    //         return "users/payrollAdmin";
+    //     }
+    //     else {
+    //         // For users, just show their payroll page.
+    //         List<Week> weeks = weekRepo.findAll();
+    //         for (int i = 1; i < weeks.size(); i++) {
+    //             UserSchedule userSchedule = userscheduleRepo.findByUserAndWeek(user, weeks.get(i));
+    //             payrolls.add(new Payroll(userSchedule));
+    //         }
+            
+    //         model.addAttribute("currentUserSalary", user.getHourlySalary());
+    //         model.addAttribute("payrolls", payrolls);
+    //         return "users/payrollUser";
+    //     }
+    // }
     @GetMapping("/users/payrollUser")
-    public String showPayroll(Model model ,HttpServletRequest request, HttpSession session) {
+    public String showPayroll(Model model, HttpSession session) {
         User user = (User) session.getAttribute("user"); 
+
+        // This will retrieve payroll information for the logged-in user
+        List<Payroll> payrolls = new ArrayList<>();
+        List<Week> weeks = weekRepo.findAll();
+        for (Week week : weeks) {
+            UserSchedule userSchedule = userscheduleRepo.findByUserAndWeek(user, week);
+            if (userSchedule != null) {
+                Payroll payroll = new Payroll(userSchedule);
+                payrolls.add(payroll);
+                // Optionally save the payroll information if needed
+                // payrollRepository.save(payroll);
+            }
+        }
         
-        // For admin users, allow them to set their hourly salary.
+        model.addAttribute("currentUserSalary", user.getHourlySalary());
+        model.addAttribute("payrolls", payrolls);
+
+        // If the user is an admin, add the list of all users to the model and return the admin view
         if (user.isAdmin()) {
             List<User> allUsers = userRepo.findAll();
             model.addAttribute("allUsers", allUsers);
-            model.addAttribute("currentUserSalary", user.getHourlySalary());
-            return "users/payrollAdmin";
+            return "users/payrollAdmin"; // the admin view
         }
-        else {
-            // For users, just show their payroll page.
-            List<Payroll> payrolls = payrollRepository.findByUser(user);
-            model.addAttribute("currentUserSalary", user.getHourlySalary());
-            model.addAttribute("payrolls", payrolls);
-            return "users/payrollUser";
-        }
-    
+        // If the user is not an admin, return the regular user view
+        return "users/payrollUser"; 
     }
+
 
     @PostMapping("/setSalary")
     public String setSalary(@RequestParam int uid, @RequestParam BigDecimal hourlySalary) {
