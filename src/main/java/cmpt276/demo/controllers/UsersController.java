@@ -440,12 +440,12 @@ public class UsersController {
                     case "F":
                         daysString.setCharAt(4, 'F');
                         break;
-                    case "S":
-                        daysString.setCharAt(5, 'S');
-                        break;
-                    case "U":
-                        daysString.setCharAt(6, 'U');
-                        break;
+                    // case "S":
+                    //     daysString.setCharAt(5, 'S');
+                    //     break;
+                    // case "U":
+                    //     daysString.setCharAt(6, 'U');
+                    //     break;
                 }
             }
         }
