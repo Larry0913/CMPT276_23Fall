@@ -36,7 +36,7 @@ public class FileController {
     @Autowired
     private FileService fileService;
 
-    public static String fileSavePath = "D:\\CMPT276\\cmpt276-springboot-render\\src\\main\\resources\\uploadFile\\";
+    public static String fileSavePath = "C:\\Users\\Ali\\projects\\EIMS\\cmpt276-springboot-render\\src\\main\\resources\\uploadFile\\";
 
     @RequestMapping(value = "/toFilePage", method = { RequestMethod.POST, RequestMethod.GET })
     public String toFilePage(HttpSession session, Model model) {
