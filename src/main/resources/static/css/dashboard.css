@@ -1,54 +1,243 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
 
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
+#top-bar {
+    background-color: #333;
+    color: #ffffff;
+    padding: 10px 0;
+    text-align: center;
+}
 
-        #top-bar {
-            background-color: #333;
-            color: #ffffff;
-            padding: 10px 0;
-            text-align: center;
-        }
+#navbar {
+    width: 250px;
+    height: 100vh;
+    background-color: #555;
+    float: left;
+    list-style-type: none;
+    padding: 0;
+}
 
-        #navbar {
-            width: 250px;
-            height: 100vh;
-            background-color: #555;
-            float: left;
-            list-style-type: none;
-            padding: 0;
-        }
+#navbar li {
+    padding: 10px 20px;
+    border-bottom: 1px solid #666;
+}
 
-        #navbar li {
-            padding: 10px 20px;
-            border-bottom: 1px solid #666;
-        }
+#navbar li a {
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    transition: background-color 0.3s;
+}
 
-        #navbar li a {
-            text-decoration: none;
-            color: #fff;
-            display: block;
-            transition: background-color 0.3s;
-        }
+#navbar li a:hover {
+    background-color: #666;
+}
 
-        #navbar li a:hover {
-            background-color: #666;
-        }
+#content {
+    margin-left: 250px;
+    padding: 20px;
+    background-color: #fff;
+    height: 100vh;
+    overflow-y: scroll;
+}
 
-        #content {
-            margin-left: 90px;
-            padding: 20px 20px 20px 20px;
-            background-color: #fff;
-            height: 100vh;
-            overflow-y: scroll;
-        }
+.card {
+    background-color: #fff;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
 
-        .card {
-            background-color: #fff;
-            padding: 15px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
+.card .weather-announcement .photo-a {
+    margin-right: 30px;
+    width: 80px; /* Adjust the size as needed */
+    height: 80px; /* Adjust the size as needed */
+}
+
+
+.user-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+/* todo-list */
+.dashboard {
+    display: flex;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+.chart-container {
+    width: 50%;
+}
+
+.task-list-container {
+    width: 50%;
+    padding-left: 20px;
+}
+
+#taskList {
+    list-style: none;
+    padding: 0;
+}
+
+#taskList li {
+    padding: 5px 0;
+}
+
+.add-task input {
+    margin-right: 5px;
+}
+
+
+
+/* progress */
+.progress-container {
+    margin: 20px 0;
+}
+
+.progress-item {
+    margin-bottom: 15px;
+}
+
+.progress-title {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.progress {
+    background-color: #e6e6e6;
+    border-radius: 5px;
+}
+
+.progress-bar {
+    background-color: #4d90fe;
+    height: 20px;
+    border-radius: 5px;
+    line-height: 20px;
+    color: white;
+    text-align: right;
+    padding-right: 5px;
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15);
+    transition: width 0.5s ease-in-out;
+}
+
+/* schedule */
+
+.timeline {
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    border-radius: 4px;
+    /* box-shadow: 0 2px 5px rgba(0,0,0,0.2); */
+    padding: 20px;
+    margin: 20px 0;
+
+}
+
+.timeline h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.timeline ul {
+    list-style: none;
+    padding: 0;
+}
+
+.timeline ul li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.timeline ul li time {
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 50%;
+    padding: 10px;
+    margin-right: 10px;
+    font-weight: bold;
+    min-width: 50px;
+    text-align: center;
+}
+
+.timeline ul li:not(:last-child) {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+/* announcemnet */
+.card {
+    font-family: 'Arial', sans-serif;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 20px;
+    margin: 20px;
+    width: auto; /* Adjust the width as needed */
+}
+
+.card .Announcements h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.card .weather-announcement {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #eeeeee;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.card .weather-announcement .photo {
+    margin-right: 15px;
+    width: 50px; /* Adjust the size as needed */
+    height: 50px; /* Adjust the size as needed */
+}
+
+.card .weather-details p {
+    font-size: 16px;
+    color: rgb(45, 44, 44);
+    margin: 5px 0;
+    line-height: 1.4;
+}
+
+/* Additional styling for temperature and time if needed */
+.temperature {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ff9900; /* Adjust color as needed */
+    margin-right: 10px;
+}
+
+.time {
+    font-size: 14px;
+    color: #777;
+}
+
+/* Responsive adjustments as necessary */
+@media (max-width: 768px) {
+    .card {
+        margin: 10px;
+        padding: 10px;
+    }
+
+    .card .Announcements h2 {
+        font-size: 20px;
+    }
+}
+
+
+
+
