@@ -19,12 +19,9 @@
     <ul id="navbar">
         <li><a href="/users/dashboard">Home Page</a></li>
         <li><a href="/users/schedule">Attendance</a></li>
-        <li><a href="#">Meeting</a></li>
-        <li><a href="#">Approval </a></li>
         <li><a href="/users/performance">Performance</a></li>
         <li><a href="/users/payrollUser">Payroll</a></li>
         <li   th:if="${user.admin}"  ><a href="/users/addressBook">Address book</a></li>
-        <li><a href="#">Information Center</a></li>
         <li><a href="/file/toFilePage">File Management</a></li>
         <li><a href="/users/personalCenter">Personal Center</a></li>
         <li><a href="/users/settings">Settings</a></li>
@@ -36,7 +33,7 @@
         <!-- Profile Header -->
         <div class="profile-header">
             <div class="profile-image">
-                <img src="path_to_employee_image.jpg" alt="Employee Name">
+                <img src="/images/stitch3.jpg" alt="Employee Name">
             </div>
             <div>
                 <div class="profile-name"   th:text="${user.username}">AAA</div>

@@ -27,34 +27,245 @@
         <li><a href="/logout">logout</a></li>
     </ul>
 
+    <!-- Content -->
     <div id="content">
-        <!-- welcome -->
-        <h1>Hello <span th:text="${user.username}"></span>!<img calss="user-photo " src=" " alt="user-photo"></h1>
-        <p>Design Department</p>
+        <h1>Hello <span  th:text="${user.username}"></span>!<img class="user-photo" src="/images/stitch2.jpg" alt="user-photo"></h1>
+        <p style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Design Department</p>
 
-        <!-- card -->
+        <!-- Announcements -->
         <div class="card">
-            <h2>Announcements</h2>
-        </div>  
+            <!-- Announcements -->
+            <div class="Announcements">
+                <h2>Announcements</h2>
+                <div class="weather-announcement">
+                    <img class="photo-a" src="/images/announcement-icon.png" alt="Sun and Cloud" />
+                    <div class="weather-details">
+                        <p>Financial report forecast for the second quarter of 2023</p>
+                        <p>Ministry of Administration’s financial forecast for 2023</p>
+                        <p>Reports on internal employees of the company (notices about expiring contracts, etc.)</p>
+                        <p>A review of the payroll and benefits of all involved employees in the first half of 2023</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- Meeting Schedule -->
+        <div class="card">
+            <!-- Meeting Schedule -->
+            <div class="timeline">
+                <h2 contenteditable="true">Meeting Schedule</h2>
+                <ul>
+                    <li>
+                        <time contenteditable="true">09:00</time>
+                        <span contenteditable="true">Discuss project timeline</span>
+                    </li>
+                    <li>
+                        <time contenteditable="true">12:00</time>
+                        <span contenteditable="true">Review current progress, set next goals</span>
+                    </li>
+                    <li>
+                        <time contenteditable="true">14:00</time>
+                        <span contenteditable="true">Team status update meeting</span>
+                    </li>
+                    <li>
+                        <time contenteditable="true">16:00</time>
+                        <span contenteditable="true">Preparation for client presentation</span>
+                    </li>
+                </ul>
+            </div>
+
+
+        </div>
+
+                <!-- To-Do List -->
+                <div class="card">
+                    <h2>Todo List</h2>
+                    <div class="dashboard">
+                        <div class="chart-container">
+                            <canvas id="toDoChart"></canvas>
+                        </div>
+                        <div class="task-list-container">
+                            <h3>Task List</h3>
+                            <ul id="taskList">
+                                <li>t1 (Pending)</li>
+                                <li>t2 (In Progress)</li>
+                                <li>t3 (In Progress)</li>
+                                <li>t4 (Complete)</li>
+                                <li>t5 (Complete)</li>
+                                <li>t6 (Complete)</li>
+                                <!-- Tasks will be added here -->
+                            </ul>
+                            <div class="add-task">
+                                <input type="text" id="newTask" placeholder="New task..." />
+                                <select id="taskStatus">
+                                    <option value="0">Pending</option>
+                                    <option value="1">In Progress</option>
+                                    <option value="2">Complete</option>
+                                </select>
+                                <button onclick="addTask()">Add</button>
+                            </div>
+                        </div>
+                    </div>
         
-        <div class="card">
-            <h2>To-Do List</h2>
-        </div>   
+        
+                </div>
 
+        <!-- Data Statistics (Line Chart Placeholder) -->
+        <!-- Project Completion Progress -->
         <div class="card">
-            <h2>Work Progress</h2>
-        </div>   
-
-
-        <div class="card">
-            <h2>Stat Title</h2>
-        </div>   
+            <h2>Project completion progress</h2>
+            <div id="progress-container"></div>
+            <div class="progress-item">
+                <span class="progress-title">CRM Development</span>
+                <div class="progress">
+                    <div class="progress-bar" style="width: 25%;">25%</div>
+                </div>
+            </div>
+            <div class="progress-item">
+                <span class="progress-title">Sales Platform Integration</span>
+                <div class="progress">
+                    <div class="progress-bar" style="width: 70%;">70%</div>
+                </div>
+            </div>
+            <!-- Form to add new project -->
+            <div class="add-project-form">
+                <input type="text" id="new-project-name" placeholder="Enter new project name" />
+                <input type="number" id="new-project-progress" placeholder="Progress %" />
+                <button onclick="addProject()">Add Project</button>
+            </div>
+        </div>
 
 
     </div>
 
 
+    <!-- to do list -->
+    <!-- Add Chart.js from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Your custom script where you create the chart -->
+    <script>
+        const data = {
+            labels: ["Pending", "In Progress", "Complete"],
+            datasets: [{
+                label: 'Tasks',
+                data: [1, 2, 3], // Initialize all categories with zero
+                backgroundColor: ['#FFA500', '#008000', '#87CEEB'],
+            }]
+        };
+
+        const config = {
+            type: 'doughnut',
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                // Additional options
+            }
+        };
+
+        const toDoChart = new Chart(
+            document.getElementById('toDoChart'),
+            config
+        );
+
+        function addTask() {
+            const taskInput = document.getElementById('newTask');
+            const taskValue = taskInput.value.trim();
+            const taskStatusSelect = document.getElementById('taskStatus');
+            const taskStatus = taskStatusSelect.value;
+
+            if (taskValue) {
+                // Add task to the list with status
+                const taskList = document.getElementById('taskList');
+                const newTask = document.createElement('li');
+                newTask.textContent = `${taskValue} (${taskStatusSelect.options[taskStatusSelect.selectedIndex].text})`;
+                taskList.appendChild(newTask);
+
+                // Update chart data for the selected status
+                data.datasets[0].data[taskStatus]++;
+                toDoChart.update();
+
+                // Clear input and reset dropdown
+                taskInput.value = '';
+                taskStatusSelect.selectedIndex = 0;
+            } else {
+                // alert('Please enter a task.');
+            }
+        }
+
+
+        // Example of initializing the chart with some tasks
+        addTask('Task 1');
+        addTask('Task 2');
+        addTask('Task 3');
+
+    </script>
+
+
+    <!-- project-progress -->
+    <script>
+        function updateProgress(elementId, progress) {
+            const progressBar = document.getElementById(elementId);
+            progressBar.style.width = progress + '%';
+            progressBar.textContent = progress + '%';
+        }
+
+        function addProject() {
+            const projectName = document.getElementById('new-project-name').value;
+            const projectProgress = document.getElementById('new-project-progress').value;
+
+            if (projectName && projectProgress) {
+                const progressContainer = document.getElementById('progress-container');
+                const progressItem = document.createElement('div');
+                progressItem.classList.add('progress-item');
+                const progressTitle = document.createElement('span');
+                progressTitle.classList.add('progress-title');
+                progressTitle.textContent = projectName;
+                const progress = document.createElement('div');
+                progress.classList.add('progress');
+                const progressBar = document.createElement('div');
+                progressBar.classList.add('progress-bar');
+                progressBar.style.width = '0%'; // Start at 0% for animation
+                progressBar.id = 'progress-' + projectName.replace(/\s+/g, '-'); // Create a unique ID
+
+                progress.appendChild(progressBar);
+                progressItem.appendChild(progressTitle);
+                progressItem.appendChild(progress);
+                progressContainer.appendChild(progressItem);
+
+                // Animate to the new value
+                setTimeout(() => updateProgress(progressBar.id, projectProgress), 100);
+            } else {
+                // alert('Please enter project name and progress.');
+            }
+        }
+
+        // Example initial projects
+        addProject('CRM Development', 25);
+        addProject('Sales Platform Integration', 70);
+// ... add more initial projects as needed
+
+    </script>
+
+
+    <!-- time schedule -->
+    <script>
+
+        // Use this script to handle the saving of the content if needed.
+        // You may also implement more sophisticated data handling as required.
+        document.querySelectorAll('.timeline time, .timeline span').forEach(item => {
+            item.addEventListener('blur', function () {
+                // This function will be called when the user clicks away from the contenteditable field
+                // Here you can save the data to a database or local storage
+                console.log('New value:', item.textContent);
+            });
+        });
+
+    </script>
+
 </body>
 
 </html>
-
