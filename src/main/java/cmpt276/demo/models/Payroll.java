@@ -12,7 +12,8 @@ public class Payroll {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int payrollId;
 
-    private String week;
+    // private Week week;
+    // private User user;
     private double hoursWorked;
     private BigDecimal grossIncome;
     private BigDecimal taxesCPT;
@@ -25,8 +26,13 @@ public class Payroll {
     private UserSchedule userSchedule;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name = "week_id")
+    private Week week;
+    
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
+    
 
     // default
     public Payroll() {
@@ -37,14 +43,25 @@ public class Payroll {
     }
 
     // Args Constructor
-    public Payroll(String week, double hoursWorked, BigDecimal grossIncome, BigDecimal taxesCPT, BigDecimal netIncome, User user) {
-        this.week = week;
-        this.hoursWorked = hoursWorked;
-        this.grossIncome = grossIncome;
-        this.taxesCPT = taxesCPT;
-        this.netIncome = netIncome;
-        this.user = user;
+    public Payroll(UserSchedule userSchedule) {
+        if (userSchedule != null) {
+            this.week = userSchedule.getWeek();
+            this.user = userSchedule.getUser();
+            this.hoursWorked = userSchedule.getTotHours();
+            this.grossIncome = userSchedule.getUser().getHourlySalary().multiply(BigDecimal.valueOf(this.hoursWorked));
+            this.taxesCPT = this.grossIncome.multiply(TAX_RATE);
+            this.netIncome = this.grossIncome.subtract(this.taxesCPT);
+        } else {
+            // Set default values or handle the null case differently
+            
+            this.hoursWorked = 0;
+            this.grossIncome = BigDecimal.ZERO;
+            this.taxesCPT = BigDecimal.ZERO;
+            this.netIncome = BigDecimal.ZERO;
+           
+        }
     }
+    
 
     // Getters and Setters for each attribute
 
@@ -56,65 +73,30 @@ public class Payroll {
         this.payrollId = payrollId;
     }
 
-    public String getWeek() {
+    public Week getWeek() {
         return week;
-    }
-
-    public void setWeek(String week) {
-        this.week = week;
     }
 
     public double getHoursWorked() {
         return hoursWorked;
     }
 
-    public void setHoursFromSchedule() {
-    if (this.userSchedule != null) {
-        this.hoursWorked = this.userSchedule.getTotHours();
-    }
-    }
-
     public BigDecimal getGrossIncome() {
         return grossIncome;
-    }
-
-    public void setGrossIncome(BigDecimal grossIncome) {
-        this.grossIncome = grossIncome;
     }
 
     public BigDecimal getTaxesCPT() {
         return taxesCPT;
     }
 
-    public void setTaxesCPT(BigDecimal taxesCPT) {
-        this.taxesCPT = taxesCPT;
-    }
-
     public BigDecimal getNetIncome() {
         return netIncome;
-    }
-
-    public void setNetIncome(BigDecimal netIncome) {
-        this.netIncome = netIncome;
     }
 
     public User getUser() {
         return user;
     }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public void computePayroll(BigDecimal hourlySalary) {
-        if (this.hoursWorked == 0 && this.userSchedule != null) {
-            setHoursFromSchedule();
-        }
-
-        this.grossIncome = hourlySalary.multiply(BigDecimal.valueOf(this.hoursWorked));
-        this.taxesCPT = this.grossIncome.multiply(TAX_RATE);
-        this.netIncome = this.grossIncome.subtract(this.taxesCPT);
-    }
+    
 
 }
 
