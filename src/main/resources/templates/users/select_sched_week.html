@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Associate User with Week</title>
+    <link rel="stylesheet" href="/css/admin_schedule.css">
+    
+</head>
+<body>
+    <div id="top-bar">
+        <h1> Enterprise Information Management System</h1> 
+
+    </div>
+
+    <!-- menu-->
+    <ul id="navbar">
+        <li><a href="/users/dashboard">Home Page</a></li>
+        <li><a href="/users/schedule">Attendance</a></li>
+        <li><a href="#">Meeting</a></li>
+        <li><a href="#">Approval </a></li>
+        <li><a href="/users/performance">Performance</a></li>
+        <li><a href="/users/payrollUser">Payroll</a></li>
+            <!-- fix thymleafe bug for addressbook-> th:if="${user.admin}"   -->
+        <!-- <li><a href="/users/addressBook">Address book</a></li> -->
+        <li><a href="#">Information Center</a></li>
+        <li><a href="/file/toFilePage">File Management</a></li>
+        <li><a href="/users/personalCenter">Personal Center</a></li>
+        <li><a href="/users/settings">Settings</a></li>
+        <li><a href="/logout">logout</a></li>
+    </ul>
+    
+
+    <div id="content">
+        <form action="/users/view-schedule" method="post" id="schedule-form">
+
+
+            <!-- <table>
+                <thead>
+                    <tr th:each="schedule : ${allUserSchedules}">
+                        <th>Week</th>
+                        <th>Schedule</th>
+                        <th>Total Hours</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="schedule : ${allUserSchedules}">
+                        <td th:text="${schedule.week.weekName}"></td>
+                        <td th:text="${schedule.days}"></td>
+                        <td th:text="${schedule.totHours}"></td>
+                    </tr>
+                </tbody>
+            </table> -->
+    
+            <input type="hidden" name="username" th:if="${user}" th:value="${user.username}" />
+            <p th:if="${user}"><span th:text="${user.username}"></span>'s Schedule</p>
+    
+            
+            <div>
+                <label for="weekname">Select a Week:</label>
+                <select name="weekname" id="weekname" required>
+                    <option value="">Select a Week</option>
+                    
+                    <th:block th:each="week : ${weeks}">
+                        <option th:value="${week.weekName}" th:text="${week.weekName}"></option>
+                    </th:block>
+                </select>
+            </div>
+    
+            <div>
+                <input type="submit" value="View Week Summary" id="view-schedule-button">
+            </div>
+        </form>
+    </div>
+    
+
+</body>
+</html>

@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Address-book</title>
     <link rel="stylesheet" href="/css/address-book.css">
+    <script type="text/javascript" src="/js/jquery.js"></script>
+
 </head>
 
 <body>
@@ -17,48 +19,52 @@
     <!-- menu-->
     <ul id="navbar">
         <li><a href="/users/dashboard">Home Page</a></li>
-        <li><a href="#">Attendance</a></li>
+        <li><a href="/users/schedule">Attendance</a></li>
         <li><a href="#">Meeting</a></li>
         <li><a href="#">Approval </a></li>
         <li><a href="/users/performance">Performance</a></li>
-        <li><a href="/users/addressBook">Address book</a></li>
-        <li><a href="#">Information center</a></li>
-        <li><a href="#">Training</a></li>
+        <li><a href="/users/payrollUser">Payroll</a></li>
+         <li   th:if="${user.admin}"  ><a href="/users/addressBook">Address book</a></li>
+        <li><a href="#">Information Center</a></li>
+       <li><a href="/file/toFilePage">File Management</a></li>
         <li><a href="/users/personalCenter">Personal Center</a></li>
         <li><a href="/users/settings">Settings</a></li>
-        <li><a href="#">ffff</a></li>
+        <li><a href="/logout">logout</a></li>
     </ul>
 
 
     <!--address book-->
     <div id="address-book">
         <div id="search-bar">
-            <input type="text" placeholder="Search..." style="width: 100%; padding: 10px;">
+           <!-- <input type="text" placeholder="Search..." style="width: 100%; padding: 10px;">-->
+            <a href="/users/toAddUserPage"> <button>add user</button></a>
+
         </div>
 
         <table>
             <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Department</th>
+                    <th>Admin</th>
+                    <th>operate</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>AAA</td>
-                    <td>AAA@gmail.com</td>
-                    <td>123-456-7890</td>
-                    <td>Design</td>
-                </tr>
-                <tr>
-                    <td>BBB</td>
-                    <td>BBB@gmail.co</td>
-                    <td>987-654-3210</td>
-                    <td>managenment</td>
-                </tr>
-                <!-- Add more entries as needed -->
+            <tr th:each=" user :  ${allusers}">
+                <td th:text="${user.uid}" th:data-id="${user.uid}"></td>
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.phoneNumber}"></td>
+                <td th:text="${user.department}"></td>
+                <td th:text="${user.admin}"></td>
+                <td>   <button onclick="deleteUser(this)" th:data-id="${user.uid}">delete user</button>
+                    <button onclick="updateUser(this)" th:data-id="${user.uid}">update user</button>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>
@@ -68,4 +74,28 @@
 
 </body>
 
+<script>
+    function deleteUser(bu){
+        var index_id = bu.attributes[1].value;
+        console.log(index_id);
+
+        var confirmDelete = confirm("Are you sure you want to delete this user?");
+
+        if (confirmDelete) {
+            $.post('/users/delete',{uid:index_id},function(result){
+                alert("Delete user successfully!")
+                location.reload();
+            });
+        }
+    }
+
+    function updateUser(bu){
+        var index_id = bu.attributes[1].value;
+        console.log(index_id);
+        window.location.href="/users/toUpdateUserPage?uid="+index_id;
+
+    }
+
+</script>
 </html>
+
