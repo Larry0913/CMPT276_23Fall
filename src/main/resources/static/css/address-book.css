@@ -19,7 +19,7 @@ body {
     float: left;
     list-style-type: none;
     padding: 0;
-    margin-top: -1px; 
+    margin-top: -1px;
     border-radius: 0.5%;
 }
 
@@ -28,48 +28,155 @@ body {
     /* border-bottom: 1px solid #666; */
 }
 
-        #navbar li a {
-            text-decoration: none;
-            color: #fff;
-            display: block;
-            transition: background-color 0.3s;
-        }
+#navbar li a {
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    transition: background-color 0.3s;
+}
 
-        #navbar li a:hover {
-            background-color: #666;
-        }
+#navbar li a:hover {
+    background-color: #666;
+}
 
-        #address-book {
-            border: 1px solid #ddd;
-            width: 60%;
-            margin: 0 auto;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
 
-        #search-bar {
-            margin-bottom: 20px;
-        }
+/* 
+#address-book {
+    border: 1px solid #ddd;
+    width: 60%;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+#search-bar {
+    margin-bottom: 20px;
+}
 
-        table, th, td {
-            border: 1px solid #ddd;
-        }
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
 
-        th, td {
-            padding: 8px 15px;
-            text-align: left;
-        }
+table,
+th,
+td {
+    border: 1px solid #ddd;
+}
 
-        th {
-            background-color: #f4f4f4;
-        }
+th,
+td {
+    padding: 8px 15px;
+    text-align: left;
+}
 
-        tr:hover {
-            background-color: #f6f6f6;
-        }
+th {
+    background-color: #f4f4f4;
+}
+
+tr:hover {
+    background-color: #f6f6f6;
+} */
+#header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+#header-container h2 {
+    margin: 0; /* Removes default margin */
+    padding-right: 20px; /* Optional: Adds some space between the title and the button */
+}
+
+#header-container a button {
+    padding: 10px 20px;
+    background-color: #78997b; /* Green background */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#header-container a button:hover {
+    background-color: #627460; /* Darker green on hover */
+}
+
+
+#address-book {
+    border: 1px solid #ddd;
+    width: 60%;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #4a346f; /* Same as navbar hover color for consistency */
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2; /* Light grey for every other row */
+}
+
+tr:hover {
+    background-color: #ddd; /* Lighter grey on hover */
+}
+
+button {
+    background-color: #175a58; /* Green color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #093509; /* Darker green on hover */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 15px; /* Adds rounded corners */
+    overflow: hidden; /* Ensures the inner elements adhere to the table's border radius */
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #1A5445; /* Example background color */
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #ddd;
+}
