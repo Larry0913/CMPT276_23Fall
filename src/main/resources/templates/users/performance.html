@@ -9,6 +9,21 @@
 </head>
 
 <body>
+    <script>
+        function displayForm(formType) {
+            // Hide all forms
+            var forms = document.getElementsByClassName('form-container');
+            for(var i = 0; i < forms.length; i++) {
+                forms[i].style.display = 'none';
+            }
+
+            // Show the selected form
+            var selectedForm = document.getElementById(formType + '-form');
+            if (selectedForm) {
+                selectedForm.style.display = 'block';
+            }
+        }
+    </script>
     <div id="top-bar">
         <h1> Enterprise Information Management System</h1> 
     </div>
@@ -45,14 +60,12 @@
             </div>
         </div>  
 
-        
-
-        <div id="application-container">
+        <div id="leave-form" class="form-container">
             <h2>Leave Application</h2>
     
-            <form action="/users/performance" method="post">
+            <form action="/users/performance/leave" method="post">
                 <label for="employee-name">Employee Name:</label>
-                <input type="text" id="employee-name" name="employeeName" required>
+                <input type="text" id="employee-name" name="employeeName" th:value=${user.username} readonly>
     
                 <label for="leave-type">Type of Leave:</label>
                 <select id="leave-type" name="leaveType">
@@ -73,31 +86,260 @@
                 <button type="submit">Submit Application</button>
             </form>
         </div>
-        
+
+        <div id="trip-form" class="form-container">
+            <h2>Business Trip Application</h2>
+    
+            <form action="/users/performance/businesstrip" method="post">
+                <label for="employee-name">Employee Name:</label>
+                <input type="text" id="employee-name" name="employeeName" th:placeholder=${user.username} required>
+    
+                <label for="trip-location">Location:</label>
+                <input type="text" id="trip-location" name="tripLocation" required>
+    
+                <label for="start-date">Start Date:</label>
+                <input type="date" id="start-date" name="startDate" required>
+    
+                <label for="end-date">End Date:</label>
+                <input type="date" id="end-date" name="endDate" required>
+
+                <label for="trip-budget">Estimated Budget (in USD):</label>
+                <input type="text" id="trip-budget" name="tripBudget" required>
+    
+                <label for="reason">Work Goal:</label>
+                <textarea id="reason" name="reason" rows="4" required></textarea>
+    
+                <button type="submit">Submit Application</button>
+            </form>
+        </div>
+
+        <div id="paidLeave-form" class="form-container">
+            <h2>Paid Leave Application</h2>
+            <form action="/users/performance/paidleave" method="post">
+                <label for="employee-name">Employee Name:</label>
+                <input type="text" id="employee-name" name="employeeName" th:placeholder=${user.username} required>
+    
+                <label for="paidleave-type">Type of Leave:</label>
+                <select id="paidleave-type" name="paidleaveType">
+                    <option value="sick">Sick Leave</option>
+                    <option value="vacation">Vacation Leave</option>
+                    <option value="personal">Personal Leave</option>
+                </select>
+    
+                <label for="start-date">Start Date:</label>
+                <input type="date" id="start-date" name="startDate" required>
+    
+                <label for="end-date">End Date:</label>
+                <input type="date" id="end-date" name="endDate" required>
+    
+                <label for="paidleave-reason">Reason for Leave:</label>
+                <textarea id="paidleave-reason" name="paidLeaveReason" rows="4" required></textarea>
+    
+                <button type="submit">Submit Application</button>
+            </form>
+        </div>
+
+        <div id="overtime-form" class="form-container">
+            <h2>Overtime Application</h2>
+            <form action="/users/performance/overtime" method="post">
+                <label for="employee-name">Employee Name:</label>
+                <input type="text" id="employee-name" name="employeeName" th:placeholder=${user.username} required>
+    
+                <label for="overtime-date">Start Date:</label>
+                <input type="date" id="overtime-date" name="overtimeDate" required>
+    
+                <label for="start-time">Start Time:</label>
+                <input type="time" id="start-time" name="startTime" required>
+
+                <label for="end-time">End Time:</label>
+                <input type="time" id="end-time" name="endTime" required>
+    
+                <label for="overtime-reason">Reason for overtime:</label>
+                <textarea id="overtime-reason" name="overtimeReason" rows="4" required></textarea>
+    
+                <button type="submit">Submit Application</button>
+            </form>
+        </div>
+
+        <div id="reimbursement-form" class="form-container">
+            <h2>Reimbursement Application</h2>
+            <form action="/users/performance/reimbursement" method="post">
+                <label for="employee-name">Employee Name:</label>
+                <input type="text" id="employee-name" name="employeeName" th:placeholder=${user.username} required>
+    
+                <label for="expense-type">Type of Expense:</label>
+                <select id="expense-type" name="expenseType">
+                    <option value="transporation">Tranportation</option>
+                    <option value="food">Food</option>
+                    <option value="medication">Medication/Work Injury</option>
+                    <option value="entertainment">Entertainment</option>
+                    <option value="work-related">Work-related Expense</option>
+                    <option value="others">Others</option>
+                </select>
+                
+                <label for="reimbursement-amount">Amount:</label>
+                <input type="text" id="reimbursement-amount" name="reimbursementAmount" required>
+
+                <label for="reimbursement-reason">Reason For Reimbursement:</label>
+                <textarea id="reimbursement-reason" name="reimbursementReason" rows="4" required></textarea>
+    
+                <button type="submit">Submit Application</button>
+            </form>
+        </div>
+
+        <div id="other-form" class="form-container">
+            <h2>Other Application</h2>
+            <form action="/users/performance/other" method="post">
+                <label for="employee-name">Employee Name:</label>
+                <input type="text" id="employee-name" name="employeeName" th:placeholder=${user.username} required>
+    
+                <label for="other-detail">Detail:</label>
+                <textarea id="other-detail" name="otherDetail" rows="4" required></textarea>
+    
+                <button type="submit">Submit Application</button>
+            </form>
+        </div>
+
         <div class="card">
-            <h2>application status</h2>
+            <!-- leave requests display table -->
+            <h2>Leave Requests</h2>
             <table>
                 <thead>
                     <tr>
-                        <th>Type</th>
+                        <th>User Requested</th>
+                        <th>Leave Type</th>
                         <th>Start Date</th>
                         <th>End Date</th>
-                        <th>Status</th>
+                        <th>Reason</th>
                     </tr>
                 </thead>
                 <tbody>
                     <!-- Example rows, you can replace with dynamic content -->
-                    <tr>
-                        <td>Leave</td>
-                        <td>2023-11-01</td>
-                        <td>2023-11-05</td>
-                        <td>Approved</td>
+                    <tr th:each="leaverequest : ${allleaverequest}">
+                        <td th:text="${leaverequest.requesterName}"></td>
+                        <td th:text="${leaverequest.typeLeave}"></td>
+                        <td th:text="${leaverequest.startDate}"></td>
+                        <td th:text="${leaverequest.endDate}"></td>
+                        <td th:text="${leaverequest.Reason}"></td>
                     </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Business Trip Requests</h2>
+            <table>
+                <thead>
                     <tr>
-                        <td>Business Trip</td>
-                        <td>2023-11-10</td>
-                        <td>2023-11-15</td>
-                        <td>Pending</td>
+                        <th>User Requested</th>
+                        <th>Trip Location</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <!-- <th>Trip Budget</th> -->
+                        <th>Work Goal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Example rows, you can replace with dynamic content -->
+                    <tr th:each="businesstriprequest : ${allbusinesstriprequest}">
+                        <td th:text="${businesstriprequest.requesterName}"></td>
+                        <td th:text="${businesstriprequest.tripLocation}"></td>
+                        <td th:text="${businesstriprequest.startDate}"></td>
+                        <td th:text="${businesstriprequest.endDate}"></td>
+                        <!-- <td th:text="${businesstriprequest.tripBudget}"></td> -->
+                        <td th:text="${businesstriprequest.reason}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Paid Leave Requests</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>User Requested</th>
+                        <th>Leave Type</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Reason</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Example rows, you can replace with dynamic content -->
+                    <tr th:each="paidleaverequest : ${allpaidleaverequest}">
+                        <td th:text="${paidleaverequest.requesterName}"></td>
+                        <td th:text="${paidleaverequest.typePLeave}"></td>
+                        <td th:text="${paidleaverequest.startDate}"></td>
+                        <td th:text="${paidleaverequest.endDate}"></td>
+                        <td th:text="${paidleaverequest.Reason}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Overtime Requests</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>User Requested</th>
+                        <th>Overtime Date</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <!-- <th>Reason</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Example rows, you can replace with dynamic content -->
+                    <tr th:each="overtimerequest : ${allovertimerequest}">
+                        <td th:text="${overtimerequest.requesterName}"></td>
+                        <td th:text="${overtimerequest.overtimeDate}"></td>
+                        <td th:text="${overtimerequest.startTime}"></td>
+                        <td th:text="${overtimerequest.endTime}"></td>
+                        <!-- <td th:text="${overtimerequest.overtimeReason}"></td> -->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Reimbursement Requests</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>User Requested</th>
+                        <!-- <th>Expense Type</th> -->
+                        <th>Reimbursement Amount</th>
+                        <!-- <th>Reason</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Example rows, you can replace with dynamic content -->
+                    <tr th:each="reimbursementrequest : ${allreimbursementrequest}">
+                        <td th:text="${reimbursementrequest.requesterName}"></td>
+                        <!-- <td th:text="${reimbursementrequest.expenseType}"></td> -->
+                        <td th:text="${reimbursementrequest.reimbursementAmount}"></td>
+                        <!-- <td th:text="${reimbursementrequest.reimbursementReason}"></td> -->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+            
+        <div class="card">
+            <h2>Other Requests</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>User Requested</th>
+                        <th>Detail</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Example rows, you can replace with dynamic content -->
+                    <tr th:each="otherrequest : ${allotherrequest}">
+                        <td th:text="${otherrequest.requesterName}"></td>
+                        <td th:text="${otherrequest.otherDetail}"></td>
                     </tr>
                 </tbody>
             </table>

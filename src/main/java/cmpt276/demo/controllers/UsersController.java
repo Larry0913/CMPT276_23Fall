@@ -2,17 +2,29 @@ package cmpt276.demo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.ReadOnlyProperty;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import cmpt276.demo.dao.UserLeaveRequestRepository;
 import cmpt276.demo.dao.PayrollRepository;
+import cmpt276.demo.models.UserBusinessTripRequest;
+import cmpt276.demo.models.UserPaidLeaveRequest;
+import cmpt276.demo.models.UserOvertimeRequest;
+import cmpt276.demo.models.UserReimbursementRequest;
+import cmpt276.demo.models.UserOtherRequest;
+import cmpt276.demo.dao.UserBusinessTripRequestRepository;
+import cmpt276.demo.dao.UserPaidLeaveRequestRepository;
+import cmpt276.demo.dao.UserOvertimeRequestRepository;
+import cmpt276.demo.dao.UserReimbursementRequestRepository;
+import cmpt276.demo.dao.UserOtherRequestRepository;
 import cmpt276.demo.dao.UserRepository;
 import cmpt276.demo.dao.UserScheduleRepository;
 import cmpt276.demo.dao.WeekRepository;
@@ -47,6 +59,21 @@ public class UsersController {
 
     @Autowired
     private UserLeaveRequestRepository leaveRepo;
+
+    @Autowired
+    private UserBusinessTripRequestRepository businessTripRepo;
+
+    @Autowired
+    private UserPaidLeaveRequestRepository paidLeaveRepo;
+
+    @Autowired
+    private UserOvertimeRequestRepository overtimeRepo;
+
+    @Autowired
+    private UserReimbursementRequestRepository reimbursementRepo;
+
+    @Autowired
+    private UserOtherRequestRepository otherRepo;
 
     List<User> userlist;
     List<Week> weeklist;
@@ -171,14 +198,26 @@ public class UsersController {
     public ModelAndView showPerformance(HttpServletRequest request) {
         ModelAndView mv = new ModelAndView();
         User session_user = (User) request.getSession().getAttribute("user");
+        List<UserLeaveRequest> leaverequestlist = leaveRepo.findByUser(session_user);
+        List<UserBusinessTripRequest> businesstriprequestlist = businessTripRepo.findByUser(session_user);
+        List<UserPaidLeaveRequest> paidleaverequestlist = paidLeaveRepo.findByUser(session_user);
+        List<UserOvertimeRequest> overtimerequestlist = overtimeRepo.findByUser(session_user);
+        List<UserReimbursementRequest> reimbursementrequestlist = reimbursementRepo.findByUser(session_user);
+        List<UserOtherRequest> otherrequestlist = otherRepo.findByUser(session_user);
+        mv.addObject("user", session_user);
+        mv.addObject("allleaverequest", leaverequestlist);
+        mv.addObject("allbusinesstriprequest", businesstriprequestlist);
+        mv.addObject("allpaidleaverequest", paidleaverequestlist);
+        mv.addObject("allovertimerequest", overtimerequestlist);
+        mv.addObject("allreimbursementrequest", reimbursementrequestlist);
+        mv.addObject("allotherrequest", otherrequestlist);
         // we should not add session id in the model
         // this is just an example of adding dynamic data into model
-        mv.addObject("user", session_user);
         mv.setViewName("users/performance");
         return mv;
     }
 
-    @PostMapping("/users/performance")
+    @PostMapping("/users/performance/leave")
     public String addLeaveRequest(@RequestParam Map<String, String> LeaveRequest, HttpServletResponse response) {
         // System.out.println("NewRequestType: " + LeaveRequest.get("typeLeave"));
         String requesterName = LeaveRequest.get("employeeName");
@@ -192,8 +231,195 @@ public class UsersController {
         newLeaveRequest.setUser(user);
         leaveRepo.save(newLeaveRequest);
         response.setStatus(201);
-        return "users/addedRequest";
+        return "redirect:/users/performance";
     }
+
+//=================================================================================
+
+    @PostMapping("/users/performance/businesstrip")
+    public String addBusinessTripRequest(@RequestParam Map<String, String> BusinessTripRequest, HttpServletResponse response) {
+        // System.out.println("NewRequestType: " + LeaveRequest.get("typeLeave"));
+        String requesterName = BusinessTripRequest.get("employeeName");
+        String tripLocation = BusinessTripRequest.get("tripLocation");
+        String startDate = BusinessTripRequest.get("startDate");
+        String endDate = BusinessTripRequest.get("endDate");
+        String tripBudget = BusinessTripRequest.get("tripBudget");
+        String reasonForTrip = BusinessTripRequest.get("reason");
+        userlist = userRepo.findByUsername(requesterName);
+        User user = userlist.get(0);
+        UserBusinessTripRequest newBusinessTripRequest = new UserBusinessTripRequest(requesterName, tripLocation, startDate, endDate, tripBudget, reasonForTrip);
+        newBusinessTripRequest.setUser(user);
+        businessTripRepo.save(newBusinessTripRequest);
+        response.setStatus(201);
+        return "redirect:/users/performance";
+    }
+
+    @PostMapping("/users/performance/paidleave")
+    public String addPaidLeaveRequest(@RequestParam Map<String, String> PaidLeaveRequest, HttpServletResponse response) {
+        // System.out.println("NewRequestType: " + LeaveRequest.get("typeLeave"));
+        String requesterName = PaidLeaveRequest.get("employeeName");
+        String typePLeave = PaidLeaveRequest.get("paidleaveType");
+        String startDate = PaidLeaveRequest.get("startDate");
+        String endDate = PaidLeaveRequest.get("endDate");
+        String reasonForPLeave = PaidLeaveRequest.get("paidLeaveReason");
+        userlist = userRepo.findByUsername(requesterName);
+        User user = userlist.get(0);
+        UserPaidLeaveRequest newPaidLeaveRequest = new UserPaidLeaveRequest(requesterName, typePLeave, startDate, endDate, reasonForPLeave);
+        newPaidLeaveRequest.setUser(user);
+        paidLeaveRepo.save(newPaidLeaveRequest);
+        response.setStatus(201);
+        return "redirect:/users/performance";
+    }
+
+    @PostMapping("/users/performance/overtime")
+    public String addOvertimeRequest(@RequestParam Map<String, String> OvertimeRequest, HttpServletResponse response) {
+        // System.out.println("NewRequestType: " + LeaveRequest.get("typeLeave"));
+        String requesterName = OvertimeRequest.get("employeeName");
+        String overtimeDate = OvertimeRequest.get("overtimeDate");
+        String startTime = OvertimeRequest.get("startTime");
+        String endTime = OvertimeRequest.get("endTime");
+        String reasonForOvertime = OvertimeRequest.get("overtimeReason");
+        userlist = userRepo.findByUsername(requesterName);
+        User user = userlist.get(0);
+        UserOvertimeRequest newOvertimeRequest = new UserOvertimeRequest(requesterName, overtimeDate, startTime, endTime, reasonForOvertime);
+        newOvertimeRequest.setUser(user);
+        overtimeRepo.save(newOvertimeRequest);
+        response.setStatus(201);
+        return "redirect:/users/performance";
+    }
+
+    @PostMapping("/users/performance/reimbursement")
+    public String addReimbursementRequest(@RequestParam Map<String, String> ReimbursementRequest, HttpServletResponse response) {
+        // System.out.println("NewRequestType: " + LeaveRequest.get("typeLeave"));
+        String requesterName = ReimbursementRequest.get("employeeName");
+        String typeExpense = ReimbursementRequest.get("expenseType");
+        String reimbursementAmount = ReimbursementRequest.get("reimbursementAmount");
+        String reasonForReimbursement = ReimbursementRequest.get("reimbursementReason");
+        userlist = userRepo.findByUsername(requesterName);
+        User user = userlist.get(0);
+        UserReimbursementRequest newReimbursementRequest = new UserReimbursementRequest(requesterName, typeExpense, reimbursementAmount, reasonForReimbursement);
+        newReimbursementRequest.setUser(user);
+        reimbursementRepo.save(newReimbursementRequest);
+        response.setStatus(201);
+        return "redirect:/users/performance";
+    }
+
+    @PostMapping("/users/performance/other")
+    public String addOtherRequest(@RequestParam Map<String, String> OtherRequest, HttpServletResponse response) {
+        // System.out.println("NewRequestType: " + LeaveRequest.get("typeLeave"));
+        String requesterName = OtherRequest.get("employeeName");
+        String otherDetail = OtherRequest.get("otherDetail");
+        userlist = userRepo.findByUsername(requesterName);
+        User user = userlist.get(0);
+        UserOtherRequest newOtherRequest = new UserOtherRequest(requesterName, otherDetail);
+        newOtherRequest.setUser(user);
+        otherRepo.save(newOtherRequest);
+        response.setStatus(201);
+        return "redirect:/users/performance";
+    }
+
+//==============================================================
+    // @GetMapping("/users/performance/leave")
+    // public String showLeaveRequest(HttpServletRequest request, Model model, HttpSession session) {
+    //     User user = (User) session.getAttribute("user");
+    //     List<UserLeaveRequest> leaverequestlist = leaveRepo.findByUser(user);
+    //     model.addAttribute("allleaverequest", leaverequestlist);
+    //     model.addAttribute("user", user);
+    //     return "users/performance";
+    // }
+
+    // @GetMapping("/users/performance/leave")
+    // public String showleaverequest(HttpServletRequest request, Model model, HttpSession session) {
+    //     User user = (User) session.getAttribute("user"); // Use the correct key here
+
+    //     if (user != null) {
+    //         List<UserLeaveRequest> leaveRequestList = leaveRepo.findByUserName(user.()); // Assuming such a method exists
+    //         model.addAttribute("allLeaveRequest", leaveRequestList);
+    //     } else {
+    //         // Handle the case where there is no user in session (e.g., redirect to login)
+    //         return "redirect:/users/login";
+    //     }
+    //     UserLeaveRequest leaveRequest = (UserLeaveRequest) session.getAttribute("leaverequest");
+    //     model.addAttribute("leaverequest", leaveRequest);
+    //     return "redirect:/users/performance";
+    // }
+
+    // @GetMapping("/users/performance/businesstrip")
+    // public String showbusinesstriprequest(HttpServletRequest request, Model model, HttpSession session) {
+    //     User user = (User) session.getAttribute("user"); // Use the correct key here
+
+    //     if (user != null) {
+    //         List<UserBusinessTripRequest> businessTripRequestList = businessTripRepo.findByUserId(user.getUid()); // Assuming such a method exists
+    //         model.addAttribute("allBusinessTripRequest", businessTripRequestList);
+    //     } else {
+    //         // Handle the case where there is no user in session (e.g., redirect to login)
+    //         return "redirect:/users/login";
+    //     }
+    //     model.addAttribute("user", user);
+    //     return "redirect:/users/performance";
+    // }
+
+    // @GetMapping("/users/performance/paidleave")
+    // public String showpaidleaverequest(HttpServletRequest request, Model model, HttpSession session) {
+    //     User user = (User) session.getAttribute("user"); // Use the correct key here
+
+    //     if (user != null) {
+    //         List<UserPaidLeaveRequest> paidLeaveRequestList = paidLeaveRepo.findByUserId(user.getUid()); // Assuming such a method exists
+    //         model.addAttribute("allPaidLeaveRequest", paidLeaveRequestList);
+    //     } else {
+    //         // Handle the case where there is no user in session (e.g., redirect to login)
+    //         return "redirect:/users/login";
+    //     }
+    //     model.addAttribute("user", user);
+    //     return "redirect:/users/performance";
+    // }
+
+    // @GetMapping("/users/performance/overtime")
+    // public String showovertimerequest(HttpServletRequest request, Model model, HttpSession session) {
+    //     User user = (User) session.getAttribute("user"); // Use the correct key here
+
+    //     if (user != null) {
+    //         List<UserOvertimeRequest> overtimeRequestList = overtimeRepo.findByUserId(user.getUid()); // Assuming such a method exists
+    //         model.addAttribute("allOvertimeRequest", overtimeRequestList);
+    //     } else {
+    //         // Handle the case where there is no user in session (e.g., redirect to login)
+    //         return "redirect:/users/login";
+    //     }
+    //     model.addAttribute("user", user);
+    //     return "redirect:/users/performance";
+    // }
+
+    // @GetMapping("/users/performance/reimbursement")
+    // public String showreimbursementrequest(HttpServletRequest request, Model model, HttpSession session) {
+    //     User user = (User) session.getAttribute("user"); // Use the correct key here
+
+    //     if (user != null) {
+    //         List<UserReimbursementRequest> reimbursementRequestList = reimbursementRepo.findByUserId(user.getUid()); // Assuming such a method exists
+    //         model.addAttribute("allReimbursementRequest", reimbursementRequestList);
+    //     } else {
+    //         // Handle the case where there is no user in session (e.g., redirect to login)
+    //         return "redirect:/users/login";
+    //     }
+    //     model.addAttribute("user", user);
+    //     return "redirect:/users/performance";
+    // }
+
+    // @GetMapping("/users/performance/other")
+    // public String showotherrequest(HttpServletRequest request, Model model, HttpSession session) {
+    //     User user = (User) session.getAttribute("user"); // Use the correct key here
+
+    //     if (user != null) {
+    //         List<UserOtherRequest> otherRequestList = otherRepo.findByUserId(user.getUid()); // Assuming such a method exists
+    //         model.addAttribute("allOtherRequest", otherRequestList);
+    //     } else {
+    //         // Handle the case where there is no user in session (e.g., redirect to login)
+    //         return "redirect:/users/login";
+    //     }
+    //     model.addAttribute("user", user);
+    //     return "redirect:/users/performance";
+    // }
+
+//==============================================================
 
     @GetMapping("/users/addressBook")
     public String showAddressBook(HttpServletRequest request, Model model, HttpSession session) {

@@ -46,6 +46,10 @@
             overflow-y: scroll;
         }
 
+        .form-container {
+            display: none;
+        }
+
         .card {
             background-color: #fff;
             padding: 15px;
@@ -69,6 +73,7 @@
         }
 
         .option {
+            cursor: pointer;
             padding: 15px;
             text-align: center;
             background-color: #e6e6e6;
