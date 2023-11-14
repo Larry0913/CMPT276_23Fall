@@ -17,13 +17,10 @@
 <!-- menu-->
 <ul id="navbar">
     <li><a href="/users/dashboard">Home Page</a></li>
-    <li><a href="#">Attendance</a></li>
-    <li><a href="#">Meeting</a></li>
-    <li><a href="#">Approval </a></li>
+    <li><a href="/users/schedule">Attendance</a></li>
     <li><a href="/users/performance">Performance</a></li>
     <li><a href="/users/payrollUser">Payroll</a></li>
      <li   th:if="${user.admin}"  ><a href="/users/addressBook">Address book</a></li>
-    <li><a href="#">Information Center</a></li>
    <li><a href="/file/toFilePage">File Management</a></li>
     <li><a href="/users/personalCenter">Personal Center</a></li>
     <li><a href="/users/settings">Settings</a></li>
@@ -68,13 +65,16 @@
         </div>
 
        <button type="submit" class="btn" style="margin-left: 100px;margin-top: 10px">add user</button>
+
+       <div id="search-bar"><a href="/users/addressBook"> <button>back</button></a>
+    </div>
     </form>
+
+
 
 </div>
 
-<div id="search-bar">
-     <a href="/users/addressBook"> <button>back</button></a>
- </div>
+
 
 
 </body>
