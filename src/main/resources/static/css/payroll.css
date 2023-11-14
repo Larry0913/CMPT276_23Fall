@@ -1,0 +1,143 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+#top-bar {
+    background-color: #333;
+    color: #ffffff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+#navbar {
+    width: 250px;
+    height: 100vh;
+    background-color: #555;
+    list-style-type: none;
+    padding: 0;
+}
+
+#navbar li {
+    padding: 10px 20px;
+    border-bottom: 1px solid #666;
+}
+
+#navbar li a {
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+#navbar li a:hover {
+    background-color: #666; 
+}
+
+#main-content {
+    display: flex;
+}
+
+#payroll {
+    margin-left: 20px; 
+}
+
+#payroll table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid black;
+}
+
+#payroll table th, #payroll table td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+}
+
+#payroll table th {
+    background-color: #f2f2f2;
+}
+
+#payroll-title {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#current-salary-display {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+#current-salary-display a {
+    text-decoration: none;
+    color: #000;
+    background-color: #f4f4f4;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+#current-salary-display a:hover {
+    background-color: #ddd;
+}
+
+/* General styling for the Payroll container */
+#payroll-container {
+    border: 1px solid #ddd;
+    width: 60%;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+ /* Admin controls for setting/changing hourly salary */
+#admin-controls {
+    margin-bottom: 30px;
+}
+
+#admin-controls select,
+#admin-controls input[type="number"],
+#admin-controls button {
+    padding: 8px 12px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+}
+
+#admin-controls button:hover,
+#admin-controls input[type="number"]:hover,
+#admin-controls select:hover {
+    border-color: #aaa;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 8px 15px;
+    text-align: left;
+}
+
+th {
+    background-color: #f4f4f4;
+}
+
+tr:hover {
+    background-color: #f6f6f6;
+} 

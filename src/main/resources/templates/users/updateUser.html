@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Address-book</title>
+    <link rel="stylesheet" href="/css/adduser.css">
+</head>
+
+<body>
+
+<div id="top-bar">
+    <h1> Enterprise Information Management System</h1>
+</div>
+
+<!-- menu-->
+<ul id="navbar">
+    <li><a href="/users/dashboard">Home Page</a></li>
+    <li><a href="/users/schedule">Attendance</a></li>
+    <li><a href="#">Meeting</a></li>
+    <li><a href="#">Approval </a></li>
+    <li><a href="/users/performance">Performance</a></li>
+    <li><a href="/users/payrollUser">Payroll</a></li>
+    <li   th:if="${user.admin}"  ><a href="/users/addressBook">Address book</a></li>
+    <li><a href="#">Information Center</a></li>
+    <li><a href="/file/toFilePage">File Management</a></li>
+    <li><a href="/users/personalCenter">Personal Center</a></li>
+    <li><a href="/users/settings">Settings</a></li>
+    <li><a href="/logout">logout</a></li>
+</ul>
+
+
+<!--address book-->
+<div id="address-book">
+    <h1>Update User</h1>
+    <form id="userForm" action="/users/update" method="post">
+        <input  type="text" id="uid" name="uid"    th:value="${byId.uid}"  style="display: none">
+        <div class="input-box">
+
+            userName: <input  type="text" id="name" name="name"    th:value="${byId.username}"   placeholder="Username" required>
+            <i class='bx bxs-user'></i>
+        </div>
+        <br>
+        <div class="input-box">
+            password: &nbsp;<input type="password" id="password"     th:value="${byId.password}"  name="password" placeholder="Password" required>
+            <i class='bx bxs-lock-alt'></i>
+        </div>
+        <div class="admin">
+            isAdmin:&nbsp;&nbsp;&nbsp;
+
+
+            <label th:if="${byId.admin}"><input type="checkbox" name="isAdmin" checked="checked"  >Admin</label>
+
+            <label th:unless="${byId.admin}"><input type="checkbox"  name="isAdmin"   >Admin</label>
+
+
+        </div>
+
+
+        <!--test profile, need to move to profile page later-->
+        <div class="input-box">
+            phone: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label><input type="text"    th:value="${byId.phoneNumber}"   id="phoneNumber" name="phoneNumber" placeholder="phoneNumber"></label>
+        </div>
+        <div class="input-box">
+            email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <label><input type="text" id="email" name="email"    th:value="${byId.email}"  placeholder="email: xxx@xxx.xxx"></label>
+        </div>
+
+        <div class="form-group">
+            Department:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <select id="department" name="department" th:value="${byId.department}" placeholder="e.g. Engineering">
+                <option value="Human Resource">Human Resource</option>
+                <option value="Finance">Finance</option>
+                <option value="Engineering">Engineering</option>
+                <!-- Add more departments as needed -->
+            </select>
+        </div>
+
+        <button type="submit" class="btn" style="margin-left: 100px;margin-top: 10px" onclick="loadFile()">update user</button>
+    </form>
+
+</div>
+
+<div id="search-bar">
+    <a href="/users/addressBook"> <button>back</button></a>
+</div>
+
+<script>
+    function loadFile() {
+        alert("Update success!");
+        $('#userForm').submit();
+    }
+</script>
+
+
+
+
+</body>
+
+</html>
