@@ -17,15 +17,12 @@
     <ul id="navbar">
         <li><a href="/users/dashboard">Home Page</a></li>
         <li><a href="/users/schedule">Attendance</a></li>
-        <li><a href="#">Meeting</a></li>
-        <li><a href="#">Approval </a></li>
         <li><a href="/users/performance">Performance</a></li>
         <li><a href="/users/payrollUser">Payroll</a></li>
-        <li><a href="/users/addressBook">Address book</a></li>
-        <li><a href="#">Information center</a></li>
-        <li><a href="#">Training</a></li>
+        <li><a href="/file/toFilePage">File Management</a></li>
         <li><a href="/users/personalCenter">Personal Center</a></li>
         <li><a href="/users/settings">Settings</a></li>
+        <li><a href="/logout">logout</a></li>
     </ul>
 
         <div id="payroll-container">
@@ -45,41 +42,20 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Week:</th>
-                            <th>Hours Worked</th>
-                            <th>Gross Income</th>
-                            <th>CPT (Tax) (7.7%)</th>
-                            <th>Net Income</th>
+                            <th> </th>
+                            <th>Hours Worked:</th>
+                            <th>Gross Income ($):</th>
+                            <th>CPT (Tax) (7.7%):</th>
+                            <th>Net Income ($):</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>24</td>
-                            <td>$564.00</td>
-                            <td>$43.43</td>
-                            <td>$520.57</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>35</td>
-                            <td>$822.50</td>
-                            <td>$63.33</td>
-                            <td>$759.17</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>36</td>
-                            <td>$846.00</td>
-                            <td>$65.14</td>
-                            <td>$780.86</td>
-                        </tr>
                         <tr th:each="payroll : ${payrolls}">
-                            <td th:text="${payroll.week}"></td>
+                            <td th:text="${payroll.week.weekName}"></td>
                             <td th:text="${payroll.hoursWorked}"></td>
-                            <td th:text="${payroll.grossIncome}"></td>
-                            <td th:text="${payroll.taxesCPT}"></td>
-                            <td th:text="${payroll.netIncome}"></td>
+                            <td th:text="${#numbers.formatDecimal(payroll.grossIncome, 1, 2)}"></td>
+                            <td th:text="${#numbers.formatDecimal(payroll.taxesCPT, 1, 2)}"></td>
+                            <td th:text="${#numbers.formatDecimal(payroll.netIncome, 1, 2)}"></td>
                         </tr>
                     </tbody>
                 </table>

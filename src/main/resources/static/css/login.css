@@ -1,10 +1,18 @@
+:root {
+    --primary-color: #fff;
+    --background-color: rgba(255, 255, 255, .2);
+    --font-family: "Poppins", sans-serif;
+    --button-hover-bg: #fff;
+    --button-hover-color: #162938;
+    --input-border-color: rgba(255, 255, 255, .2);
+    --button-shadow: 0 0 10px rgba(0, 0, 0, .1);
+}
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Poppins" , sans-serif;
-
+    font-family: var(--font-family);
 }
 
 header {
@@ -17,65 +25,59 @@ header {
     justify-content: space-between;
     align-items: center;
     z-index: 99;
+    background-color: transparent;
+    font-size: 20px;
+    margin-top: 3%;
 }
 
 .logo {
     font-size: 2em;
-    color: #fff;
-    align-self: center;
+    color: var(--primary-color);
     user-select: none;
-    margin: 0 auto; 
-
+    margin: 0 auto;
 }
 
-.navigation a {
-    position: relative;
+.navigation a, .btnLogin-popup {
     font-size: 1.1em;
-    color: #fff;
+    color: var(--primary-color);
     text-decoration: none;
     font-weight: 500;
     margin-left: 40px;
 }
 
-.navigation .btnLogin-popup{
+.btnLogin-popup {
     width: 130px;
     height: 50px;
     background: transparent;
-    border: 2px solid #fff;
+    border: 2px solid var(--primary-color);
     outline: none;
     border-radius: 6px;
     cursor: pointer;
-    font-size: 1.1em;
-    color: #fff;
-    font-weight: 500;
-    margin-left: 40px;
 }
 
-.navigation .btnLogin-popup:hover{
-    background: #fff;
-    color: #162938;
+.btnLogin-popup:hover {
+    background: var(--button-hover-bg);
+    color: var(--button-hover-color);
 }
 
-.navigation a::after{
+.navigation a::after {
     content: '';
     position: absolute;
     left: 0;
     bottom: -6px;
     width: 100%;
     height: 3px;
-    background: #fff;
+    background: var(--primary-color);
     border-radius: 5px;
     transform-origin: right;
     transform: scaleX(0);
     transition: transform .5s;
 }
 
-.navigation a:hover::after{
+.navigation a:hover::after {
     transform-origin: left;
     transform: scaleX(1);
 }
-
-
 
 body {
     display: flex;
@@ -83,121 +85,125 @@ body {
     align-items: center;
     min-height: 100vh;
 
-    background: url(/images/cmon2.jpeg) no-repeat;
+    background: url(/images/background.jpeg) no-repeat;
 
     background-size: cover;
     background-position: center;
+    margin-left: 35%;
 }
 
 .wrapper {
     width: 420px;
     background: transparent;
-    border: 2px solid rgba(255, 255, 255, .2);
+    border: 2px solid var(--input-border-color);
     backdrop-filter: blur(20px);
-    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
-    color: #fff;
+    box-shadow: var(--button-shadow);
+    color: var(--primary-color);
     border-radius: 10px;
-    padding: 30px 40px ;
+    padding: 30px 40px;
 }
 
 .wrapper h1 {
     font-size: 36px;
     text-align: center;
-
 }
 
-.wrapper .input-box{
+.input-box {
     position: relative;
     width: 100%;
     height: 50px;
     margin: 30px 0;
 }
-.input-box input{
+
+.input-box input {
     width: 100%;
     height: 100%;
     background: transparent;
     border: none;
     outline: none;
-    border: 2px solid rgba(255, 255, 255, .2);
-    border-radius: 40px; 
+    border: 2px solid var(--input-border-color);
+    border-radius: 40px;
     font-size: 16px;
-    color: #fff;
+    color: var(--primary-color);
     padding: 20px 45px 20px 20px;
 }
 
 .input-box input::placeholder {
-    color: #fff;
+    color: var(--primary-color);
 }
 
-.input-box i{
+.input-box i {
     position: absolute;
     right: 20px;
     top: 50%;
     transform: translateY(-50%);
     font-size: 20px;
-
+    color: var(--primary-color);
 }
 
-
-.wrapper .admin {
-
+.admin {
     display: flex;
     justify-content: space-between;
     font-size: 14px;
     margin: -15px 0 15px;
 }
 
-
-.admin label input{
-    accent-color: #fff;
+.admin label input {
+    accent-color: var(--primary-color);
     margin-right: 3px;
 }
 
-
-.admin a{
-
-    color: #fff;
+.admin a {
+    color: var(--primary-color);
     text-decoration: none;
-
 }
 
-
-.admin a:hover{
-
-    text-decoration: underline;
+.admin a:hover {
+    text-decoration: var(--link-hover-decor);
 }
 
 .wrapper .btn {
     width: 100%;
     height: 45px;
-    background: #fff;
+    background: var(--primary-color);
     border: none;
     outline: none;
     border-radius: 40px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    box-shadow: var(--button-shadow);
     cursor: pointer;
     font-size: 16px;
     color: #333;
     font-weight: 600;
 }
 
-.wrapper .register-link{
+.wrapper .register-link {
     font-size: 14.5px;
     text-align: center;
     margin: 20px 0 15px;
-
 }
 
-.register-link p a{
-    color: #fff;
+.register-link p a {
+    color: var(--primary-color);
     text-decoration: none;
     font-weight: 600;
 }
 
-.register-link p a:hover{
-    text-decoration: underline;
+.register-link p a:hover {
+    text-decoration: var(--link-hover-decor);
 }
 
 
 
 
+@media (max-width: 600px) {
+    header {
+        padding: 10px 50px;
+    }
+    .navigation a, .btnLogin-popup {
+        margin-left: 20px;
+        font-size: 1em;
+    }
+    .wrapper {
+        width: 90%;
+    }
+}
