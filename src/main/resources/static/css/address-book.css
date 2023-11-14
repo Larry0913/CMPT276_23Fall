@@ -180,3 +180,21 @@ tr:nth-child(even) {
 tr:hover {
     background-color: #ddd;
 }
+
+.file-upload-container {
+    display: flex;
+    align-items: center; /* Aligns items vertically in the center */
+    justify-content: flex-start; /* Aligns items to the start of the container */
+    gap: 10px; /* Adds some space between the button and the form */
+}
+
+#userForm {
+    margin: 0; /* Removes any default margin */
+}
+
+.btn.btn-success {
+    padding: 5px 10px; /* Reduces the padding inside the button */
+    font-size: 16px; /* Reduces the font size */
+    /* Optionally, you can also set a specific width */
+    /* width: 80px; */
+}
