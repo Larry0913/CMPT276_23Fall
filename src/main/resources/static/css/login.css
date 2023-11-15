@@ -84,7 +84,9 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url('/images/background.jpeg') no-repeat;
+
+    background: url(/images/background.jpeg) no-repeat;
+
     background-size: cover;
     background-position: center;
     margin-left: 35%;
@@ -190,7 +192,9 @@ body {
     text-decoration: var(--link-hover-decor);
 }
 
-/* 响应式设计 */
+
+
+
 @media (max-width: 600px) {
     header {
         padding: 10px 50px;

@@ -3,7 +3,8 @@ package cmpt276.demo.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "user_week_association", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "week_id"})})
+@Table(name = "user_week_association", uniqueConstraints = {
+        @UniqueConstraint(columnNames = { "user_id", "week_id" }) })
 public class UserSchedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,7 +41,7 @@ public class UserSchedule {
 
     public int calculateTotalHours() {
         int workingDays = 0;
-        
+
         for (int i = 0; i < days.length(); i++) {
             if (days.charAt(i) != '-') {
                 workingDays++;
@@ -48,8 +49,8 @@ public class UserSchedule {
         }
         int totHours = workingDays * 8;
 
-        if(lateDays>=2){
-            totHours = totHours - (lateDays*2);
+        if (lateDays >= 2) {
+            totHours = totHours - (lateDays * 2);
         }
 
         return totHours;
@@ -102,7 +103,5 @@ public class UserSchedule {
     public void setLateDays(Integer lateDays) {
         this.lateDays = lateDays;
     }
-
-    
 
 }
