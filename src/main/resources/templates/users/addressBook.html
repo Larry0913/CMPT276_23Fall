@@ -13,17 +13,17 @@
 <body>
 
     <div id="top-bar">
-        <h1> Enterprise Information Management System</h1> 
+        <h1> Enterprise Information Management System</h1>
     </div>
 
     <!-- menu-->
     <ul id="navbar">
         <li><a href="/users/dashboard">Home Page</a></li>
         <li><a href="/users/schedule">Attendance</a></li>
-        <li><a href="/users/performance">Performance</a></li>
+        <li><a href="/users/performance">Approval</a></li>
         <li><a href="/users/payrollUser">Payroll</a></li>
-         <li   th:if="${user.admin}"  ><a href="/users/addressBook">Address book</a></li>
-       <li><a href="/file/toFilePage">File Management</a></li>
+        <li th:if="${user.admin}"><a href="/users/addressBook">Address book</a></li>
+        <li><a href="/file/toFilePage">Benefits Management</a></li>
         <li><a href="/users/personalCenter">Personal Center</a></li>
         <li><a href="/users/settings">Settings</a></li>
         <li><a href="/logout">logout</a></li>
@@ -33,10 +33,14 @@
     <!--address book-->
     <div id="address-book">
         <div id="search-bar">
-           <!-- <input type="text" placeholder="Search..." style="width: 100%; padding: 10px;">-->
-            <a href="/users/toAddUserPage"> <button>add user</button></a>
 
+            <div id="header-container">
+                <h2>Address book</h2>
+                <!-- <input type="text" placeholder="Search..." style="width: 100%; padding: 10px;">-->
+                <a href="/users/toAddUserPage"> <button>add user</button></a>
+            </div>
         </div>
+
 
         <table>
             <thead>
@@ -51,17 +55,17 @@
                 </tr>
             </thead>
             <tbody>
-            <tr th:each=" user :  ${allusers}">
-                <td th:text="${user.uid}" th:data-id="${user.uid}"></td>
-                <td th:text="${user.username}"></td>
-                <td th:text="${user.email}"></td>
-                <td th:text="${user.phoneNumber}"></td>
-                <td th:text="${user.department}"></td>
-                <td th:text="${user.admin}"></td>
-                <td>   <button onclick="deleteUser(this)" th:data-id="${user.uid}">delete user</button>
-                    <button onclick="updateUser(this)" th:data-id="${user.uid}">update user</button>
-                </td>
-            </tr>
+                <tr th:each=" user :  ${allusers}">
+                    <td th:text="${user.uid}" th:data-id="${user.uid}"></td>
+                    <td th:text="${user.username}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td th:text="${user.phoneNumber}"></td>
+                    <td th:text="${user.department}"></td>
+                    <td th:text="${user.admin}"></td>
+                    <td> <button onclick="deleteUser(this)" th:data-id="${user.uid}">delete user</button>
+                        <button onclick="updateUser(this)" th:data-id="${user.uid}">update user</button>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -72,27 +76,27 @@
 </body>
 
 <script>
-    function deleteUser(bu){
+    function deleteUser(bu) {
         var index_id = bu.attributes[1].value;
         console.log(index_id);
 
         var confirmDelete = confirm("Are you sure you want to delete this user?");
 
         if (confirmDelete) {
-            $.post('/users/delete',{uid:index_id},function(result){
+            $.post('/users/delete', { uid: index_id }, function (result) {
                 alert("Delete user successfully!")
                 location.reload();
             });
         }
     }
 
-    function updateUser(bu){
+    function updateUser(bu) {
         var index_id = bu.attributes[1].value;
         console.log(index_id);
-        window.location.href="/users/toUpdateUserPage?uid="+index_id;
+        window.location.href = "/users/toUpdateUserPage?uid=" + index_id;
 
     }
 
 </script>
-</html>
 
+</html>

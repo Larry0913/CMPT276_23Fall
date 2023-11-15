@@ -46,26 +46,21 @@ body {
     overflow-y: scroll;
 }
 
-.card {
-    background-color: #fff;
-    padding: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-}
-
-#employee-form {
-    border: 1px solid #ddd;
+#content {
+    margin-left: 250px; /* Same as navbar width */
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 60%;
-    margin: 0 auto;
-    position: absolute; /* Set the form to absolute position */
-    top: 50px; /* Adjust the top position */
-    left: 270px; /* Adjust the left position */
 }
 
-.form-group {
+form {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+form div {
     margin-bottom: 15px;
 }
 
@@ -74,19 +69,36 @@ label {
     margin-bottom: 5px;
 }
 
-input[type="text"], input[type="email"], select, textarea {
+select {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-sizing: border-box;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
-.submit-btn {
-    padding: 10px 15px;
-    background-color: #4CAF50;
-    color: #fff;
+input[type="submit"] {
+    background-color: #1c3d1d; /* Green background */
+    color: white;
+    padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
+    width: 100%;
+}
+
+input[type="submit"]:hover {
+    background-color: #0b210c; /* Darker green on hover */
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+
+}
+.centered-image {
+    display: block; /* Images are inline by default */
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px; /* or whatever width you want */
+    height: auto; /* to maintain aspect ratio */
 }

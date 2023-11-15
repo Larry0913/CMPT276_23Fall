@@ -16,16 +16,25 @@
     <ul id="navbar">
         <li><a href="/users/dashboard">Home Page</a></li>
         <li><a href="/users/schedule">Attendance</a></li>
-        <li><a href="/users/performance">Performance</a></li>
+        <li><a href="/users/performance">Approval</a></li>
         <li><a href="/users/payroll">Payroll</a></li>
                 <!-- fix thymleafe bug for addressbook-> th:if="${user.admin}"   -->
         <li><a href="/users/addressBook">Address book</a></li>
-        <li><a href="/file/toFilePage">File Management</a></li>
+        <li><a href="/file/toFilePage">Benefits Management</a></li>
         <li><a href="/users/personalCenter">Personal Center</a></li>
         <li><a href="/users/settings">Settings</a></li>
         <li><a href="/logout">logout</a></li>
     </ul>
+
+   
     <div id="content">
+
+        <div class="header-container">
+            <h1>Attendance</h1>
+            <!-- Your image goes here -->
+            <img src="/images/24-hours-icon-12.png" alt="Descriptive Text" style="height: 100px; width: 100px;">
+        </div>
+
         <form action="/associate-week" method="post" id="schedule-form">
             <div>
                 <label for="username">Select an Employee:</label>
@@ -52,6 +61,7 @@
                 <input type="submit" value="Edit Schedule" id="edit-schedule-button">
             </div>
         </form>
+        <img src="/images/walk.png" alt="Second Image Description" class="centered-image" style="height: 100px; width: 600px;">
     </div>
     
 

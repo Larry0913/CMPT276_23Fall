@@ -20,10 +20,10 @@
     <ul id="navbar">
         <li><a href="/users/dashboard">Home Page</a></li>
         <li><a href="/users/schedule">Attendance</a></li>
-        <li><a href="/users/performance">Performance</a></li>
+        <li><a href="/users/performance">Approval</a></li>
         <li><a href="/users/payrollUser">Payroll</a></li>
          <li   th:if="${user.admin}"  ><a href="/users/addressBook">Address book</a></li>
-       <li><a href="/file/toFilePage">File Management</a></li>
+       <li><a href="/file/toFilePage">Benefits Management</a></li>
         <li><a href="/users/personalCenter">Personal Center</a></li>
         <li><a href="/users/settings">Settings</a></li>
         <li><a href="/logout">logout</a></li>
@@ -34,21 +34,35 @@
     <div id="address-book">
 
 
-        <div id="search-bar" th:if="${user.admin}">
+        <!-- <div id="search-bar" th:if="${user.admin}">
+            <div>
+                <h2>Benefits Management</h2>
+                <button type="button" class="btn btn-success" id="btn-submit" onclick="loadFile()" >add file</button>
+
+            </div>
+
             <div class="easyui-panel" title="file upload" style="width:100%;padding:10px 30px 20px 20px">
                 <form id="userForm" name="userForm" enctype="multipart/form-data" method="post" action="/file/upload">
                     <div style="margin-bottom:20px">
                         <input  type="file" id="file" name="file" >
                     </div>
                 </form>
-                <div>
-                    <button type="button" class="btn btn-success" id="btn-submit" onclick="loadFile()" >add file</button>
-
-                </div>
             </div>
 
-        </div>
+        </div> -->
 
+        <h2>Benefits Management</h2>
+        
+        <div id="search-bar" th:if="${user.admin}">
+            <h3>Health Insurance</h3>
+        
+            <div class="file-upload-container">
+                <button type="button" class="btn btn-success" id="btn-submit" onclick="loadFile()">add file</button>
+                <form id="userForm" name="userForm" enctype="multipart/form-data" method="post" action="/file/upload">
+                    <input type="file" id="file" name="file">
+                </form>
+            </div>
+        </div>
 
         <table>
             <thead>
@@ -71,9 +85,82 @@
             </tr>
             </tbody>
         </table>
-    </div>
+
+
+        <div id="retirement-benefits">
+            <h3>Retirement Benefits Management</h3>
+            <div class="file-upload-container">
+                <button type="button" class="btn btn-success" id="btn-submit" onclick="loadFile()">add file</button>
+                <form id="userForm" name="userForm" enctype="multipart/form-data" method="post" action="/file/upload">
+                    <input type="file" id="file" name="file">
+                </form>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Plan Name</th>
+                        <th>Start Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Retirement Benefits Data Rows Here -->
+                </tbody>
+            </table>
+        </div>
+
+        <div id="retirement-benefits">
+            <h3>Employee Assistance Programs (EAP)</h3>
+            <div class="file-upload-container">
+                <button type="button" class="btn btn-success" id="btn-submit" onclick="loadFile()">add file</button>
+                <form id="userForm" name="userForm" enctype="multipart/form-data" method="post" action="/file/upload">
+                    <input type="file" id="file" name="file">
+                </form>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Plan Name</th>
+                        <th>Start Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Retirement Benefits Data Rows Here -->
+                </tbody>
+            </table>
+        </div>
+
+
+        <div id="retirement-benefits">
+            <h3>Career Development and Trainin</h3>
+            <div class="file-upload-container">
+                <button type="button" class="btn btn-success" id="btn-submit" onclick="loadFile()">add file</button>
+                <form id="userForm" name="userForm" enctype="multipart/form-data" method="post" action="/file/upload">
+                    <input type="file" id="file" name="file">
+                </form>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Plan Name</th>
+                        <th>Start Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Retirement Benefits Data Rows Here -->
+                </tbody>
+            </table>
+        </div>
+
 
     </div>
+
+
 
 
 </body>
